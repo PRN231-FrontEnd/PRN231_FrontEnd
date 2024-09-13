@@ -1,18 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
-import Header from './components/header';
-import Sidebar from './components/sidebar';
-import Navbar from './components/navbar';
+import CustomNavbar from './components/navbar';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import SideBar from './components/sidebar';
 import Footer from './components/footer';
-
 
 function App() {
   return (
-    <div className="App">
-      <Sidebar />
-      <Navbar />
-      <Header />
-      <header className="App-header">
+    <div>
+      <CustomNavbar />
+      <div className='d-flex'>
+      <SideBar />
+      <div className='w-100 conatainer'>
+      <div className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -25,9 +25,12 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </div>
       <Footer />
+      </div>
+      </div>
     </div>
+    
   );
 }
 
