@@ -6,6 +6,9 @@ import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import ProductsPage from "./pages/ProductsPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
+
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -16,6 +19,8 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       { path: "about", element: <AboutPage /> },
+      { path: "products", element: <ProductsPage /> },
+      { path: "products/:id", element: <ProductDetailPage /> }, // Route cho ProductDetailPage
     ],
     errorElement: <NotFoundPage />,
   },

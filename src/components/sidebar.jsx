@@ -7,13 +7,19 @@ import {
   CDBSidebarMenuItem,
   CDBSidebarFooter,
 } from "cdbreact";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faGauge,
+  faQuestion,
+  faMoneyBill,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { faProductHunt } from "@fortawesome/free-brands-svg-icons";
 
 const SideBar = () => {
   return (
     <div className="vh-100">
-      {" "}
       {/* Bootstrap utility classes */}
       <CDBSidebar>
         <CDBSidebarHeader prefix={<i className="fa fa-bars" />}>
@@ -21,14 +27,73 @@ const SideBar = () => {
         </CDBSidebarHeader>
         <CDBSidebarContent>
           <CDBSidebarMenu>
-            <CDBSidebarMenuItem icon="th-large">
-              <Link to="/">Dashboard</Link>
+            <CDBSidebarMenuItem>
+              <Link
+                to="/"
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faGauge}
+                  style={{ marginRight: "8px" }}
+                />
+                Dashboard
+              </Link>
             </CDBSidebarMenuItem>
-            <CDBSidebarMenuItem icon="sticky-note">
-              <Link to="about">About</Link>
+            <CDBSidebarMenuItem>
+              <Link
+                to="/products"
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faProductHunt}
+                  style={{ marginRight: "8px" }}
+                />
+                Products
+              </Link>
             </CDBSidebarMenuItem>
-            <CDBSidebarMenuItem icon="credit-card" iconType="solid">
-              <Link to="about">Metrics</Link>
+            <CDBSidebarMenuItem>
+              <Link
+                to="/about"
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faQuestion}
+                  style={{ marginRight: "8px" }}
+                />
+                About
+              </Link>
+            </CDBSidebarMenuItem>
+            <CDBSidebarMenuItem>
+              <Link
+                to="/ErrorLinkInSideBarComponent"
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faMoneyBill}
+                  style={{ marginRight: "8px" }}
+                />
+                Money
+              </Link>
             </CDBSidebarMenuItem>
           </CDBSidebarMenu>
         </CDBSidebarContent>
