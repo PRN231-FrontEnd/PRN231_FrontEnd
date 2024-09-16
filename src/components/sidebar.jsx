@@ -7,6 +7,7 @@ import {
   CDBSidebarMenuItem,
   CDBSidebarFooter,
 } from "cdbreact";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const SideBar = () => {
@@ -20,7 +21,9 @@ const SideBar = () => {
         </CDBSidebarHeader>
         <CDBSidebarContent>
           <CDBSidebarMenu>
-            <CDBSidebarMenuItem icon="th-large">Dashboard</CDBSidebarMenuItem>
+            <CDBSidebarMenuItem icon="th-large">
+              <Link to="/">Dashboard</Link>
+            </CDBSidebarMenuItem>
             <CDBSidebarMenuItem icon="sticky-note">
               Components
             </CDBSidebarMenuItem>
