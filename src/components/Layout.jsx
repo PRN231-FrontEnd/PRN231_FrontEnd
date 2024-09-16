@@ -11,7 +11,9 @@ function Layout() {
       <div className="d-flex">
         <SideBar />
         <div className="content-container">
-          <Outlet /> {/* Nội dung trang sẽ được render ở đây */}
+          <div className="App-header">
+            <Outlet /> {/* Nội dung trang sẽ được render ở đây */}
+          </div>
           <Footer />
         </div>
       </div>

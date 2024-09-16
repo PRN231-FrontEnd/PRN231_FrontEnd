@@ -25,10 +25,10 @@ const SideBar = () => {
               <Link to="/">Dashboard</Link>
             </CDBSidebarMenuItem>
             <CDBSidebarMenuItem icon="sticky-note">
-              Components
+              <Link to="about">About</Link>
             </CDBSidebarMenuItem>
             <CDBSidebarMenuItem icon="credit-card" iconType="solid">
-              Metrics
+              <Link to="about">Metrics</Link>
             </CDBSidebarMenuItem>
           </CDBSidebarMenu>
         </CDBSidebarContent>
