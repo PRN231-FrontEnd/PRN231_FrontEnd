@@ -12,6 +12,12 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.container {
+  padding: 0; /* Loại bỏ padding nếu không cần */
+  margin: 0; /* Loại bỏ margin để chiếm toàn bộ chiều rộng */
+  width: 100%; /* Đảm bảo container chiếm toàn bộ chiều rộng của màn hình */
+  box-sizing: border-box; /* Đảm bảo padding và border không làm giảm chiều rộng */
+}
 
 .App-header {
   background-color: #282c34;
@@ -22,8 +28,18 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  width: 100%; /* Đảm bảo header chiếm toàn bộ chiều rộng */
+  margin: 0; /* Đảm bảo không có margin không cần thiết */
+  padding: 0; /* Đảm bảo không có padding không cần thiết */
+  box-sizing: border-box; /* Đảm bảo padding và border không làm giảm chiều rộng */
 }
-
+.content-container {
+  flex: 1; /* Chiếm phần còn lại của không gian */
+  padding: 0; /* Loại bỏ padding nếu không cần */
+  margin: 0; /* Loại bỏ margin nếu không cần */
+  width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng của phần chứa */
+  box-sizing: border-box; /* Đảm bảo padding và border không làm giảm chiều rộng */
+}
 .App-link {
   color: #61dafb;
 }
