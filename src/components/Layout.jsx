@@ -1,7 +1,7 @@
 import React from "react";
 import CustomNavbar from "./CustomNavbar.jsx";
-import SideBar from "./Sidebar.jsx";
-import Footer from "./Footer.jsx";
+import SideBar from "./sidebar.jsx";
+import Footer from "./footer.jsx";
 import { Outlet } from "react-router-dom";
 
 function Layout() {
