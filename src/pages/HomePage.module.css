@@ -1,0 +1,6 @@
+.poster {
+}
+.postBody {
+  margin-top: 20px; /* Thay đổi giá trị này tùy theo khoảng cách bạn muốn */
+  background-color: white;
+}

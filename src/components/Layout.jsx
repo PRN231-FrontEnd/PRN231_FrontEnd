@@ -6,10 +6,10 @@ import { Outlet } from "react-router-dom";
 
 function Layout() {
   return (
-    <div>
+    <div className="all-container">
       <CustomNavbar />
       <div className="d-flex">
-        <SideBar />
+        {/* <SideBar /> */}
         <div className="content-container">
           <div className="App-header">
             <Outlet /> {/* Nội dung trang sẽ được render ở đây */}
