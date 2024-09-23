@@ -1,0 +1,64 @@
+{
+  "flowers": [
+    {
+      "flowerName": "Hoa Hồng",
+      "descriptionFlower": "Hoa hồng đỏ tượng trưng cho tình yêu mãnh liệt.",
+      "imageFlower": "https://images.unsplash.com/photo-1560807707-8cc77767d783",
+      "price": 150000
+    },
+    {
+      "flowerName": "Hoa Lan",
+      "descriptionFlower": "Hoa lan mang vẻ đẹp thanh thoát và sang trọng.",
+      "imageFlower": "https://images.unsplash.com/photo-1516908205727-40afad9449d5",
+      "price": 250000
+    },
+    {
+      "flowerName": "Hoa Cẩm Tú Cầu",
+      "descriptionFlower": "Cẩm tú cầu mang lại sự tinh tế và bình yên.",
+      "imageFlower": "https://images.unsplash.com/photo-1587400033449-e499cc4f796d",
+      "price": 180000
+    },
+    {
+      "flowerName": "Hoa Tulip",
+      "descriptionFlower": "Tulip tượng trưng cho sự hạnh phúc và vĩnh cửu.",
+      "imageFlower": "https://images.unsplash.com/photo-1494955464529-790512c65305",
+      "price": 200000
+    },
+    {
+      "flowerName": "Hoa Ly",
+      "descriptionFlower": "Hoa ly trắng tượng trưng cho sự tinh khiết và trong sáng.",
+      "imageFlower": "https://images.unsplash.com/photo-1609671203549-ef1aa35846f9",
+      "price": 220000
+    },
+    {
+      "flowerName": "Hoa Baby",
+      "descriptionFlower": "Baby là loài hoa nhỏ bé, thanh khiết, tượng trưng cho sự trong trắng.",
+      "imageFlower": "https://images.unsplash.com/photo-1602996966817-1a43f1043a0b",
+      "price": 120000
+    },
+    {
+      "flowerName": "Hoa Mẫu Đơn",
+      "descriptionFlower": "Hoa mẫu đơn tượng trưng cho sự giàu có và thịnh vượng.",
+      "imageFlower": "https://images.unsplash.com/photo-1583945362219-6b3b28eace90",
+      "price": 300000
+    },
+    {
+      "flowerName": "Hoa Dã Quỳ",
+      "descriptionFlower": "Dã quỳ đại diện cho sức sống mãnh liệt và khát vọng tự do.",
+      "imageFlower": "https://images.unsplash.com/photo-1579701384163-1fc73492e2f1",
+      "price": 170000
+    },
+    {
+      "flowerName": "Hoa Cúc Họa Mi",
+      "descriptionFlower": "Cúc họa mi trắng ngần mang ý nghĩa sự ngây thơ và tinh khiết.",
+      "imageFlower": "https://images.unsplash.com/photo-1524594222745-7f6a60f8d349",
+      "price": 160000
+    },
+    {
+      "flowerName": "Hoa Sen",
+      "descriptionFlower": "Hoa sen biểu tượng cho sự thanh khiết và cao quý.",
+      "imageFlower": "https://images.unsplash.com/photo-1625894551270-22a1613daccd",
+      "price": 200000
+    }
+  ]
+}
