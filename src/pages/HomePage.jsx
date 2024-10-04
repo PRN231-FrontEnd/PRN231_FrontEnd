@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./HomePage.module.css"; // Import CSS module
 import { useNavigate } from "react-router-dom";
+import { height } from "@fortawesome/free-brands-svg-icons/fa42Group";
 const HomePage = () => {
   const [flowers, setFlowers] = useState([]);
   const navigate = useNavigate();
@@ -31,12 +32,15 @@ const HomePage = () => {
             key={flower.id} // Lưu ý: Bạn cần một trường `id` duy nhất
             onClick={() => handleCardClick(flower.id)} // Điều hướng khi click
           >
-            <img
-              src={flower.imageFlower}
-              className={styles.cardImg}
-              alt={flower.flowerName}
-              onError={handleImageError} // Gọi hàm xử lý khi ảnh lỗi
-            />
+            <div>
+              <img
+                src={flower.imageFlower}
+                className={styles.cardImg}
+                alt={flower.flowerName}
+                onError={handleImageError} // Gọi hàm xử lý khi ảnh lỗi
+              />
+            </div>
+
             <div className="card-body">
               <h5 className="card-title">{flower.flowerName}</h5>
               <p className="card-text">{flower.descriptionFlower}</p>
@@ -46,7 +50,7 @@ const HomePage = () => {
             </div>
           </div>
         ))}
-      </div>
+      </div >
     </>
   );
 };

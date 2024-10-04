@@ -12,11 +12,16 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
 .container {
-  padding: 0; /* Loại bỏ padding nếu không cần */
-  margin: 0; /* Loại bỏ margin để chiếm toàn bộ chiều rộng */
-  width: 100%; /* Đảm bảo container chiếm toàn bộ chiều rộng của màn hình */
-  box-sizing: border-box; /* Đảm bảo padding và border không làm giảm chiều rộng */
+  padding: 0;
+  /* Loại bỏ padding nếu không cần */
+  margin: 0;
+  /* Loại bỏ margin để chiếm toàn bộ chiều rộng */
+  width: 100%;
+  /* Đảm bảo container chiếm toàn bộ chiều rộng của màn hình */
+  box-sizing: border-box;
+  /* Đảm bảo padding và border không làm giảm chiều rộng */
 }
 
 .all-container {
@@ -24,28 +29,41 @@
 }
 
 .App-header {
-  background-color: whitesmoke; /* Change background color to white */
+  background-color: whitesmoke;
+  /* Change background color to white */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   /* align-items: center;
   justify-content: center; */
   font-size: calc(10px + 2vmin);
-  color: black; /* Change text color to black for better readability on white */
-  width: 100%; /* Ensure the header takes the full width */
-  max-width: 1200px; /* Optional: Set a max width for the content */
-  margin: 0 auto; /* Center the content with auto left/right margins */
-  padding: 0 20px; /* Add padding to both sides */
-  box-sizing: border-box; /* Ensure padding and border don't reduce the width */
+  color: black;
+  /* Change text color to black for better readability on white */
+  width: 100%;
+  /* Ensure the header takes the full width */
+  max-width: 1200px;
+  /* Optional: Set a max width for the content */
+  margin: 0 auto;
+  /* Center the content with auto left/right margins */
+  padding: 0 20px;
+  /* Add padding to both sides */
+  box-sizing: border-box;
+  /* Ensure padding and border don't reduce the width */
 }
 
 .content-container {
-  flex: 1; /* Chiếm phần còn lại của không gian */
-  padding: 0; /* Loại bỏ padding nếu không cần */
-  margin: 0; /* Loại bỏ margin nếu không cần */
-  width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng của phần chứa */
-  box-sizing: border-box; /* Đảm bảo padding và border không làm giảm chiều rộng */
+  flex: 1;
+  /* Chiếm phần còn lại của không gian */
+  padding: 0;
+  /* Loại bỏ padding nếu không cần */
+  margin: 0;
+  /* Loại bỏ margin nếu không cần */
+  width: 100%;
+  /* Đảm bảo chiếm toàn bộ chiều rộng của phần chứa */
+  box-sizing: border-box;
+  /* Đảm bảo padding và border không làm giảm chiều rộng */
 }
+
 .App-link {
   color: #61dafb;
 }
@@ -54,7 +72,21 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.bg-light-orange {
+  background-color: #ffcc99;
+  /* Màu cam nhạt */
+}
+
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
 }

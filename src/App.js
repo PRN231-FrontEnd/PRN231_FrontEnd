@@ -11,6 +11,7 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import FlowerDetailPage from "./pages/FlowerDetailPage";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Login from "./pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
     ],
     errorElement: <NotFoundPage />,
   },
+  {
+    path:"/Login",
+    element: <Login />
+  }
 ]);
 
 function App() {
