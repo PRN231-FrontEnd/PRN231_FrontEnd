@@ -9,9 +9,11 @@ import NotFoundPage from "./pages/NotFoundPage";
 import ProductsPage from "./pages/ProductsPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import FlowerDetailPage from "./pages/FlowerDetailPage";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Login from "./pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -27,9 +29,13 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
   },
   {
-    path:"/Login",
-    element: <Login />
-  }
+    path: "/Login",
+    element: <Login />,
+  },
+  {
+    path: "/Register",
+    element: <Register />,
+  },
 ]);
 
 function App() {
