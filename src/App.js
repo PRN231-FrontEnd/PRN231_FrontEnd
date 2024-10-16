@@ -6,7 +6,7 @@ import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import FlowerDetailPage from "./pages/FlowerDetailPage";
+import PostDetailPage from "./pages/PostDetailPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       { path: "about", element: <AboutPage /> },
-      { path: "flowers/:id", element: <FlowerDetailPage /> }, // Route cho FlowerDetailPage
+      { path: "posts/:id", element: <PostDetailPage /> }, // Route cho PostDetailPage
     ],
     errorElement: <NotFoundPage />,
   },

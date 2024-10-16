@@ -14,7 +14,7 @@ const HomePage = () => {
 
   console.log(flowers); // This should now log the array of flowers.
   const handleCardClick = (id) => {
-    navigate(`/flowers/${id}`); // Điều hướng đến trang chi tiết của flower
+    navigate(`/posts/${id}`); // Điều hướng đến trang chi tiết của flower
   };
   const handleImageError = (e) => {
     e.target.src = "https://i.quotev.com/b2gtjqawaaaa.jpg"; // Ảnh dự phòng
