@@ -6,8 +6,6 @@ import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import ProductsPage from "./pages/ProductsPage";
-import ProductDetailPage from "./pages/ProductDetailPage";
 import FlowerDetailPage from "./pages/FlowerDetailPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -22,8 +20,6 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       { path: "about", element: <AboutPage /> },
-      { path: "products", element: <ProductsPage /> },
-      { path: "products/:id", element: <ProductDetailPage /> }, // Route cho ProductDetailPage
       { path: "flowers/:id", element: <FlowerDetailPage /> }, // Route cho FlowerDetailPage
     ],
     errorElement: <NotFoundPage />,

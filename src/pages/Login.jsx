@@ -29,6 +29,7 @@ const Login = () => {
       );
       console.log("Login successful:", response.data);
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("refreshToken", response.data.refreshToken);
       navigate("/"); // Điều hướng sau khi đăng nhập thành công
     } catch (error) {
       console.error("Error during login:", error);
