@@ -1,0 +1,107 @@
+.homeProducts {
+    margin-bottom: 20px;
+    padding: 25px 0px;
+}
+
+.filterTab li{
+    margin-left: 20px;
+}
+
+.filterTab li a{
+    color: #000;
+    text-decoration: none;
+    font-size: 18px;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    font-weight: 500;
+    height: 100%;
+   
+}
+.filterTab li:hover a{
+    color: #279a65 !important;
+    transform: translateY(-10px);
+}
+
+.filterTab {
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    justify-items: end;
+    list-style-type: none;
+    margin-bottom: 0px !important;
+  
+}
+
+.homeProducts .productRow{
+    display: flex;
+    padding: 30px 0px;
+    margin: 0px -15px;
+    flex-wrap: wrap;   
+}
+
+.homeProducts .productRow .item{
+    width: 20%;
+    padding: 0px 15px;
+    margin-top: 20px;
+
+
+}
+  
+.homeProducts .banner {
+position: relative;
+}
+.homeProducts .bannerImg {
+    border-radius: 10px; /* already set */
+    overflow: hidden;
+    height: 555px;
+    background-size: cover;
+    width: 100%;
+    position: relative; /* ensures child is positioned relative to this container */
+    clear: both;
+}
+
+.homeProducts .banner-text {
+    position: absolute;
+    top: 40px;
+    left: 50px;
+    z-index: 2;
+}
+
+
+.homeProducts .banner-text h2 {
+    font-size: 40px;
+    margin-bottom: 10px
+}
+
+.homeProducts .productRow{
+    display: flex;
+    padding: 30px 0px;
+    margin: 0px -15px;
+    flex-wrap: wrap;
+}
+
+.homeProducts .productRow .item{
+    width: 20%;
+    padding: 15px 15px;
+}
+
+.homeProductsRow2 .prodSlider .item{
+    padding: 0px 5px;
+  
+}
+
+.homeProductsRow2 .prodSlider .item  .time, .location, .savedLove{
+    margin: 20px 10px 0px 0px;
+
+}
+
+.homeProductsRow2 .prodSlider .item  .time, .location, .savedLove{
+    margin-left: 4px;
+
+}
+.homeProductsRow2 .prodSlider .item button{
+    margin-left: 92px !important;
+}
+
+
+

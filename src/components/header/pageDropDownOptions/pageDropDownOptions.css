@@ -1,0 +1,60 @@
+/* Style for the dropdown button */
+.dropdown-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #000f04; /* Green color for the button */
+    transition: color 0.3s ease;
+  }
+  
+  .dropdown-button:hover {
+    color: #1c7d2e; /* Darker green on hover */
+  }
+  
+  /* Menu styling */
+  .MuiPaper-root {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 10px;
+    min-width: 200px;
+    transition: all 0.3s ease; /* Smooth transition on open */
+  }
+  
+  /* Style each dropdown item */
+  .MuiMenuItem-root {
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Hover effect on dropdown items */
+  .MuiMenuItem-root:hover {
+    background-color: #f5f5f5; /* Light grey background */
+    color: #1c7d2e; /* Blue text on hover */
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  
+  /* Link styling */
+  .MuiMenuItem-root a {
+    text-decoration: none;
+    font-size: 15px;
+    color: inherit; /* Inherit color from parent */
+  }
+  
+  .MuiMenuItem-root a:hover {
+    color: #1c7d2e; /* Ensure link hover changes to blue */
+  }
+  
+  /* Rotate the arrow when menu opens */
+  .dropdown-arrow {
+    margin-left: 8px;
+    transition: transform 0.3s ease; /* Smooth arrow animation */
+  }
+  
+  .dropdown-open .dropdown-arrow {
+    transform: rotate(180deg); /* Rotate the arrow when dropdown is open */
+  }
+  

@@ -1,0 +1,139 @@
+header{
+    width: 100%;
+    height: auto;
+    margin: auto;
+    padding: 30px 0px;
+}
+
+header .headerSearch {
+    width: 100%;
+    height: 60px;
+    border: 2px solid #279a6496;
+    border-radius: 4px;
+    padding: 10px 20px;
+    
+}
+
+header .headerSearch .selectDrop {
+    width: 200px;
+    font-size: 16px;
+    font-weight: 500;
+    position: relative;
+}
+
+header .headerSearch .selectDrop:after {
+    content: '';
+    width: 1px;
+    height: 35px;
+    background: rgba(0,0,0,0.2);
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%); 
+}
+
+
+header .headerSearch .search {
+    width: 87%;
+    padding-left: 30px;
+    position: relative;
+}
+
+header .headerSearch .search input { 
+    width: 100%;
+    height: 50px;
+    border: 0px;
+    outline: none !important;
+    font-size: 18px;
+}
+
+header .headerSearch .search .searchIcon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 7px;
+    opacity: 0.7;
+    font-size: 30px !important;
+
+}
+
+header .countryWrapper .ant-select{
+   width: 140px !important;
+}
+
+
+header .countryWrapper {
+    width: 180px;
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid #ececec;
+    /* -webkit-box-shadow: 5px 5px 15px rgba(111, 106, 106, 0.231); */
+    /* box-shadow: 1px 1px 2px rgba(61, 59, 59, 0.457); */
+    border-radius: 4px;
+    margin-right: 18px;
+}
+
+header .countryWrapper .selectDrop{
+    left: 0px !important;
+}
+
+header .countryWrapper .selectField .ant-select-selection-item{
+    color: #279a65 !important;
+    font-size: 15px !important;
+}
+
+header .headerTabs{
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+
+}
+
+header .headerTabs li{
+   position: relative;
+   
+}
+
+header .headerTabs .list-inline-item {
+    margin-right: 18px;   
+    cursor: pointer; 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+}
+
+header .headerTabs li span{
+    font-size: 15px; 
+    
+}
+
+header .headerTabs li .icon {
+    margin-right: 10px;
+}
+
+header .headerTabs li span.badge{
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    font-weight: 200;
+    font-size: 9px;
+    position: absolute;
+    top: -10px;
+    left: 15px;
+   
+    /* Use Flexbox to center text */
+   /* Vertically center */
+   display: flex;
+   justify-content: center; /* Horizontally center */
+   align-items: center;  
+
+  /* Optional: Makes the badge circular */
+    background-color: #bce3c9; /* Example background color */
+    border-radius: 50%;
+}
+

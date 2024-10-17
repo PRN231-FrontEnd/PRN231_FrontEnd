@@ -1,0 +1,49 @@
+.bannerSection{
+    padding: 25px 0px;
+    margin-bottom: 100px;
+}
+
+.bannerSection .box{
+    overflow: hidden;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+
+.bannerSection .box:hover {
+    transform: scale(1.03);
+}
+
+.bannerSection .box:hover .button{
+    background-color: #F3C623 !important;
+    text-transform: capitalize !important;
+}
+
+.bannerSection .button{
+    text-transform: capitalize !important;
+}
+
+
+.bannerSection .box {
+    position: relative;
+}
+
+.bannerSection .box .info{
+    position: absolute; 
+    top: 20%; 
+    left: 7%;
+    z-index: 100;
+}
+
+.bannerSection .box .info h2{
+    font-size: 200%;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+/* .bannerSection .box .info p{
+    font-size: 16px;
+    font-weight: 450;
+    color: #7E7E7E;
+    margin-top: 50px;
+} */
