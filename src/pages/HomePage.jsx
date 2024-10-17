@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from "react";
-import styles from "./HomePage.module.css"; // Import CSS module
+import styles from "../HomePage.module.css";
 import { useNavigate } from "react-router-dom";
-import { height } from "@fortawesome/free-brands-svg-icons/fa42Group";
+import useAxiosInterceptor from "../hooks/useAxiosInterceptor";
+
 const HomePage = () => {
   const [flowers, setFlowers] = useState([]);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  useEffect(() => {
-    fetch("http://localhost:3001/flowers")
-      .then((response) => response.json())
-      .then((data) => setFlowers(data)) // <-- No need to access data.flowers
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+  const axiosClient = useAxiosInterceptor();
 
-  console.log(flowers); // This should now log the array of flowers.
+  useEffect(() => {
+    const fetchFlowers = async () => {
+      try {
+        const response = await axiosClient.get("/Post");
+        setFlowers(response.data);
+      } catch (error) {
+        setError("Failed to fetch flowers");
+        console.error(error);
+      }
+    };
+    fetchFlowers();
+  }, [axiosClient]);
+
   const handleCardClick = (id) => {
-    navigate(`/flowers/${id}`); // Điều hướng đến trang chi tiết của flower
+    navigate(`/flowers/${id}`);
   };
   const handleImageError = (e) => {
-    e.target.src = "https://i.quotev.com/b2gtjqawaaaa.jpg"; // Ảnh dự phòng
+    e.target.src = "https://i.quotev.com/b2gtjqawaaaa.jpg";
   };
   return (
     <>
@@ -29,24 +38,30 @@ const HomePage = () => {
           <div
             className={`card ${styles.card}`}
             style={{ width: "18rem" }}
-            key={flower.id} // Lưu ý: Bạn cần một trường `id` duy nhất
-            onClick={() => handleCardClick(flower.id)} // Điều hướng khi click
+            key={flower.id}
+            onClick={() => handleCardClick(flower.id)}
           >
             <div>
               <img
-                src={flower.imageFlower}
+                src={flower.mainImageUrl}
                 className={styles.cardImg}
                 alt={flower.flowerName}
-                onError={handleImageError} // Gọi hàm xử lý khi ảnh lỗi
+                onError={handleImageError}
               />
             </div>
 
             <div className="card-body">
-              <h5 className="card-title">{flower.flowerName}</h5>
-              <p className="card-text">{flower.descriptionFlower}</p>
-              <p className="card-text">
-                Price: {flower.price.toLocaleString()} VND
+              <h5 className="card-title small">{flower.title}</h5>
+              <p className="card-text small">{flower.description}</p>
+              {/* <p className="card-text">
+                Location: {flower.location}
+              </p> */}
+              <p className="card-text small">
+                Price: {flower.flower?.price ? `${Math.floor(flower.flower.price).toLocaleString()} VND` : "Price not available"}
               </p>
+              {/* <p className="card-text">
+                Quantity: {flower.quantity} {flower.unitMeasure}
+              </p> */}
             </div>
           </div>
         ))}
