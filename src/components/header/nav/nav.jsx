@@ -6,9 +6,11 @@ import HeadphoneOutlinedIcon from "@mui/icons-material/HeadphonesOutlined";
 import { Dropdown, Menu } from "antd";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { Link } from "react-router-dom";
-import PageDropDownOptions from "../pageDropDownOptions/pageDropDownOptions"
+import PageDropDownOptions from "../pageDropDownOptions/pageDropDownOptions";
+import { useRoutes } from "../../../context/RouteProvider"; 
 
 function Nav() {
+  const routes = useRoutes();
   return (
     <div className="nav d-flex align-items-center">
       <div className="container-fluid">
@@ -37,17 +39,17 @@ function Nav() {
                 <ul className="list list-inline navbar-nav">
                   <li className="list-inline-item nav-item">
                     <Button>
-                      <Link>Home</Link>
+                      <Link to={routes.HOME}>Home</Link>
                     </Button>
                   </li>
                   <li className="list-inline-item nav-item">
                     <Button>
-                      <Link>About</Link>
+                      <Link to={routes.ABOUT}>About</Link>
                     </Button>
                   </li>
                   <li className="list-inline-item nav-item">
                     <Button>
-                      <Link>Shop</Link>
+                    <Link to={routes.FLOWERS}>Shop</Link>
                     </Button>
                   </li>
                   {/* <li className="list-inline-item nav-item">

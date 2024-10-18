@@ -7,22 +7,39 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/index";
 import About from "./pages/About/index";
 import Footer from "./components/footer/footer";
+import ListingProducts from "./pages/Listing/index"
+import { RouteProvider } from "./context/RouteProvider";  
+import { useRoutes } from "./context/RouteProvider"; 
+
 const queryClient = new QueryClient();
 
-function App() {
+function RoutesWrapper() {
+  const routes = useRoutes(); // Now this is within RouteProvider
+
   return (
-    <>
+    <Routes>
+      <Route exact={true} path={routes.HOME} element={<Home />} />
+      <Route exact={true} path={routes.ABOUT} element={<About />} />
+      <Route exact={true} path={routes.FLOWERS} element={<ListingProducts />} />
+    </Routes>
+  );
+}
+
+
+function App() {
+  
+  return (
+    
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route exact={true} path="/" element={<Home />} />
-            <Route exact={true} path="/about" element={<About />} />
-          </Routes>
-          <Footer/>
-        </BrowserRouter>
+        <RouteProvider>
+          <BrowserRouter>
+            <Header />
+              <RoutesWrapper/>
+            <Footer />
+          </BrowserRouter>
+        </RouteProvider>
       </QueryClientProvider>
-    </>
+    
   );
 }
 

@@ -1,0 +1,14 @@
+.listingData .homeProducts .productRow .item {
+    width: 25% !important;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.listingData .homeProducts .productRow {
+    margin-top: 0px;
+    padding: 0px 0px;
+}
+
+.listingData .homeProducts .filter-row-section{
+  margin-top: 15px;
+}

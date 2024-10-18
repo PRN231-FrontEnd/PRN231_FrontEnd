@@ -176,8 +176,12 @@ function Header() {
             </div>
           </div>
         </div>
+       
       </header>
-      <Nav/>
+      <div className="nav-at-header" >
+        <Nav />
+      </div>
+      
     </>
   );
 }
