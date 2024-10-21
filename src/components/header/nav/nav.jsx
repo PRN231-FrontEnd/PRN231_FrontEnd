@@ -7,7 +7,7 @@ import { Dropdown, Menu } from "antd";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { Link } from "react-router-dom";
 import PageDropDownOptions from "../pageDropDownOptions/pageDropDownOptions";
-import { useRoutes } from "../../../context/RouteProvider"; 
+import { useRoutes } from "../../../context/RouteProvider";
 
 function Nav() {
   const routes = useRoutes();
@@ -23,9 +23,9 @@ function Nav() {
           </div>
           <div className="col-sm-7 part 2 position-static">
             <nav className="navbar navbar-expand-lg">
-              <a class="navbar-brand" href="#"></a>
+              <a className="navbar-brand" href="#"></a>
               <button
-                class="navbar-toggler"
+                className="navbar-toggler"
                 type="button"
                 data-toggle="collapse"
                 data-target="#navbarNav"
@@ -33,9 +33,9 @@ function Nav() {
                 aria-expanded="false"
                 aria-label="Toggle navigation"
               >
-                <span class="navbar-toggler-icon"></span>
+                <span className="navbar-toggler-icon"></span>
               </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
+              <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="list list-inline navbar-nav">
                   <li className="list-inline-item nav-item">
                     <Button>
@@ -49,7 +49,7 @@ function Nav() {
                   </li>
                   <li className="list-inline-item nav-item">
                     <Button>
-                    <Link to={routes.FLOWERS}>Shop</Link>
+                      <Link to={routes.FLOWERS}>Shop</Link>
                     </Button>
                   </li>
                   {/* <li className="list-inline-item nav-item">
@@ -61,7 +61,7 @@ function Nav() {
                     <Button>
                       <Link>Mega menu</Link>
                     </Button>
-                  </li> */}                
+                  </li> */}
                   <li className="list-inline-item nav-item">
                     <Button>
                       <Link>Blog</Link>

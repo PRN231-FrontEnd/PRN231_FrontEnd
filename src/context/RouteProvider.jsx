@@ -7,15 +7,14 @@ const routes = {
   HOME: "/",
   ABOUT: "/about",
   FLOWERS: "/flowers",
-  CONTACT: "/contact",  // Add more routes as needed
+  CONTACT: "/contact",
+  POSTDETAILS: "/postdetails/:id",
 };
 
 // Create a provider component that wraps your app
 export const RouteProvider = ({ children }) => {
   return (
-    <RouteContext.Provider value={routes}>
-      {children}
-    </RouteContext.Provider>
+    <RouteContext.Provider value={routes}>{children}</RouteContext.Provider>
   );
 };
 

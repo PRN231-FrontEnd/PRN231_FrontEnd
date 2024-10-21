@@ -53,7 +53,7 @@ function Home() {
           </div>
           <div className="productRow">
             <div className="item">
-              <Product tag="sale" />
+              <Product id="123" tag="sale" />
             </div>
 
             <div className="item">
@@ -112,8 +112,8 @@ function Home() {
                   src="https://wp.alithemes.com/html/nest/demo/assets/imgs/banner/banner-4.png"
                   className="w-100 bannerImg"
                 />
-                <div class="banner-text">
-                  <h2 class="mb-100">
+                <div className="banner-text">
+                  <h2 className="mb-100">
                     Bring nature <br /> into your <br /> home
                   </h2>
                   <Button
@@ -130,22 +130,21 @@ function Home() {
             </div>
             <div className="col-md-9 pr-5">
               <Slider {...settings} className="prodSlider">
-              <div className="item">
-              <Product tag="best" />
-            </div>
-            <div className="item">
-              <Product tag="best" />
-            </div>
-            <div className="item">
-              <Product tag="best" />
-            </div>
-            <div className="item">
-              <Product tag="best" />
-            </div>
-            <div className="item">
-              <Product tag="best" />
-            </div>
-            
+                <div className="item">
+                  <Product tag="best" />
+                </div>
+                <div className="item">
+                  <Product tag="best" />
+                </div>
+                <div className="item">
+                  <Product tag="best" />
+                </div>
+                <div className="item">
+                  <Product tag="best" />
+                </div>
+                <div className="item">
+                  <Product tag="best" />
+                </div>
               </Slider>
             </div>
           </div>

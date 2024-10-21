@@ -1,39 +1,60 @@
-import React, { useState } from 'react';
-import { SettingOutlined, ContainerOutlined, WalletOutlined, ShoppingOutlined, ShopOutlined, BookOutlined, LikeOutlined, HistoryOutlined, LogoutOutlined} from '@ant-design/icons';
-import { Button, ConfigProvider, Menu } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
-import { Dropdown, Space } from 'antd';
+import React, { useState } from "react";
+import {
+  SettingOutlined,
+  ContainerOutlined,
+  WalletOutlined,
+  ShoppingOutlined,
+  ShopOutlined,
+  BookOutlined,
+  LikeOutlined,
+  HistoryOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
+import { Button, ConfigProvider, Menu } from "antd";
+import { DownOutlined } from "@ant-design/icons";
+import { Dropdown, Space } from "antd";
+
+const handleLogout = () => {
+  // Add your logout logic here
+  console.log("Logging out...");
+
+  // Example: Clear local storage or cookies if used for authentication
+  localStorage.removeItem("authToken"); // or use your own token
+
+  // Redirect to login page (if using react-router)
+  window.location.href = "/login"; // Adjust the path according to your routes
+};
 
 const items = [
   {
-    key: '1',
-    label: 'Orders',
+    key: "1",
+    label: "Orders",
     children: [
       {
-        key: '11',
+        key: "11",
         icon: <ContainerOutlined />,
-        label: 'Buy Order',
+        label: "Buy Order",
       },
       {
-        key: '12',
+        key: "12",
         icon: <ShoppingOutlined />,
-        label: 'Sell Order',
+        label: "Sell Order",
       },
     ],
   },
   {
-    key: '2',
-    label: 'Utility',
+    key: "2",
+    label: "Utility",
     children: [
       {
-        key: '21',
+        key: "21",
         icon: <BookOutlined />,
-        label: 'Saved Post',
+        label: "Saved Post",
       },
       {
-        key: '22',
+        key: "22",
         icon: <LikeOutlined />,
-        label: 'Feedback From Me',
+        label: "Feedback From Me",
       },
       // {
       //   key: '23',
@@ -74,39 +95,40 @@ const items = [
     ],
   },
   {
-    key: '3',
-    label: 'Post Services',
+    key: "3",
+    label: "Post Services",
     children: [
       {
-        key: '31',
+        key: "31",
         icon: <WalletOutlined />,
-        label: 'Your wallet',
+        label: "Your wallet",
       },
       {
-        key: '32',
+        key: "32",
         icon: <HistoryOutlined />,
-        label: 'History Transaction',
+        label: "History Transaction",
       },
       {
-        key: '33',
+        key: "33",
         icon: <ShopOutlined />,
-        label: 'Store/Dedicated Site',
+        label: "Store/Dedicated Site",
       },
     ],
   },
   {
-    key: '4',
-    label: 'Others',
+    key: "4",
+    label: "Others",
     children: [
       {
-        key: '41',
-        icon:  <SettingOutlined />,
-        label: 'Account Setting',
+        key: "41",
+        icon: <SettingOutlined />,
+        label: "Account Setting",
       },
       {
-        key: '42',
+        key: "42",
         icon: <LogoutOutlined />,
-        label: 'Log Out',
+        label: "Log Out",
+        onClick: handleLogout,
       },
     ],
   },
@@ -131,27 +153,25 @@ const items = [
 function AccountSelectDrop(props) {
   return (
     <ConfigProvider
-    theme={{
-      token: {
-        fontSize: 16,
-       
-      }
-    }}
+      theme={{
+        token: {
+          fontSize: 16,
+        },
+      }}
     >
-        <Dropdown
-            menu={{
-              items,
-            }}
-          >
-            <a onClick={(e) => e.preventDefault()}>
-              <Space style={{color: "#000000", width: 150}}>  
-                Account Name
-                <DownOutlined />
-              </Space>
-            </a>
-          </Dropdown>
+      <Dropdown
+        menu={{
+          items,
+        }}
+      >
+        <a onClick={(e) => e.preventDefault()}>
+          <Space style={{ color: "#000000", width: 150 }}>
+            Account Name
+            <DownOutlined />
+          </Space>
+        </a>
+      </Dropdown>
     </ConfigProvider>
-    
   );
 }
 export default AccountSelectDrop;
