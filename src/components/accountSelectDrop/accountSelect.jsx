@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   SettingOutlined,
   ContainerOutlined,
@@ -17,12 +17,10 @@ import { Dropdown, Space } from "antd";
 const handleLogout = () => {
   // Add your logout logic here
   console.log("Logging out...");
-
-  // Example: Clear local storage or cookies if used for authentication
-  localStorage.removeItem("authToken"); // or use your own token
-
-  // Redirect to login page (if using react-router)
-  window.location.href = "/login"; // Adjust the path according to your routes
+  localStorage.removeItem("token"); // Clear authentication token
+  localStorage.removeItem("refreshToken"); // Clear refresh token
+  localStorage.removeItem("decodedUser"); // Clear decoded user info
+  window.location.href = "/login"; // Redirect to login page
 };
 
 const items = [
@@ -30,100 +28,32 @@ const items = [
     key: "1",
     label: "Orders",
     children: [
-      {
-        key: "11",
-        icon: <ContainerOutlined />,
-        label: "Buy Order",
-      },
-      {
-        key: "12",
-        icon: <ShoppingOutlined />,
-        label: "Sell Order",
-      },
+      { key: "11", icon: <ContainerOutlined />, label: "Buy Order" },
+      { key: "12", icon: <ShoppingOutlined />, label: "Sell Order" },
     ],
   },
   {
     key: "2",
     label: "Utility",
     children: [
-      {
-        key: "21",
-        icon: <BookOutlined />,
-        label: "Saved Post",
-      },
-      {
-        key: "22",
-        icon: <LikeOutlined />,
-        label: "Feedback From Me",
-      },
-      // {
-      //   key: '23',
-      //   label: 'Submenu',
-      //   children: [
-      //     {
-      //       key: '231',
-      //       label: 'Option 1',
-      //     },
-      //     {
-      //       key: '232',
-      //       label: 'Option 2',
-      //     },
-      //     {
-      //       key: '233',
-      //       label: 'Option 3',
-      //     },
-      //   ],
-      // },
-      // {
-      //   key: '24',
-      //   label: 'Submenu 2',
-      //   children: [
-      //     {
-      //       key: '241',
-      //       label: 'Option 1',
-      //     },
-      //     {
-      //       key: '242',
-      //       label: 'Option 2',
-      //     },
-      //     {
-      //       key: '243',
-      //       label: 'Option 3',
-      //     },
-      //   ],
-      // },
+      { key: "21", icon: <BookOutlined />, label: "Saved Post" },
+      { key: "22", icon: <LikeOutlined />, label: "Feedback From Me" },
     ],
   },
   {
     key: "3",
     label: "Post Services",
     children: [
-      {
-        key: "31",
-        icon: <WalletOutlined />,
-        label: "Your wallet",
-      },
-      {
-        key: "32",
-        icon: <HistoryOutlined />,
-        label: "History Transaction",
-      },
-      {
-        key: "33",
-        icon: <ShopOutlined />,
-        label: "Store/Dedicated Site",
-      },
+      { key: "31", icon: <WalletOutlined />, label: "Your wallet" },
+      { key: "32", icon: <HistoryOutlined />, label: "History Transaction" },
+      { key: "33", icon: <ShopOutlined />, label: "Store/Dedicated Site" },
     ],
   },
   {
     key: "4",
     label: "Others",
     children: [
-      {
-        key: "41",
-        icon: <SettingOutlined />,
-        label: "Account Setting",
-      },
+      { key: "41", icon: <SettingOutlined />, label: "Account Setting" },
       {
         key: "42",
         icon: <LogoutOutlined />,
@@ -133,24 +63,20 @@ const items = [
     ],
   },
 ];
-// const getLevelKeys = (items1) => {
-//   const key = {};
-//   const func = (items2, level = 1) => {
-//     items2.forEach((item) => {
-//       if (item.key) {
-//         key[item.key] = level;
-//       }
-//       if (item.children) {
-//         func(item.children, level + 1);
-//       }
-//     });
-//   };
-//   func(items1);
-//   return key;
-// };
-// const levelKeys = getLevelKeys(items);
 
-function AccountSelectDrop(props) {
+function AccountSelectDrop() {
+  const [accountName, setAccountName] = useState("");
+
+  useEffect(() => {
+    // Lấy decodedUser từ localStorage
+    const storedUser = localStorage.getItem("decodedUser");
+    if (storedUser) {
+      const userObject = JSON.parse(storedUser); // Chuyển đổi chuỗi JSON thành object
+      setAccountName(userObject.given_name); // Lấy given_name từ object
+      console.log(accountName);
+    }
+  }, []);
+
   return (
     <ConfigProvider
       theme={{
@@ -166,7 +92,7 @@ function AccountSelectDrop(props) {
       >
         <a onClick={(e) => e.preventDefault()}>
           <Space style={{ color: "#000000", width: 150 }}>
-            Account Name
+            {accountName || "Guest"} {/* Hiển thị tên tài khoản */}
             <DownOutlined />
           </Space>
         </a>
@@ -174,4 +100,5 @@ function AccountSelectDrop(props) {
     </ConfigProvider>
   );
 }
+
 export default AccountSelectDrop;
