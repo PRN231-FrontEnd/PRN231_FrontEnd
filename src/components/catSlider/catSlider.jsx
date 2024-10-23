@@ -4,7 +4,7 @@ import Slider from "react-slick";
 
 function CatSlider() {
 
- const[itemBg, setItemBg] = useState([
+  const [itemBg, setItemBg] = useState([
     "#fffceb",
     "#ecffec",
     "#feefea",
@@ -29,7 +29,7 @@ function CatSlider() {
     "#f2fce4",
     "#feefea",
     "#fffceb",
- ]);
+  ]);
 
   var settings = {
     dots: false,
@@ -48,17 +48,18 @@ function CatSlider() {
           <h2 className="hd">Featured Categories</h2>
           <Slider {...settings} className='cat_slider_Main' id="cat_slider_Main">
             {
-                itemBg.length!==0 && itemBg.map((item, index) => {
-                    return(
-                        <div className="item">
-                        <div className="info" style={{background: item}} >
-                        <img src="https://wp.alithemes.com/html/nest/demo/assets/imgs/shop/cat-13.png"/>
-                            <h5>Cake & Milk</h5> 
-                            <p>26 items</p>
-                        </div>
+              itemBg.length !== 0 &&
+              itemBg.map((item, index) => {
+                return (
+                  <div className="item" key={index}> {/* Add key prop here */}
+                    <div className="info" style={{ background: item }}>
+                      <img src="https://wp.alithemes.com/html/nest/demo/assets/imgs/shop/cat-13.png" alt="Category" />
+                      <h5>Cake & Milk</h5>
+                      <p>26 items</p>
                     </div>
-                    )
-                })
+                  </div>
+                );
+              })
             }
 
 
@@ -70,7 +71,7 @@ function CatSlider() {
                 </div>
             </div> */}
 
-            
+
           </Slider>
         </div>
       </div>

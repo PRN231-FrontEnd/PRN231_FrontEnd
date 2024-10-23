@@ -1,15 +1,54 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import HomeSlider from "./slider/index";
 import CatSlider from "../../components/catSlider/catSlider";
 import Banners from "../../components/banners/banners";
 import Product from "../../components/product/product";
 import { ArrowForward } from "@mui/icons-material";
 import Slider from "react-slick";
+import { v4 as uuidv4 } from 'uuid';
 
 import "./style.css";
 import { Button } from "@mui/material";
 
 function Home() {
+  const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  const hasFetched = useRef(false);
+
+  const fetchData = async (page) => {
+    if (loading) return;
+
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        "https://flowerexchange.azurewebsites.net/Post/list-view-post",
+        {
+          searchString: "",
+          paginateRequest: {
+            currentPage: page,
+            pageSize: 10,
+          },
+        }
+      );
+
+      setProducts((prevProducts) => [...prevProducts, ...response.data]);
+    } catch (error) {
+      console.error("Error fetching product data", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!hasFetched.current) {
+      fetchData(currentPage);
+      hasFetched.current = true;
+    }
+  }, [currentPage]);
+
   var settings = {
     dots: false,
     infinite: true,
@@ -52,40 +91,32 @@ function Home() {
             </ul>
           </div>
           <div className="productRow">
-            <div className="item">
-              <Product id="123" tag="sale" />
-            </div>
-
-            <div className="item">
-              <Product tag="new" />
-            </div>
-            <div className="item">
-              <Product tag="best" />
-            </div>
-
-            <div className="item">
-              <Product />
-            </div>
-            <div className="item">
-              <Product tag="hot" />
-            </div>
-
-            <div className="item">
-              <Product tag="new" />
-            </div>
-            <div className="item">
-              <Product />
-            </div>
-            <div className="item">
-              <Product tag="hot" />
-            </div>
-            <div className="item">
-              <Product />
-            </div>
-            <div className="item">
-              <Product tag="best" />
-            </div>
+            {products.map((product) => (
+              <div className="item" key={uuidv4()}>
+                <Product
+                  id={product.id}
+                  tag={product.priority ? "best" : null}
+                  title={product.title}
+                  description={product.description}
+                  price={product.price}
+                  location={product.location}
+                  imageUrl={product.mainImageUrl}
+                />
+              </div>
+            ))}
           </div>
+
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
+            >
+              Load More
+            </Button>
+          )}
         </div>
       </section>
 
@@ -130,21 +161,19 @@ function Home() {
             </div>
             <div className="col-md-9 pr-5">
               <Slider {...settings} className="prodSlider">
-                <div className="item">
-                  <Product tag="best" />
-                </div>
-                <div className="item">
-                  <Product tag="best" />
-                </div>
-                <div className="item">
-                  <Product tag="best" />
-                </div>
-                <div className="item">
-                  <Product tag="best" />
-                </div>
-                <div className="item">
-                  <Product tag="best" />
-                </div>
+                {/* {products.map((product, index) => (
+                  <div className="item" key={`${product.id}-${index}`}>
+                    <Product
+                      id={product.id}
+                      tag={product.priority ? "best" : null}
+                      title={product.title}
+                      description={product.description}
+                      price={product.price}
+                      location={product.location}
+                      imageUrl={product.mainImageUrl}
+                    />
+                  </div>
+                ))} */}
               </Slider>
             </div>
           </div>
