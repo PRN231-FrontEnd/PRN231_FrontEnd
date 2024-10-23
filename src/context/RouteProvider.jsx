@@ -8,6 +8,7 @@ const routes = {
   ABOUT: "/about",
   FLOWERS: "/flowers",
   CONTACT: "/contact",
+  CREATEPOST: "/create-post",
   POSTDETAILS: "/postdetails/:id",
 };
 

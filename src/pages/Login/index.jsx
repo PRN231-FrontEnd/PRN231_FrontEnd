@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -28,8 +29,21 @@ const Login = () => {
         }
       );
       console.log("Login successful:", response.data);
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("refreshToken", response.data.refreshToken);
+      const accessToken = response.data.accessToken;
+      if (accessToken && typeof accessToken === "string") {
+        localStorage.setItem("token", accessToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+
+        const decodedUser = jwtDecode(accessToken);
+        localStorage.setItem("decodedUser", JSON.stringify(decodedUser));
+
+        console.log(decodedUser);
+
+        navigate("/"); // Điều hướng sau khi đăng nhập thành công
+      } else {
+        throw new Error("Invalid token");
+      }
+
       navigate("/"); // Điều hướng sau khi đăng nhập thành công
     } catch (error) {
       console.error("Error during login:", error);

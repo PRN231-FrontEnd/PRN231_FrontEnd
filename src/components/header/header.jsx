@@ -15,6 +15,8 @@ import { Button, ConfigProvider } from "antd";
 import AccountSelectOptions from "../accountSelectDrop/accountSelect";
 import { EditFilled } from "@ant-design/icons";
 import Nav from "./nav/nav";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const fetchCountries = async () => {
   const res = await axios.get("https://countriesnow.space/api/v0.1/countries/");
@@ -22,7 +24,7 @@ const fetchCountries = async () => {
 };
 
 function Header() {
-  const [categories, setCategories] = useState([
+  const [categories] = useState([
     "All Categories",
     "Milks and Dairies",
     "Wines & Alcohol",
@@ -35,68 +37,53 @@ function Header() {
     "Ice cream",
   ]);
 
-  //WAY 1: fetch and catch countries
   const {
     data: countryList = [],
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["countries"], // Define a unique key for the query
-    queryFn: fetchCountries, // Function to fetch data
+    queryKey: ["countries"],
+    queryFn: fetchCountries,
   });
 
-  const [position, setPosition] = useState("end");
+  const navigate = useNavigate();
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error fetching countries</div>;
+  const handleCreatePost = () => {
+    const token = localStorage.getItem("token");
+    navigate(token ? "/create-post" : "/login");
+  };
 
-  //WAY 2: use useEffect
-  //--------------------
-  // const [countryList, setCountryList] = useState([]);
-  // useEffect(() => {
-  //     getCountry('https://countriesnow.space/api/v0.1/countries/');
-  // }, [countryList])
-
-  // const getCountry = async (url) => {
-  //     try {
-  //       const res = await axios.get(url);
-  //       if (res && res.data && res.data.data) {
-  //         const countries = res.data.data.map((item) => item.country);
-  //         setCountryList(countries); // Update state with the list of countries
-  //       }
-  //     } catch (error) {
-  //       console.log(error.message);
-  //     }
-  //   };
+  if (isLoading) return <div>Loading countries...</div>;
+  if (error) {
+    console.error("Error fetching countries:", error);
+    return <div>Error fetching countries. Please try again later.</div>;
+  }
 
   return (
     <>
       <header>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-sm-1 d-flex align-items-center">
+            <Link to="/" className="col-sm-1 d-flex align-items-center">
               <img
                 src={Logo}
-                style={{ width: "100%", height: "70px"}}
+                style={{ width: "100%", height: "70px" }}
                 alt="Logo"
               />
-            </div>
+            </Link>
 
-            {/*headerSearch by category start here */}
             <div className="col-sm-5 d-flex flex-row align-items-center">
               <div className="headerSearch d-flex flex-row align-items-center">
                 <SelectDrop
                   data={categories}
                   className="selectDrop cursor position-relative"
                 />
-
                 <div className="search">
                   <input type="text" placeholder="Search for items..." />
                   <SearchIcon className="searchIcon cursor" />
                 </div>
               </div>
             </div>
-
             <div className="col-sm-6 d-flex flex-row align-items-center">
               <div className="countryWrapper">
                 <LocationOnIcon style={{ opacity: "50%" }} />
@@ -107,7 +94,6 @@ function Header() {
               </div>
               <ul className="list list-inline mb-0 headerTabs">
                 <li className="list-inline-item">
-                  {/* <span>Notification</span> */}
                   <span className="badge bg-success " id="noti-badge">
                     23
                   </span>
@@ -118,14 +104,12 @@ function Header() {
                   />
                 </li>
                 <li className="list-inline-item">
-                  {/* <span>Chat</span> */}
                   <span className="badge bg-success " id="noti-chat">
                     23
                   </span>
                   <ChatOutlinedIcon className="icon" sx={{ fontSize: 30 }} />
                 </li>
                 <li className="list-inline-item">
-                  {/* <span>Transaction</span> */}
                   <span className="badge bg-success " id="noti-mall">
                     20+
                   </span>
@@ -142,12 +126,10 @@ function Header() {
                   <span>Manage Posts</span>
                 </li>
                 <li className="list-inline-item">
-                  <span>
-                    <AccountCircleOutlinedIcon
-                      className="icon"
-                      sx={{ fontSize: 30 }}
-                    />
-                  </span>
+                  <AccountCircleOutlinedIcon
+                    className="icon"
+                    sx={{ fontSize: 30 }}
+                  />
                   <AccountSelectOptions className="accountSelect" />
                 </li>
               </ul>
@@ -161,27 +143,26 @@ function Header() {
                   components: {
                     Button: {
                       colorPrimary: "#198754",
-                    
                     },
                   },
                 }}
               >
-                <Button 
-                  type="dashed" 
-                  size="medium"  
-                  icon={<EditFilled />}>
+                <Button
+                  type="dashed"
+                  size="medium"
+                  icon={<EditFilled />}
+                  onClick={handleCreatePost}
+                >
                   Create Post
                 </Button>
               </ConfigProvider>
             </div>
           </div>
         </div>
-       
       </header>
-      <div className="nav-at-header" >
+      <div className="nav-at-header">
         <Nav />
       </div>
-      
     </>
   );
 }

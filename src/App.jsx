@@ -12,6 +12,7 @@ import { useRoutes } from "./context/RouteProvider";
 import PostDetails from "./pages/PostDetails";
 import Login from "./pages/Login/index";
 import Register from "./pages/Register/index";
+import CreatePost from "./pages/CreatePost/index";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,8 @@ function RoutesWrapper() {
       <Route exact path={routes.ABOUT} element={<About />} />
       <Route exact path={routes.FLOWERS} element={<ListingProducts />} />
       <Route exact path={routes.POSTDETAILS} element={<PostDetails />} />
+      <Route exact path={routes.CREATEPOST} element={<CreatePost />} />
+
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/register" element={<Register />} />
     </Routes>
