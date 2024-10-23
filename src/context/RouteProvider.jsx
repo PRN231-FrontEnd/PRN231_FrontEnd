@@ -9,7 +9,7 @@ const routes = {
   FLOWERS: "/flowers",
   CONTACT: "/contact",
   CREATEPOST: "/create-post",
-  POSTDETAILS: "/postdetails/:id",
+  POSTDETAILS: "/post-details/:id",
 };
 
 // Create a provider component that wraps your app

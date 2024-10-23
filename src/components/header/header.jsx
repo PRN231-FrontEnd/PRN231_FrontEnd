@@ -1,6 +1,7 @@
 import "../header/header.css";
 import Logo from "../../assets/images/logo.svg";
 import SearchIcon from "@mui/icons-material/Search";
+import StorefrontIcon from "@mui/icons-material/Storefront";
 import SelectDrop from "../selectDrop/selectDrop";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -105,18 +106,15 @@ function Header() {
                 </li>
                 <li className="list-inline-item">
                   <span className="badge bg-success " id="noti-chat">
-                    23
+                    Chat
                   </span>
                   <ChatOutlinedIcon className="icon" sx={{ fontSize: 30 }} />
                 </li>
                 <li className="list-inline-item">
                   <span className="badge bg-success " id="noti-mall">
-                    20+
+                    Store
                   </span>
-                  <LocalMallOutlinedIcon
-                    className="icon"
-                    sx={{ fontSize: 30 }}
-                  />
+                  <StorefrontIcon className="icon" sx={{ fontSize: 30 }} />
                 </li>
                 <li className="list-inline-item">
                   <FeaturedPlayListOutlinedIcon
