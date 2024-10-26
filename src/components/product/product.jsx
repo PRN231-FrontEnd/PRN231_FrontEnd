@@ -1,6 +1,10 @@
 import "./product.css";
 import { Button, Tooltip } from "@mui/material";
-import { ShoppingCartOutlined, LocationOnOutlined, FavoriteBorderOutlined } from "@mui/icons-material";
+import {
+  ShoppingCartOutlined,
+  LocationOnOutlined,
+  FavoriteBorderOutlined,
+} from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -9,16 +13,24 @@ function Product({ id, tag, title, description, price, location, imageUrl }) {
     <div className="productThumb">
       {tag && <span className={`badge ${tag}`}>{tag}</span>}
       <div className="imgWrapper">
-        <img src={imageUrl || "default-image.jpg"} className="w-100" alt={title} />
+        <img
+          src={imageUrl || "default-image.jpg"}
+          className="w-100"
+          alt={title}
+        />
         <div className="info">
           <span className="d-block catName">Flower</span>
-          <h4 className="title">
+          {/* <h4 className="title">
             <Link to={`/postdetails/${id}`}>{title}</Link>
-          </h4>
+          </h4> */}
+          <h4 className="title">{title}</h4>
+
           <span className="brand d-block text-g">{description}</span>
           <div className="d-flex align-items-center mt-3">
             <div className="d-flex align-items-center">
-              <span className="price text-g font-weight-bold">${price || "N/A"}</span>
+              <span className="price text-g font-weight-bold">
+                ${price || "N/A"}
+              </span>
               <Tooltip title="Add to cart" placement="top">
                 <Button className="bg-g ml-auto transition">
                   <ShoppingCartOutlined />

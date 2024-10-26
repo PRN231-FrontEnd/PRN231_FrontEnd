@@ -6,7 +6,8 @@ import Banners from "../../components/banners/banners";
 import Product from "../../components/product/product";
 import { ArrowForward } from "@mui/icons-material";
 import Slider from "react-slick";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
+import { Link } from "react-router-dom";
 
 import "./style.css";
 import { Button } from "@mui/material";
@@ -92,7 +93,12 @@ function Home() {
           </div>
           <div className="productRow">
             {products.map((product) => (
-              <div className="item" key={uuidv4()}>
+              <Link
+                to={`/post-details/${product.id}`}
+                key={uuidv4()}
+                className="item"
+                style={{ textDecoration: "none", color: "inherit" }} // Xóa gạch chân và giữ màu chữ
+              >
                 <Product
                   id={product.id}
                   tag={product.priority ? "best" : null}
@@ -102,7 +108,7 @@ function Home() {
                   location={product.location}
                   imageUrl={product.mainImageUrl}
                 />
-              </div>
+              </Link>
             ))}
           </div>
 

@@ -9,8 +9,12 @@ const routes = {
   FLOWERS: "/flowers",
   CONTACT: "/contact",
   CREATEPOST: "/create-post",
+<<<<<<< HEAD
   POSTDETAILS: "/postdetails/:id",
   MESSAGE: "/message",
+=======
+  POSTDETAILS: "/post-details/:id",
+>>>>>>> 51a6fc4b0ba80049192727a40a60040cbc4469cd
 };
 
 // Create a provider component that wraps your app
