@@ -13,6 +13,7 @@ import PostDetails from "./pages/PostDetails";
 import Login from "./pages/Login/index";
 import Register from "./pages/Register/index";
 import CreatePost from "./pages/CreatePost/index";
+import Message from "./pages/Message";
 
 const queryClient = new QueryClient();
 
@@ -26,7 +27,7 @@ function RoutesWrapper() {
       <Route exact path={routes.FLOWERS} element={<ListingProducts />} />
       <Route exact path={routes.POSTDETAILS} element={<PostDetails />} />
       <Route exact path={routes.CREATEPOST} element={<CreatePost />} />
-
+      <Route exact path={routes.MESSAGE} element={<Message />} />
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/register" element={<Register />} />
     </Routes>

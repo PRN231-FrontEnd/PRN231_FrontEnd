@@ -76,7 +76,7 @@ const Login = () => {
                     className="form-control-lg"
                     placeholder="Email address"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)} // Thay đổi từ setUsername thành setEmail
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </Form.Group>
 
