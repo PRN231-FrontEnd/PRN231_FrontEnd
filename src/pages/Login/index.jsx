@@ -7,6 +7,7 @@ import {
   Form,
   Image,
   Alert,
+  Spinner,
 } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -16,9 +17,11 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // Thêm state cho thông báo lỗi
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
+    setIsLoading(true); // Bắt đầu loading
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -48,6 +51,8 @@ const Login = () => {
     } catch (error) {
       console.error("Error during login:", error);
       setErrorMessage("Login failed! Please check your credentials.");
+    } finally {
+      setIsLoading(false); // Dừng loading khi có phản hồi từ API
     }
   };
   const handleSignUp = () => {
@@ -101,8 +106,18 @@ const Login = () => {
                   <a href="#!">Forgot password?</a>
                 </div>
 
-                <Button type="submit" className="btn-lg btn-block me-2">
-                  Sign in
+                <Button
+                  type="submit"
+                  className="btn-lg btn-block me-2"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <Spinner animation="border" role="status" size="sm">
+                      <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                  ) : (
+                    "Sign in"
+                  )}
                 </Button>
 
                 <Button className="btn-lg btn-success" onClick={handleSignUp}>

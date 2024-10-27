@@ -8,7 +8,6 @@ import { ArrowForward } from "@mui/icons-material";
 import Slider from "react-slick";
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
-
 import "./style.css";
 import { Button } from "@mui/material";
 
