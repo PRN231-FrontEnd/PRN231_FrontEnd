@@ -1,4 +1,4 @@
-import { IconButton, Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import axios from "axios";
 import {
     MDBContainer,
@@ -6,14 +6,13 @@ import {
     MDBCol,
     MDBCard,
     MDBCardBody,
-    MDBIcon,
-    MDBBtn,
     MDBTypography,
     MDBTextArea,
     MDBCardHeader,
 } from "mdb-react-ui-kit";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import * as signalR from "@microsoft/signalr";
 
 export default function Message() {
     const [conversations, setConversations] = useState([]);
@@ -21,24 +20,43 @@ export default function Message() {
     const [messages, setMessages] = useState([]);
     const [messageContent, setMessageContent] = useState("");
 
-    useEffect(() => {
-        const user = localStorage.getItem("decodedUser");
-        if (user) {
-            const userObject = JSON.parse(user);
-            const jti = userObject.jti;
+    const user = JSON.parse(localStorage.getItem("decodedUser")) || {};
+    const userId = user.jti;
 
-            const fetchConversations = async () => {
+    // Set up SignalR connection
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("https://flowerexchange.azurewebsites.net/yourHub")
+        .build();
+
+    useEffect(() => {
+        connection
+            .start()
+            .then(() => console.log("Connected to SignalR Hub"))
+            .catch(err => console.error("SignalR Connection Error:", err));
+
+        connection.on("ReceiveMessage", (sender, message) => {
+            setMessages(prevMessages => [...prevMessages, { sender, content: message }]);
+        });
+
+        return () => {
+            connection.stop();
+        };
+    }, []);
+
+    useEffect(() => {
+        const fetchConversations = async () => {
+            if (userId) {
                 try {
-                    const response = await axios.get(`https://flowerexchange.azurewebsites.net/Conversation/${jti}`);
+                    const response = await axios.get(`https://flowerexchange.azurewebsites.net/Conversation/${userId}`);
                     setConversations(response.data);
                 } catch (error) {
                     console.error("Error fetching conversations:", error);
                 }
-            };
+            }
+        };
 
-            fetchConversations();
-        }
-    }, []);
+        fetchConversations();
+    }, [userId]);
 
     const fetchMessages = async (conversationId) => {
         try {
@@ -53,29 +71,25 @@ export default function Message() {
     const handleSendMessage = async () => {
         if (!messageContent.trim()) return;
 
-        const user = localStorage.getItem("decodedUser");
-        if (user && selectedConversationId) {
-            const userObject = JSON.parse(user);
-            const senderId = userObject.jti;
-            const selectedConversation = conversations.find(c => c.id === selectedConversationId);
-            const recipientId = selectedConversation?.userConversations
-                .find(uc => uc.userId !== senderId)?.userId;
+        const selectedConversation = conversations.find(c => c.id === selectedConversationId);
+        const recipientId = selectedConversation?.userConversations
+            .find(uc => uc.userId !== userId)?.userId;
 
-            if (recipientId) {
-                try {
-                    const newMessage = {
-                        content: messageContent,
-                        senderId,
-                        recipientId,
-                    };
+        if (recipientId) {
+            try {
+                const newMessage = {
+                    content: messageContent,
+                    senderId: userId,
+                    recipientId,
+                };
 
-                    await axios.post("https://flowerexchange.azurewebsites.net/Message", newMessage);
+                await axios.post("https://flowerexchange.azurewebsites.net/Message", newMessage);
+                connection.invoke("SendMessage", userId, messageContent);
 
-                    fetchMessages(selectedConversationId);
-                    setMessageContent("");
-                } catch (error) {
-                    console.error("Error sending message:", error);
-                }
+                fetchMessages(selectedConversationId);
+                setMessageContent("");
+            } catch (error) {
+                console.error("Error sending message:", error);
             }
         }
     };
@@ -85,7 +99,6 @@ export default function Message() {
             <MDBRow>
                 <MDBCol md="6" lg="5" xl="4" className="mb-4 mb-md-0">
                     <h5 className="font-weight-bold mb-3 text-center text-lg-start">Member</h5>
-
                     <MDBCard>
                         <MDBCardBody>
                             <MDBTypography listUnStyled className="mb-0">
@@ -122,7 +135,7 @@ export default function Message() {
                 <MDBCol md="6" lg="7" xl="8">
                     <MDBTypography listUnStyled>
                         {messages.map((message, index) => {
-                            const isUserMessage = message.senderId === JSON.parse(localStorage.getItem("decodedUser")).jti;
+                            const isUserMessage = message.senderId === userId;
                             return (
                                 <li
                                     className={`d-flex justify-content-${isUserMessage ? "end" : "start"} mb-4`}
@@ -155,7 +168,6 @@ export default function Message() {
                         </Button>
                     </MDBTypography>
                 </MDBCol>
-
             </MDBRow>
         </MDBContainer>
     );
