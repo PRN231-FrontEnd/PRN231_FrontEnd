@@ -39,6 +39,9 @@ const MyDropdown = ({ button }) => {
           <Link to="/account">My Account</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
+          <Link to="/store/setup-store">Set Up Store</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
           <Link to="/login">Login</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
@@ -59,6 +62,7 @@ const MyDropdown = ({ button }) => {
         <MenuItem onClick={handleClose}>
           <Link to="/terms-of-service">Terms of Service</Link>
         </MenuItem>
+      
       </Menu>
     </div>
   );

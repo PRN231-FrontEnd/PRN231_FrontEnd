@@ -9,12 +9,13 @@ import {
   LikeOutlined,
   HistoryOutlined,
   LogoutOutlined,
+  LoginOutlined,
 } from "@ant-design/icons";
 import { Button, ConfigProvider, Menu } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 
-const handleLogout = () => {
+const handleLogin = () => {
   // Add your logout logic here
   console.log("Logging out...");
   localStorage.removeItem("token"); // Clear authentication token
@@ -23,7 +24,9 @@ const handleLogout = () => {
   window.location.href = "/login"; // Redirect to login page
 };
 
-const items = [
+
+
+const items = (isLoggedIn) => [
   {
     key: "1",
     label: "Orders",
@@ -54,26 +57,36 @@ const items = [
     label: "Others",
     children: [
       { key: "41", icon: <SettingOutlined />, label: "Account Setting" },
-      {
+      // Show Log Out if logged in
+      isLoggedIn ? {
         key: "42",
         icon: <LogoutOutlined />,
         label: "Log Out",
-        onClick: handleLogout,
-      },
-    ],
+        onClick: handleLogin, // Call the appropriate logout function
+      } : null,
+      // Show Log In if not logged in
+      !isLoggedIn ? {
+        key: "43",
+        icon: <LoginOutlined />,
+        label: "Log In",
+        onClick: handleLogin, // Call the login function
+      } : null,
+    ].filter(Boolean), // Filter out null items
   },
 ];
 
 function AccountSelectDrop() {
   const [accountName, setAccountName] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     // Lấy decodedUser từ localStorage
     const storedUser = localStorage.getItem("decodedUser");
     if (storedUser) {
+      setIsLoggedIn(true); 
       const userObject = JSON.parse(storedUser); // Chuyển đổi chuỗi JSON thành object
       setAccountName(userObject.given_name); // Lấy given_name từ object
-      console.log(accountName);
+      console.log(userObject.given_name);
     }
   }, []);
 
@@ -87,7 +100,7 @@ function AccountSelectDrop() {
     >
       <Dropdown
         menu={{
-          items,
+          items: items(isLoggedIn), // Pass the isLoggedIn state to the items function
         }}
       >
         <a onClick={(e) => e.preventDefault()}>

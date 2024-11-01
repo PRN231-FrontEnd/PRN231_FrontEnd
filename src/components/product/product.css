@@ -88,13 +88,24 @@
     font-weight: bold;
 }
 
+.productThumb .description {
+    display: -webkit-box;                     /* Use flexbox layout */
+    -webkit-line-clamp: 2;                   /* Limit to 2 lines */
+    -webkit-box-orient: vertical;            /* Set the box orientation to vertical */
+    overflow: hidden;                         /* Hide the overflow text */
+    text-overflow: ellipsis;                 /* Show ellipsis for overflowing text */
+    line-height: 1.5em;                      /* Control the line height */
+    max-height: 3em;                         /* Set max-height to 2 lines */
+}
+
+
 .productThumb button{
     font-size: 20px !important;
     color: #3bb77e !important;
     padding: 5px 25px !important;
     background: #def9ec !important;
     text-transform: capitalize !important;
-    margin-left: 100px;
+    margin-left: 10px;
 }
 
 .productThumb button:hover{
@@ -118,10 +129,10 @@
     border-top-right-radius: 15px;
     left: -1.5px;
     position: absolute;
-
-    
    
     }
+
+
     .productThumb .badge.hot{
         background: #f74b81 !important;
     }

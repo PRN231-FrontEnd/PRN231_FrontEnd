@@ -11,6 +11,7 @@ const routes = {
   CREATEPOST: "/create-post",
   POSTDETAILS: "/postdetails/:id",
   MESSAGE: "/message",
+  SETUPSTORE: "/store/setup-store"
 };
 
 // Create a provider component that wraps your app
