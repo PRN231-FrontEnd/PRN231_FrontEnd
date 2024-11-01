@@ -1,5 +1,8 @@
-import { Tooltip } from "@mui/material";
+import { useEffect, useState, useRef } from "react";
+import * as signalR from "@microsoft/signalr";
 import axios from "axios";
+import { Button } from "react-bootstrap";
+import { Tooltip } from "@mui/material";
 import {
     MDBContainer,
     MDBRow,
@@ -10,44 +13,69 @@ import {
     MDBTextArea,
     MDBCardHeader,
 } from "mdb-react-ui-kit";
-import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import * as signalR from "@microsoft/signalr";
 
 export default function Message() {
     const [conversations, setConversations] = useState([]);
     const [selectedConversationId, setSelectedConversationId] = useState(null);
     const [messages, setMessages] = useState([]);
     const [messageContent, setMessageContent] = useState("");
-
     const user = JSON.parse(localStorage.getItem("decodedUser")) || {};
     const userId = user.jti;
 
-    // Set up SignalR connection
-    const connection = new signalR.HubConnectionBuilder()
-        .withUrl("https://flowerexchange.azurewebsites.net/yourHub")
-        .build();
+    const connectionRef = useRef(null);
 
     useEffect(() => {
-        connection
-            .start()
-            .then(() => console.log("Connected to SignalR Hub"))
-            .catch(err => console.error("SignalR Connection Error:", err));
+        if (!connectionRef.current) {
+            const connection = new signalR.HubConnectionBuilder()
+                .configureLogging(signalR.LogLevel.Debug)
+                .withUrl("http://localhost:5223/chatHub", {
+                    skipNegotiation: true,
+                    transport: signalR.HttpTransportType.WebSockets,
+                })
+                .build();
 
-        connection.on("ReceiveMessage", (sender, message) => {
-            setMessages(prevMessages => [...prevMessages, { sender, content: message }]);
-        });
+            connectionRef.current = connection;
 
-        return () => {
-            connection.stop();
-        };
+            connection.on("ReceiveMessage", (sender, message) => {
+                console.log('Received message:', message);
+                setMessages((prevMessages) => [
+                    ...prevMessages,
+                    { sender, content: message },
+                ]);
+            });
+
+            const startConnection = async () => {
+                console.log("Starting connection...");
+                try {
+                    await connection.start();
+                    console.log('Connected to SignalR hub');
+                } catch (err) {
+                    console.error('Error connecting to hub:', err);
+                }
+            };
+
+            startConnection();
+
+            return () => {
+                console.log("Stopping connection...");
+                if (connectionRef.current && connectionRef.current.state === signalR.HubConnectionState.Connected) {
+                    connection.stop()
+                        .then(() => {
+                            console.log('Connection stopped');
+                            connectionRef.current = null;
+                        })
+                        .catch(err => console.error('Error stopping connection:', err));
+                }
+            };
+        }
     }, []);
+
 
     useEffect(() => {
         const fetchConversations = async () => {
             if (userId) {
                 try {
-                    const response = await axios.get(`https://flowerexchange.azurewebsites.net/Conversation/${userId}`);
+                    const response = await axios.get(`http://localhost:5223/Conversation/${userId}`);
                     setConversations(response.data);
                 } catch (error) {
                     console.error("Error fetching conversations:", error);
@@ -60,7 +88,7 @@ export default function Message() {
 
     const fetchMessages = async (conversationId) => {
         try {
-            const response = await axios.get(`https://flowerexchange.azurewebsites.net/thread/${conversationId}`);
+            const response = await axios.get(`http://localhost:5223/thread/${conversationId}`);
             setMessages(response.data);
             setSelectedConversationId(conversationId);
         } catch (error) {
@@ -71,9 +99,8 @@ export default function Message() {
     const handleSendMessage = async () => {
         if (!messageContent.trim()) return;
 
-        const selectedConversation = conversations.find(c => c.id === selectedConversationId);
-        const recipientId = selectedConversation?.userConversations
-            .find(uc => uc.userId !== userId)?.userId;
+        const selectedConversation = conversations.find((c) => c.id === selectedConversationId);
+        const recipientId = selectedConversation?.userConversations.find((uc) => uc.userId !== userId)?.userId;
 
         if (recipientId) {
             try {
@@ -83,8 +110,8 @@ export default function Message() {
                     recipientId,
                 };
 
-                await axios.post("https://flowerexchange.azurewebsites.net/Message", newMessage);
-                connection.invoke("SendMessage", userId, messageContent);
+                await axios.post("http://localhost:5223/Message", newMessage);
+                await connectionRef.current.invoke("SendMessage", userId, messageContent);
 
                 fetchMessages(selectedConversationId);
                 setMessageContent("");
@@ -163,7 +190,7 @@ export default function Message() {
                                 onChange={(e) => setMessageContent(e.target.value)}
                             />
                         </li>
-                        <Button color="info" rounded className="float-end" onClick={handleSendMessage}>
+                        <Button className="rounded" color="info" onClick={handleSendMessage}>
                             Send
                         </Button>
                     </MDBTypography>
