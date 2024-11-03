@@ -1,0 +1,45 @@
+.transaction-list {
+  margin-top: 20px; /* Khoảng cách giữa các phần khác */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.transaction-list h3 {
+  margin: 0 0 10px 0; /* Khoảng cách dưới tiêu đề */
+}
+
+.search-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%; /* Chiều rộng 100% */
+  margin-bottom: 10px; /* Khoảng cách dưới trường tìm kiếm */
+}
+
+.transaction-list ul {
+  list-style-type: none; /* Bỏ dấu chấm đầu dòng */
+  padding: 0; /* Bỏ padding cho ul */
+  margin: 0; /* Bỏ margin cho ul */
+}
+
+.transaction {
+  display: flex; /* Sắp xếp thông tin giao dịch theo hàng ngang */
+  justify-content: space-between; /* Căn chỉnh giữa các phần tử */
+  padding: 10px;
+  border-bottom: 1px solid #ddd; /* Đường phân cách giữa các giao dịch */
+}
+
+.transaction:last-child {
+  border-bottom: none; /* Bỏ đường phân cách cho giao dịch cuối */
+}
+
+/* Tùy chỉnh màu sắc theo loại giao dịch */
+.transaction.deposit {
+  color: green; /* Màu xanh cho giao dịch nạp tiền */
+}
+
+.transaction.withdrawal {
+  color: red; /* Màu đỏ cho giao dịch rút tiền */
+}
