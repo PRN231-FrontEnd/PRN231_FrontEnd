@@ -1,51 +1,68 @@
 .transaction-list {
-  margin-top: 20px; /* Khoảng cách giữa các phần khác */
+  margin: 20px;
+}
+
+.table-header {
+  display: flex;
+  font-weight: bold;
+  background-color: #f0f0f0;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
 }
 
-.transaction-list h3 {
-  margin: 0 0 10px 0; /* Khoảng cách dưới tiêu đề */
+.header-cell {
+  flex: 1; /* Điều này làm cho mỗi ô tiêu đề có kích thước bằng nhau */
+  text-align: center;
 }
 
-.search-input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 100%; /* Chiều rộng 100% */
-  margin-bottom: 10px; /* Khoảng cách dưới trường tìm kiếm */
-}
-
-.transaction-list ul {
-  list-style-type: none; /* Bỏ dấu chấm đầu dòng */
-  padding: 0; /* Bỏ padding cho ul */
-  margin: 0; /* Bỏ margin cho ul */
+.transaction-list-body {
+  margin-top: 10px;
 }
 
 .transaction {
-  display: flex; /* Sắp xếp thông tin giao dịch theo hàng ngang */
-  justify-content: space-between; /* Căn chỉnh giữa các phần tử */
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
   padding: 10px;
-  border-bottom: 1px solid #ddd; /* Đường phân cách giữa các giao dịch */
+  border-bottom: 1px solid #ddd;
 }
 
-.transaction:last-child {
-  border-bottom: none; /* Bỏ đường phân cách cho giao dịch cuối */
+.transaction-cell {
+  flex: 1; /* Điều này làm cho mỗi ô giao dịch có kích thước bằng nhau */
+  text-align: center; /* Căn giữa theo chiều ngang */
 }
 
-/* Thiết lập chiều rộng đồng đều cho các phần tử trong mỗi giao dịch */
-.transaction > span {
-  flex: 1; /* Mỗi phần tử chiếm 1 phần không gian */
-  text-align: center; /* Căn giữa nội dung */
+.transaction-cell {
+  flex: 1;
+  text-align: center;
+  overflow: hidden;            /* Ẩn phần nội dung tràn ra ngoài */
+  white-space: nowrap;        /* Không cho phép xuống dòng */
+  text-overflow: ellipsis;    /* Thêm dấu "..." khi bị cắt */
 }
 
-/* Tùy chỉnh màu sắc theo loại giao dịch */
-.transaction.deposit {
-  color: green; /* Màu xanh cho giao dịch nạp tiền */
+.transaction-list-body {
+  display: flex;
+  flex-direction: column;
 }
 
-.transaction.withdrawal {
-  color: red; /* Màu đỏ cho giao dịch rút tiền */
+.transaction-cell button {
+  background-color: #007bff; /* Màu nền */
+  color: white;              /* Màu chữ */
+  border: none;              /* Bỏ viền */
+  border-radius: 5px;       /* Bo tròn góc */
+  padding: 8px 12px;        /* Padding bên trong */
+  cursor: pointer;           /* Con trỏ khi di chuột qua */
+  transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu nền */
+}
+
+.transaction-cell button:hover {
+  background-color: #0056b3; /* Màu nền khi hover */
+}
+
+.transaction-detail button {
+  background-color: #28a745; /* Màu nền cho nút Quay lại */
+  color: white;              /* Màu chữ */
+  border: none;              /* Bỏ viền */
+  border-radius: 5px;       /* Bo tròn góc */
+  padding: 8px 12px;        /* Padding bên trong */
+  cursor: pointer;           /* Con trỏ khi di chuột qua */
+  transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu nền */
 }

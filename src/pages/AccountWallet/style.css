@@ -43,3 +43,31 @@
 .transaction.withdrawal {
   color: red; /* Màu đỏ cho giao dịch rút tiền */
 }
+
+.container-wallet {
+    max-width: 80%;
+    min-height: 500px;
+    display: flex; /* Make the container a flexbox */
+    margin: 0 auto;
+}
+
+.section {
+    padding: 20px;
+    box-sizing: border-box; /* Ensure padding is included in total width */
+}
+
+/* First section (Account Info) */
+.section:first-of-type {
+    padding-top: 5%;
+    flex: 0 0 20%; /* 30% width for the left section */
+}
+
+/* Second section (Transaction List) */
+.section:last-of-type {
+    flex: 0 0 80%; /* 70% width for the right section */
+    background-color: #ffffff; /* Background for transaction list */
+}
+.section:first-of-type h2 {
+  font-size: 18px; /* Adjust this size as needed */
+  margin-bottom: 10px; /* Optional: adjust margin for spacing */
+}

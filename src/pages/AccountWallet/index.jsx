@@ -4,17 +4,23 @@ import AccountInfo from './AccountInfo';
 import TransactionList from './TransactionList';
 
 const transactions = [
-    { date: '01/11/2024', description: 'Nạp tiền', amount: 500000, type: 'deposit', creator: 'John Doe', status: 'Thành công' },
-    { date: '02/11/2024', description: 'Mua hoa', amount: -200000, type: 'withdrawal', creator: 'John Doe', status: 'Thành công' },
-    { date: '03/11/2024', description: 'Nạp tiền', amount: 300000, type: 'deposit', creator: 'Jane Smith', status: 'Thành công' },
-    { date: '04/11/2024', description: 'Rút tiền', amount: -150000, type: 'withdrawal', creator: 'John Doe', status: 'Thất bại' },
-    // Thêm các giao dịch khác nếu cần
+    {
+      id: 1,
+      transactionName: "Giao dịch A",
+      date: "2024-10-01",
+      executor: "User 1",
+      receiver: "User 2",
+      transactionType: "Mua dịch vụ", // hoặc "giao dịch mua bán hoa", "giao dịch đặt cọc"
+      status: "Chờ thanh toán", // hoặc "giao dịch thành công", "giao dịch bị hủy"
+      amount: 1000000, // Số tiền giao dịch
+    },
+    // Thêm các giao dịch khác...
   ];
+  
 
 function Wallet() {
     return (
-
-        <div className="container">
+        <div className="container-wallet">
             {/* Section 1 (30%) */}
             <section className="section">
                 <h2>Thông tin tài khoản</h2>
