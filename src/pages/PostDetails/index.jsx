@@ -12,8 +12,9 @@ const PostDetails = () => {
     const fetchFlowers = async () => {
       try {
         const response = await axiosClient.get(`/Post/${id}`);
+        console.log(id)
         setFlowerPost(response.data);
-        const storeId = response.data.store?.id;
+        const storeId = response.data.storeId; // Adjusted to storeId
         if (storeId) {
           fetchRelativeFlowers(storeId);
         }
@@ -26,15 +27,14 @@ const PostDetails = () => {
     const fetchRelativeFlowers = async (storeId) => {
       try {
         const response = await axiosClient.get(`/Post/store/${storeId}`);
-        console.log(response.data);
         setFlowerRelativePost(response.data);
       } catch (error) {
-        setError("Failed to fetch flowers");
+        setError("Failed to fetch related flowers");
         console.error(error);
       }
     };
     fetchFlowers();
-  }, [axiosClient, id]);
+  }, [id]);
 
   if (!flowerPost) {
     return <div>Loading...</div>;
@@ -50,7 +50,6 @@ const PostDetails = () => {
     imageUrls,
     mainImageUrl,
     unitMeasure,
-    store,
     flower,
   } = flowerPost;
 
@@ -62,12 +61,12 @@ const PostDetails = () => {
             <aside className="col-lg-6">
               <div className="border rounded-4 mb-3 d-flex justify-content-center">
                 <a
-                  data-fslightbox="mygalley"
+                  data-fslightbox="mygallery"
                   className="rounded-4"
                   target="_blank"
                   rel="noopener noreferrer"
                   data-type="image"
-                  href="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big.webp"
+                  href={mainImageUrl}
                 >
                   <img
                     style={{
@@ -76,31 +75,27 @@ const PostDetails = () => {
                       margin: "auto",
                     }}
                     className="rounded-4 fit"
-                    src={
-                      mainImageUrl !== "string"
-                        ? mainImageUrl
-                        : "https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big.webp"
-                    }
-                    alt="Main Hoodie"
+                    src={mainImageUrl}
+                    alt={title}
                   />
                 </a>
               </div>
               <div className="d-flex justify-content-center mb-3">
-                {["big1", "big2", "big3", "big4", "big"].map((img, index) => (
+                {imageUrls.map((imgUrl, index) => (
                   <a
                     key={index}
-                    data-fslightbox="mygalley"
+                    data-fslightbox="mygallery"
                     className="border mx-1 rounded-2"
                     target="_blank"
                     rel="noopener noreferrer"
                     data-type="image"
-                    href={`https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/${img}.webp`}
+                    href={imgUrl}
                   >
                     <img
                       width={60}
                       height={60}
                       className="rounded-2"
-                      src={`https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/${img}.webp`}
+                      src={imgUrl}
                       alt={`Thumbnail ${index + 1}`}
                     />
                   </a>
@@ -123,8 +118,10 @@ const PostDetails = () => {
                   <dt className="col-4">Flower name:</dt>
                   <dd className="col-8">{flower.name}</dd>
                   <dt className="col-4">Expired at:</dt>
-                  <dd className="col-8">{expiredAt}</dd>
-                  <dt className="col-4">Unit measure</dt>
+                  <dd className="col-8">{new Date(expiredAt).toLocaleString()}</dd>
+                  <dt className="col-4">Location:</dt>
+                  <dd className="col-8">{location}</dd>
+                  <dt className="col-4">Unit measure:</dt>
                   <dd className="col-8">{unitMeasure}</dd>
                 </div>
                 <hr />
@@ -143,7 +140,7 @@ const PostDetails = () => {
                       <input
                         type="text"
                         className="form-control text-center border border-secondary"
-                        placeholder={14}
+                        placeholder="1"
                         aria-label="Example text with button addon"
                         aria-describedby="button-addon1"
                       />
@@ -181,117 +178,14 @@ const PostDetails = () => {
           <div className="row gx-4">
             <div className="col-lg-8 mb-4">
               <div className="border rounded-2 px-3 py-2 bg-white">
-                <ul
-                  className="nav nav-pills nav-justified mb-3"
-                  id="ex1"
-                  role="tablist"
-                >
-                  {[
-                    "Specification",
-                    "Warranty info",
-                    "Shipping info",
-                    "Seller profile",
-                  ].map((tab, index) => (
-                    <li
-                      className="nav-item d-flex"
-                      role="presentation"
-                      key={index}
-                    >
-                      <a
-                        className={`nav-link d-flex align-items-center justify-content-center w-100 ${
-                          index === 0 ? "active" : ""
-                        }`}
-                        id={`ex1-tab-${index + 1}`}
-                        data-mdb-toggle="pill"
-                        href={`#ex1-pills-${index + 1}`}
-                        role="tab"
-                        aria-controls={`ex1-pills-${index + 1}`}
-                        aria-selected={index === 0}
-                      >
-                        {tab}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-                <div className="tab-content" id="ex1-content">
-                  <div
-                    className="tab-pane fade show active"
-                    id="ex1-pills-1"
-                    role="tabpanel"
-                    aria-labelledby="ex1-tab-1"
-                  >
-                    <p>
-                      With supporting text below as a natural lead-in to
-                      additional content. Lorem ipsum dolor sit amet,
-                      consectetur adipisicing elit, sed do eiusmod tempor
-                      incididunt ut labore et dolore magna aliqua. Ut enim ad
-                      minim veniam, quis nostrud exercitation ullamco laboris
-                      nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                      dolor in reprehenderit in voluptate velit esse cillum
-                      dolore eu fugiat nulla pariatur.
-                    </p>
-                    <div className="row mb-2">
-                      <div className="col-12 col-md-6">
-                        <ul className="list-unstyled mb-0">
-                          {[
-                            "Some great feature name here",
-                            "Lorem ipsum dolor sit amet, consectetur",
-                            "Duis aute irure dolor in reprehenderit",
-                            "Optical heart sensor",
-                          ].map((feature, index) => (
-                            <li key={index}>
-                              <i className="fas fa-check text-success me-2" />
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="col-12 col-md-6 mb-0">
-                        <ul className="list-unstyled">
-                          {[
-                            "Easy fast and very good",
-                            "Some great feature name here",
-                            "Modern style and design",
-                          ].map((feature, index) => (
-                            <li key={index}>
-                              <i className="fas fa-check text-success me-2" />
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                    <table className="table border mt-3 mb-2">
-                      <tbody>
-                        {[
-                          {
-                            label: "Display:",
-                            value: "13.3-inch LED-backlit display with IPS",
-                          },
-                          {
-                            label: "Processor capacity:",
-                            value: "2.3GHz dual-core Intel Core i5",
-                          },
-                          {
-                            label: "Camera quality:",
-                            value: "720p FaceTime HD camera",
-                          },
-                          { label: "Port:", value: "USB-C, USB-A, HDMI" },
-                        ].map((item, index) => (
-                          <tr key={index}>
-                            <th scope="row">{item.label}</th>
-                            <td>{item.value}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+                <h5 className="mb-3">Additional Information</h5>
+                {/* Here you can add more details about the product as needed */}
+                <p>More information about the flower post can be added here.</p>
               </div>
             </div>
             <div className="col-lg-4 mb-4">
               <div className="bg-white rounded-2 p-3 border">
-                <h5 className="mb-3">Related posts store</h5>
+                <h5 className="mb-3">Related Posts Store</h5>
                 {flowerRelativePost?.length > 0 ? (
                   flowerRelativePost.map((relatedPost, index) => (
                     <div
@@ -299,28 +193,19 @@ const PostDetails = () => {
                       key={relatedPost.id}
                     >
                       <img
-                        src={
-                          relatedPost.mainImageUrl ||
-                          "https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big.webp"
-                        }
+                        src={relatedPost.mainImageUrl || "https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big.webp"}
                         className="rounded-2"
                         alt={relatedPost.title}
                         style={{ width: "40%" }}
                       />
                       <div className="ms-3">
                         <h6 className="mb-1">{relatedPost.title}</h6>
-                        {relatedPost.flower &&
-                        relatedPost.flower.price !== undefined ? (
+                        {relatedPost.flower && relatedPost.flower.price !== undefined ? (
                           <span className="text-muted">
-                            {Math.floor(
-                              relatedPost.flower.price
-                            ).toLocaleString()}{" "}
-                            VND
+                            {Math.floor(relatedPost.flower.price).toLocaleString()} VND
                           </span>
                         ) : (
-                          <span className="text-muted">
-                            Price not available
-                          </span>
+                          <span className="text-muted">Price not available</span>
                         )}
                       </div>
                       <a href="#" className="btn btn-outline-primary btn-sm">

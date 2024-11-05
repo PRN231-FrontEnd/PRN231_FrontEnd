@@ -26,7 +26,8 @@ function RoutesWrapper() {
       <Route exact path={routes.HOME} element={<Home />} />
       <Route exact path={routes.ABOUT} element={<About />} />
       <Route exact path={routes.FLOWERS} element={<ListingProducts />} />
-      <Route exact path={routes.POSTDETAILS} element={<PostDetails />} />
+      {/* <Route exact path={routes.POSTDETAILS} element={<PostDetails />} /> */}
+      <Route exact path="/post-details/:id" element={<PostDetails />} />
       <Route exact path={routes.CREATEPOST} element={<CreatePost />} />
       <Route exact path={routes.MESSAGE} element={<Message />} />
       <Route exact path="/login" element={<Login />} />
