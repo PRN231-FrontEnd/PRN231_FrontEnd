@@ -3,6 +3,7 @@ import { Menu, MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import "../pageDropDownOptions/pageDropDownOptions.css";
+import { useRoutes } from "../../../context/RouteProvider";
 
 const MyDropdown = ({ button }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -15,7 +16,7 @@ const MyDropdown = ({ button }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const routes = useRoutes();
   return (
     <div className={open ? 'dropdown-open' : ''}>
       {/* Render dynamic button with arrow */}
@@ -54,7 +55,7 @@ const MyDropdown = ({ button }) => {
           <Link to="/store/your-store">Your Store</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Link to="/store/setup-store">Set Up Store</Link>
+          <Link to={routes.SETUPSTORE}>Set Up Store</Link>
         </MenuItem> 
         <MenuItem onClick={handleClose}>
           <Link to="/store/store-posts">Your Store Posts</Link>
@@ -96,7 +97,7 @@ const MyDropdown = ({ button }) => {
           <Link to="/invoice-transactions/">Invoice Transactions</Link>
         </MenuItem>   
         <MenuItem onClick={handleClose}>
-          <Link to="/admin/dashboard">Invoice Transactions</Link>
+          <Link to="/admin/dashboard">Admin Dashboard</Link>
         </MenuItem>      
       </Menu>
     </div>

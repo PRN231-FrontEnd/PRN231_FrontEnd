@@ -160,205 +160,211 @@ const SetupStore: React.FC = () => {
 
 
   return (
-    <Card style={{ width: '100%', maxWidth: 800, margin: '0 auto' }}>
-      <Title level={2}>Set Up Your Flower Store</Title>
-      <Form
-        form={form}
-        name="setup-store"
-        onFinish={onFinish}
-        layout="vertical"
-        requiredMark={false}
-      >
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item
-              name="name"
-              label="Store Name"
-              rules={[{ required: true, message: 'Please input your store name!' }]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item
-              name="address"
-              label="Address"
-              rules={[{ required: true, message: 'Please input your store address!' }]}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item
-              name="coverPhotoUrl"
-              label="Cover Photo"
-              rules={[{ required: true, message: 'Please upload a cover photo!' }]}
-            >
-              <Upload
-                listType="picture-card"
-                maxCount={1}
-                action="https://flowerexchange.azurewebsites.net/api/media/upload"
-                showUploadList={{
-                  showPreviewIcon: true,
-                  showRemoveIcon: true,
-                }}
-                onPreview={handlePreview}
-                onRemove={() => handleRemoveImage('cover')}
-                beforeUpload={(file) => {
-                  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-                  if (!isJpgOrPng) {
-                    message.error('You can only upload JPG/PNG file!');
-                  }
-                  const isLt5M = file.size / 1024 / 1024 < 5;
-                  if (!isLt5M) {
-                    message.error('Image must smaller than 5MB!');
-                  }
-                  return isJpgOrPng && isLt5M;
-                }}
-                onChange={(info) => handleImageUpload(info, 'cover')}
-              >
-                    <div>
-  {messageUploadCoverPhoto !== "Replace" ? <PlusOutlined /> : <RetweetOutlined />}
-  <div style={{ marginTop: 8 }}>
-    {messageUploadCoverPhoto}
-  </div>
-</div>
-
-
-    
-
-              </Upload>
-                                      {previewImage && (
-        <Image
-          wrapperStyle={{ display: 'none' }}
-          preview={{
-            visible: previewOpen,
-            onVisibleChange: (visible) => setPreviewOpen(visible),
-            afterOpenChange: (visible) => !visible && setPreviewImage(''),
-          }}
-          src={previewImage}
-        />
-      )}
-
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item
-              name="avatarUrl"
-              label="Avatar"
-              rules={[{ required: true, message: 'Please upload an avatar!' }]}
-            >
-              <Upload
-                listType="picture-card"
-                maxCount={1}
-                action="https://flowerexchange.azurewebsites.net/api/media/upload"
-                showUploadList={{
-                  showPreviewIcon: true,
-                  showRemoveIcon: true,
-                }}
-                onPreview={handlePreview}
-                onRemove={() => handleRemoveImage('avatar')}
-                beforeUpload={(file) => {
-                  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-                  if (!isJpgOrPng) {
-                    message.error('You can only upload JPG/PNG file!');
-                  }
-                  const isLt5M = file.size / 1024 / 1024 < 5;
-                  if (!isLt5M) {
-                    message.error('Image must smaller than 5MB!');
-                  }
-                  return isJpgOrPng && isLt5M;
-                }}
-                onChange={(info) => handleImageUpload(info, 'avatar')}
-              >
-                   <div>
-  {messageUploadAvatar !== "Replace" ? <PlusOutlined /> : <RetweetOutlined />}
-  <div style={{ marginTop: 8 }}>
-    {messageUploadAvatar}
-  </div>
-</div>
-              </Upload>
-                {previewImage && (
-                <Image
-                  wrapperStyle={{ display: 'none' }}
-                  preview={{
-                    visible: previewOpen,
-                     onVisibleChange: (visible) => setPreviewOpen(visible),
-                     afterOpenChange: (visible) => !visible && setPreviewImage(''),
-                  }}
-                  src={previewImage}
-                />
-              )}
- 
-
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Form.Item
-          name="descriptions"
-          label="Description"
-          rules={[{ required: true, message: 'Please input your store description!' }]}
-        >
-          <TextArea rows={4} />
-        </Form.Item>
-
-        <Form.Item
-          name="slug"
-          label="Store Slug"
-          rules={[{ required: true, message: 'Please input your store slug!.' }]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.List name="phones">
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map((field, index) => (
+    <div className="container-fluid">
+      <div className='setup-store-space mt-5'>
+      <Card style={{ width: '100%', maxWidth: 800, margin: '0 auto' }}>
+          <Title level={2}>Set Up Your Flower Store</Title>
+          <Form
+            form={form}
+            name="setup-store"
+            onFinish={onFinish}
+            layout="vertical"
+            requiredMark={false}
+          >
+            <Row gutter={16}>
+              <Col span={12}>
                 <Form.Item
-                  required={false}
-                  key={field.key}
-                  label={index === 0 ? 'Phone Numbers' : ''}
+                  name="name"
+                  label="Store Name"
+                  rules={[{ required: true, message: 'Please input your store name!' }]}
                 >
-                  <Form.Item
-                    {...field}
-                    validateTrigger={['onChange', 'onBlur']}
-                    rules={[{ required: true, whitespace: true, message: "Please input phone number or delete this field." }]}
-                    noStyle
+                  <Input />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="address"
+                  label="Address"
+                  rules={[{ required: true, message: 'Please input your store address!' }]}
+                >
+                  <Input />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Row gutter={16}>
+              <Col span={12}>
+                <Form.Item
+                  name="coverPhotoUrl"
+                  label="Cover Photo"
+                  rules={[{ required: true, message: 'Please upload a cover photo!' }]}
+                >
+                  <Upload
+                    listType="picture-card"
+                    maxCount={1}
+                    action="https://flowerexchange.azurewebsites.net/api/media/upload"
+                    showUploadList={{
+                      showPreviewIcon: true,
+                      showRemoveIcon: true,
+                    }}
+                    onPreview={handlePreview}
+                    onRemove={() => handleRemoveImage('cover')}
+                    beforeUpload={(file) => {
+                      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+                      if (!isJpgOrPng) {
+                        message.error('You can only upload JPG/PNG file!');
+                      }
+                      const isLt5M = file.size / 1024 / 1024 < 5;
+                      if (!isLt5M) {
+                        message.error('Image must smaller than 5MB!');
+                      }
+                      return isJpgOrPng && isLt5M;
+                    }}
+                    onChange={(info) => handleImageUpload(info, 'cover')}
                   >
-                    <Input style={{ width: '60%' }} placeholder="Phone number" />
-                  </Form.Item>
-                  {fields.length > 1 && (
-                    <MinusCircleOutlined
-                      className="dynamic-delete-button"
-                      onClick={() => remove(field.name)}
+                        <div>
+      {messageUploadCoverPhoto !== "Replace" ? <PlusOutlined /> : <RetweetOutlined />}
+      <div style={{ marginTop: 8 }}>
+        {messageUploadCoverPhoto}
+      </div>
+    </div>
+
+
+        
+
+                  </Upload>
+                                          {previewImage && (
+            <Image
+              wrapperStyle={{ display: 'none' }}
+              preview={{
+                visible: previewOpen,
+                onVisibleChange: (visible) => setPreviewOpen(visible),
+                afterOpenChange: (visible) => !visible && setPreviewImage(''),
+              }}
+              src={previewImage}
+            />
+          )}
+
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="avatarUrl"
+                  label="Avatar"
+                  rules={[{ required: true, message: 'Please upload an avatar!' }]}
+                >
+                  <Upload
+                    listType="picture-card"
+                    maxCount={1}
+                    action="https://flowerexchange.azurewebsites.net/api/media/upload"
+                    showUploadList={{
+                      showPreviewIcon: true,
+                      showRemoveIcon: true,
+                    }}
+                    onPreview={handlePreview}
+                    onRemove={() => handleRemoveImage('avatar')}
+                    beforeUpload={(file) => {
+                      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+                      if (!isJpgOrPng) {
+                        message.error('You can only upload JPG/PNG file!');
+                      }
+                      const isLt5M = file.size / 1024 / 1024 < 5;
+                      if (!isLt5M) {
+                        message.error('Image must smaller than 5MB!');
+                      }
+                      return isJpgOrPng && isLt5M;
+                    }}
+                    onChange={(info) => handleImageUpload(info, 'avatar')}
+                  >
+                      <div>
+      {messageUploadAvatar !== "Replace" ? <PlusOutlined /> : <RetweetOutlined />}
+      <div style={{ marginTop: 8 }}>
+        {messageUploadAvatar}
+      </div>
+    </div>
+                  </Upload>
+                    {previewImage && (
+                    <Image
+                      wrapperStyle={{ display: 'none' }}
+                      preview={{
+                        visible: previewOpen,
+                        onVisibleChange: (visible) => setPreviewOpen(visible),
+                        afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                      }}
+                      src={previewImage}
                     />
                   )}
-                </Form.Item>
-              ))}
-              <Form.Item>
-                <Button
-                  type="dashed"
-                  onClick={() => add()}
-                  icon={<PlusOutlined />}
-                >
-                  Add Phone Number
-                </Button>
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
+    
 
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Set Up Store
-          </Button>
-        </Form.Item>
-      </Form>
-    </Card>
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Form.Item
+              name="descriptions"
+              label="Description"
+              rules={[{ required: true, message: 'Please input your store description!' }]}
+            >
+              <TextArea rows={4} />
+            </Form.Item>
+
+            <Form.Item
+              name="slug"
+              label="Store Slug"
+              rules={[{ required: true, message: 'Please input your store slug!.' }]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.List name="phones">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map((field, index) => (
+                    <Form.Item
+                      required={false}
+                      key={field.key}
+                      label={index === 0 ? 'Phone Numbers' : ''}
+                    >
+                      <Form.Item
+                        {...field}
+                        validateTrigger={['onChange', 'onBlur']}
+                        rules={[{ required: true, whitespace: true, message: "Please input phone number or delete this field." }]}
+                        noStyle
+                      >
+                        <Input style={{ width: '60%' }} placeholder="Phone number" />
+                      </Form.Item>
+                      {fields.length > 1 && (
+                        <MinusCircleOutlined
+                          className="dynamic-delete-button"
+                          onClick={() => remove(field.name)}
+                        />
+                      )}
+                    </Form.Item>
+                  ))}
+                  <Form.Item>
+                    <Button
+                      type="dashed"
+                      onClick={() => add()}
+                      icon={<PlusOutlined />}
+                    >
+                      Add Phone Number
+                    </Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
+
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                Set Up Store
+              </Button>
+            </Form.Item>
+          </Form>
+        </Card>
+      </div>
+        
+    </div>
+   
   );
 };
 
