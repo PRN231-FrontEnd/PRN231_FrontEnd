@@ -29,19 +29,7 @@ const MyDropdown = ({ button }) => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>
-          <Link to="/about">About Us</Link>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Link to="/contact">Contact</Link>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Link to="/account">My Account</Link>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Link to="/store/setup-store">Set Up Store</Link>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
+         <MenuItem onClick={handleClose}>
           <Link to="/login">Login</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
@@ -54,15 +42,62 @@ const MyDropdown = ({ button }) => {
           <Link to="/reset-password">Reset password</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Link to="/purchase-guide">Purchase Guide</Link>
+          <Link to="/account/settings">Account Settings</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Link to="/privacy-policy">Privacy Policy</Link>
+          <Link to="/account/wallet">Account Wallet</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Link to="/terms-of-service">Terms of Service</Link>
+          <Link to="/posts/individual-posts">Your Individual Post</Link>
         </MenuItem>
-      
+        <MenuItem onClick={handleClose}>
+          <Link to="/store/your-store">Your Store</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/store/setup-store">Set Up Store</Link>
+        </MenuItem> 
+        <MenuItem onClick={handleClose}>
+          <Link to="/store/store-posts">Your Store Posts</Link>
+        </MenuItem>        
+        <MenuItem onClick={handleClose}>
+          <Link to="/post-services/checkout">Post Services Checkout</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/post-services/payment">Post Service Payment</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/shop/checkout-buy-now">Shop Payment Buy Now</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/shop/checkout-deposit">Shop Payment Deposit</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/shop/payment">Shop Payment Deposit</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/saved-posts">Your Saved Posts</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/messages">Messages</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/notification">Notification</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/post-report">Post Report</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/seller-rating">Seller Rating</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/store-rating">Store Rating</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/invoice-transactions/">Invoice Transactions</Link>
+        </MenuItem>   
+        <MenuItem onClick={handleClose}>
+          <Link to="/admin/dashboard">Invoice Transactions</Link>
+        </MenuItem>      
       </Menu>
     </div>
   );
