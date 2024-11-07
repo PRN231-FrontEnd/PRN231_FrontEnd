@@ -19,7 +19,7 @@ function Product({ id, tag, title, description, price, location, imageUrl }) {
           alt={title}
         />
         <div className="info">
-          <span className="d-block catName">Flower</span>
+          {/* <span className="d-block catName">Flower</span> */}
           {/* <h4 className="title">
             <Link to={`/postdetails/${id}`}>{title}</Link>
           </h4> */}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axiosClient from "../../utils/axios-client";
 
 const PostDetails = () => {
@@ -7,16 +7,25 @@ const PostDetails = () => {
   const [flowerPost, setFlowerPost] = useState(null);
   const [flowerRelativePost, setFlowerRelativePost] = useState(null);
   const [error, setError] = useState(null);
+  const [relatedId, setRelatedId] = useState(null);
+  const [relatedName, setRelatedName] = useState(null);
 
   useEffect(() => {
     const fetchFlowers = async () => {
       try {
         const response = await axiosClient.get(`/Post/${id}`);
-        console.log(id)
         setFlowerPost(response.data);
-        const storeId = response.data.storeId; // Adjusted to storeId
-        if (storeId) {
-          fetchRelativeFlowers(storeId);
+        const relatedId = response.data.storeId == null ? response.data.sellerId : response.data.storeId
+        setRelatedId(relatedId);
+        if (response.data.store == null) {
+          const relatedName = response.data.seller.fullName;
+          setRelatedName(relatedName)
+        } else {
+          const relatedName = response.data.store.name;
+          setRelatedName(relatedName)
+        }
+        if (relatedId) {
+          fetchRelativeFlowers(relatedId);
         }
       } catch (error) {
         setError("Failed to fetch flowers");
@@ -24,15 +33,16 @@ const PostDetails = () => {
       }
     };
 
-    const fetchRelativeFlowers = async (storeId) => {
+    const fetchRelativeFlowers = async (relatedId) => {
       try {
-        const response = await axiosClient.get(`/Post/store/${storeId}`);
+        const response = await axiosClient.get(`/Post/store/${relatedId}`);
         setFlowerRelativePost(response.data);
       } catch (error) {
         setError("Failed to fetch related flowers");
         console.error(error);
       }
     };
+
     fetchFlowers();
   }, [id]);
 
@@ -123,6 +133,10 @@ const PostDetails = () => {
                   <dd className="col-8">{location}</dd>
                   <dt className="col-4">Unit measure:</dt>
                   <dd className="col-8">{unitMeasure}</dd>
+                  <dt className="col-4">Seller/Store:</dt>
+                  <dd className="col-8"><Link to={`/post-shop/${relatedId}`} className="text-decoration-none">
+                    {relatedName}
+                  </Link></dd>
                 </div>
                 <hr />
                 <div className="row mb-4">
