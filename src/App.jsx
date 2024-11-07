@@ -15,7 +15,7 @@ import Register from "./pages/Register/index";
 import CreatePost from "./pages/CreatePost/index";
 import Message from "./pages/Message";
 import ShopPage from "./pages/ShopPage";
-
+import AccountWallet from "./pages/AccountWallet/index";
 const queryClient = new QueryClient();
 
 function RoutesWrapper() {
@@ -33,6 +33,7 @@ function RoutesWrapper() {
       <Route exact path={routes.MESSAGE} element={<Message />} />
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/register" element={<Register />} />
+      <Route exact path="/wallet" element={<AccountWallet />} />
     </Routes>
   );
 }
