@@ -75,7 +75,7 @@ export default function Message() {
         const fetchConversations = async () => {
             if (userId) {
                 try {
-                    const response = await axios.get(`http://localhost:5223/Conversation/${userId}`);
+                    const response = await axios.get(`https://flowerexchange.azurewebsites.net/Conversation/${userId}`);
                     setConversations(response.data);
                 } catch (error) {
                     console.error("Error fetching conversations:", error);
@@ -88,7 +88,7 @@ export default function Message() {
 
     const fetchMessages = async (conversationId) => {
         try {
-            const response = await axios.get(`http://localhost:5223/thread/${conversationId}`);
+            const response = await axios.get(`https://flowerexchange.azurewebsites.net/thread/${conversationId}`);
             setMessages(response.data);
             setSelectedConversationId(conversationId);
         } catch (error) {
@@ -110,7 +110,7 @@ export default function Message() {
                     recipientId,
                 };
 
-                await axios.post("http://localhost:5223/Message", newMessage);
+                await axios.post("https://flowerexchange.azurewebsites.net/Message", newMessage);
                 await connectionRef.current.invoke("SendMessage", userId, messageContent);
 
                 fetchMessages(selectedConversationId);

@@ -14,8 +14,8 @@ import Login from "./pages/Login/index";
 import Register from "./pages/Register/index";
 import CreatePost from "./pages/CreatePost/index";
 import Message from "./pages/Message";
+import ShopPage from "./pages/ShopPage";
 import AccountWallet from "./pages/AccountWallet/index";
-
 const queryClient = new QueryClient();
 
 function RoutesWrapper() {
@@ -28,6 +28,7 @@ function RoutesWrapper() {
       <Route exact path={routes.FLOWERS} element={<ListingProducts />} />
       {/* <Route exact path={routes.POSTDETAILS} element={<PostDetails />} /> */}
       <Route exact path="/post-details/:id" element={<PostDetails />} />
+      <Route exact path="/post-shop/:id" element={<ShopPage />} />
       <Route exact path={routes.CREATEPOST} element={<CreatePost />} />
       <Route exact path={routes.MESSAGE} element={<Message />} />
       <Route exact path="/login" element={<Login />} />
