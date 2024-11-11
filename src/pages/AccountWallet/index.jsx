@@ -16,6 +16,7 @@ function Wallet() {
         const fetchCurrentUser = async () => {
             try {
                 const response = await fetch('https://flowerexchange.azurewebsites.net/api/account/current-user', {
+                // const response = await fetch('https://flowerexchange.azurewebsites.net/api/account/current-user', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`, // Thêm JWT vào header
@@ -55,7 +56,7 @@ function Wallet() {
     }, [userId, token]);
 
     if (!walletData) {
-        return <p>Loading wallet information...</p>;
+        return <p className="loading-text">Loading wallet information...</p>;
     }
 
     return (
@@ -73,7 +74,8 @@ function Wallet() {
             {/* Section 2 (70%) */}
             <section className="section">
                 {accountId ? (
-                    <TransactionList accountId={"5750a170-88a9-4b68-81a1-91bacca2546f"} />
+                    <TransactionList accountId={userId.id} />
+                    // <TransactionList accountId="5750a170-88a9-4b68-81a1-91bacca2546f" />
                 ) : (
                     <p>Loading transaction history...</p>
                 )}

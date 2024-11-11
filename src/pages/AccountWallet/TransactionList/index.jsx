@@ -68,8 +68,8 @@ const TransactionList = ({ accountId }) => {
     }
 
     try {
-      const endpoint = transactionType === 'withdraw' 
-        ? 'https://localhost:7246/withdraw' 
+      const endpoint = transactionType === 'withdraw'
+        ? 'https://localhost:7246/withdraw'
         : 'https://localhost:7246/deposit';
 
       await axios.post(endpoint, { accountId, amount: parseFloat(amount) });
@@ -95,7 +95,11 @@ const TransactionList = ({ accountId }) => {
   return (
     <div className="transaction-list">
       {selectedTransaction ? (
-        <TransactionDetail transaction={selectedTransaction} onBack={handleBackClick} />
+        <TransactionDetail
+          transactionId={selectedTransaction.id}
+          accountId={accountId}
+          onBack={handleBackClick}
+        />
       ) : (
         <>
           <h3>Danh sách giao dịch</h3>
@@ -110,18 +114,24 @@ const TransactionList = ({ accountId }) => {
 
           <div className="transaction-list-body">
             <div className="table-header">
-              <span className="header-cell">Mã giao dịch</span>
-              <span className="header-cell">Loại giao dịch</span>
               <span className="header-cell">Ngày Tạo</span>
+              <span className="header-cell">Loại giao dịch</span>
+              <span className="header-cell">Mô tả</span>
+              <span className="header-cell">Người gữi</span>
+              <span className="header-cell">Người nhận</span>
+              <span className="header-cell">Trạng thái</span>
               <span className="header-cell">Giá tiền</span>
               <span className="header-cell">Chi tiết</span>
             </div>
-            
+
             {filteredTransactions.map((transaction) => (
               <div key={transaction.id} className={`transaction ${transaction.type.toLowerCase()}`}>
-                <span className="transaction-cell">{transaction.id}</span>
+                <span className="transaction-cell">{transaction.createAt}</span>
                 <span className="transaction-cell">{transaction.type}</span>
-                <span className="transaction-cell">{new Date().toLocaleDateString()}</span>
+                <span className="transaction-cell">{transaction.direction}</span>
+                <span className="transaction-cell">{transaction.fromUserFullName || "Hệ thống"}</span>
+                <span className="transaction-cell">{transaction.toUserFullName || "Hệ thống"}</span>
+                <span className="transaction-cell">{transaction.status}</span>
                 <span className="transaction-cell">{transaction.amount || 'N/A'}</span>
                 <span className="transaction-cell">
                   <button onClick={() => handleDetailClick(transaction)}>
