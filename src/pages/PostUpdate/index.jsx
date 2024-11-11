@@ -49,17 +49,17 @@ const PostUpdate = () => {
           },
         });
 
-        // const relatedId = response.data.storeId || response.data.sellerId;
-        // setRelatedId(relatedId);
+        const relatedId = response.data.storeId || response.data.sellerId;
+        setRelatedId(relatedId);
 
-        // const relatedName = response.data.store
-        //   ? response.data.store.name
-        //   : response.data.seller?.fullName;
-        // setRelatedName(relatedName);
+        const relatedName = response.data.store
+          ? response.data.store.name
+          : response.data.seller?.fullName;
+        setRelatedName(relatedName);
 
-        // if (relatedId) {
-        //   fetchRelativeFlowers(relatedId);
-        // }
+        if (relatedId) {
+          fetchRelativeFlowers(relatedId);
+        }
       } catch (error) {
         setError("Failed to fetch flowers");
         console.error(error);
