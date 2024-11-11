@@ -19,9 +19,10 @@ import AccountWallet from "./pages/AccountWallet/index";
 import PaymentMethods from "./pages/Payment";
 import SuccessNoti from "./pages/SuccessNoti";
 import ProfilePage from "./pages/UserProfile";
+import PostUpdate from "./pages/PostUpdate";
 const queryClient = new QueryClient();
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function RoutesWrapper() {
   const routes = useRoutes(); // Now this is within RouteProvider
@@ -33,9 +34,15 @@ function RoutesWrapper() {
       <Route exact path={routes.FLOWERS} element={<ListingProducts />} />
       {/* <Route exact path={routes.POSTDETAILS} element={<PostDetails />} /> */}
       <Route exact path="/post-details/:id" element={<PostDetails />} />
+      <Route exact path="/post-update/:id" element={<PostUpdate />} />
+
       <Route exact path="/user-profile/:id" element={<ProfilePage />} />
       <Route exact path="/post-shop/:id" element={<ShopPage />} />
-      <Route exact path="/Checkout-detail/:postId" element={<PaymentMethods />} />
+      <Route
+        exact
+        path="/Checkout-detail/:postId"
+        element={<PaymentMethods />}
+      />
       <Route exact path={routes.CREATEPOST} element={<CreatePost />} />
       <Route exact path={routes.MESSAGE} element={<Message />} />
       <Route exact path="/login" element={<Login />} />

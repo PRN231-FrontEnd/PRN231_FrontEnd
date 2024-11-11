@@ -15,6 +15,8 @@ const PostDetails = () => {
   const user = JSON.parse(localStorage.getItem("decodedUser")) || {};
   const userId = user.jti;
 
+  const decodedUser = JSON.parse(localStorage.getItem("decodedUser"));
+
   useEffect(() => {
     const fetchFlowers = async () => {
       try {
@@ -59,11 +61,14 @@ const PostDetails = () => {
     if (!flowerPost) return;
 
     try {
-      await axiosClient.post("https://flowerexchange.azurewebsites.net/Message", {
-        content: `Cho tôi hỏi về sản phẩm ${flowerPost.title}`,
-        senderId: userId,
-        recipientId: flowerPost.sellerId,
-      });
+      await axiosClient.post(
+        "https://flowerexchange.azurewebsites.net/Message",
+        {
+          content: `Cho tôi hỏi về sản phẩm ${flowerPost.title}`,
+          senderId: userId,
+          recipientId: flowerPost.sellerId,
+        }
+      );
       alert("Message sent successfully!");
     } catch (error) {
       console.error("Failed to send message:", error);
@@ -136,20 +141,29 @@ const PostDetails = () => {
                   <dt className="col-4">Flower name:</dt>
                   <dd className="col-8">{flower?.name || "Not specified"}</dd>
                   <dt className="col-4">Expired at:</dt>
-                  <dd className="col-8">{new Date(expiredAt).toLocaleString()}</dd>
+                  <dd className="col-8">
+                    {new Date(expiredAt).toLocaleString()}
+                  </dd>
                   <dt className="col-4">Location:</dt>
                   <dd className="col-8">{location}</dd>
                   <dt className="col-4">Unit measure:</dt>
                   <dd className="col-8">{unitMeasure}</dd>
                   <dt className="col-4">Seller/Store:</dt>
                   <dd className="col-8">
-                    <Link to={`/post-shop/${relatedId}`} className="text-decoration-none">
+                    <Link
+                      to={`/post-shop/${relatedId}`}
+                      className="text-decoration-none"
+                    >
                       {relatedName || "Unknown Store"}
                     </Link>
                   </dd>
                 </div>
                 <hr />
-                <button hidden={postStatus === 1} onClick={handleBuyNow} className="btn btn-warning shadow-0">
+                <button
+                  hidden={postStatus === 1}
+                  onClick={handleBuyNow}
+                  className="btn btn-warning shadow-0"
+                >
                   Buy now
                 </button>
                 <a href="#" className="btn btn-primary shadow-0">
@@ -161,6 +175,15 @@ const PostDetails = () => {
                 >
                   <i className="me-1 fa fa-heart fa-lg" /> Save
                 </a>
+                {/* Hiển thị nút Update nếu sellerId trùng với decodedUser.jti */}
+                {decodedUser && relatedId === decodedUser.jti && (
+                  <button
+                    onClick={() => navigate(`/post-update/${id}`)}
+                    className="btn btn-success"
+                  >
+                    Update
+                  </button>
+                )}
               </div>
             </main>
           </div>
@@ -186,7 +209,10 @@ const PostDetails = () => {
                       key={relatedPost.id}
                     >
                       <img
-                        src={relatedPost.mainImageUrl || "https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big.webp"}
+                        src={
+                          relatedPost.mainImageUrl ||
+                          "https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big.webp"
+                        }
                         className="rounded-2"
                         alt={relatedPost.title}
                         style={{ width: "40%" }}
@@ -194,8 +220,11 @@ const PostDetails = () => {
                       <div className="ms-3">
                         <h6 className="mb-1">{relatedPost.title}</h6>
                         <span className="text-muted">
-                          {relatedPost.flower && relatedPost.flower.price !== undefined
-                            ? Math.floor(relatedPost.flower.price).toLocaleString()
+                          {relatedPost.flower &&
+                          relatedPost.flower.price !== undefined
+                            ? Math.floor(
+                                relatedPost.flower.price
+                              ).toLocaleString()
                             : "Price not available"}
                         </span>
                       </div>

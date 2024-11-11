@@ -10,6 +10,7 @@ const routes = {
   CONTACT: "/contact",
   CREATEPOST: "/create-post",
   POSTDETAILS: "/postdetails/:id",
+  POSTUPDATE: "/postupdate/:id",
   MESSAGE: "/message",
   SUCCESSNOTI: "/charge-noti",
 };
