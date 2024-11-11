@@ -48,6 +48,8 @@ function Header() {
   });
 
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("decodedUser")) || {};
+  const userId = user.jti;
 
   const handleCreatePost = () => {
     const token = localStorage.getItem("token");
@@ -59,6 +61,10 @@ function Header() {
     console.error("Error fetching countries:", error);
     return <div>Error fetching countries. Please try again later.</div>;
   }
+
+  const handleChatClick = () => {
+    navigate("/message");  // Navigate to /message
+  };
 
   return (
     <>
@@ -104,8 +110,8 @@ function Header() {
                     sx={{ fontSize: 30 }}
                   />
                 </li>
-                <li className="list-inline-item">
-                  <span className="badge bg-success " id="noti-chat">
+                <li className="list-inline-item" onClick={handleChatClick} style={{ cursor: "pointer" }}>
+                  <span className="badge bg-success" id="noti-chat">
                     Chat
                   </span>
                   <ChatOutlinedIcon className="icon" sx={{ fontSize: 30 }} />

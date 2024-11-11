@@ -3,7 +3,7 @@ import axios from "axios";
 import Product from "../../components/product/product";
 import { v4 as uuidv4 } from "uuid";
 import { Link, useParams } from "react-router-dom";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Select, MenuItem } from "@mui/material";
 
 function ShopPage() {
     const { id: relatedId } = useParams();
@@ -13,10 +13,13 @@ function ShopPage() {
     const [searchString, setSearchString] = useState("");
     const [shopName, setShopName] = useState("");
     const [error, setError] = useState("");
+    const [sortOrder, setSortOrder] = useState("asc");
+    // const user = JSON.parse(localStorage.getItem("decodedUser")) || {};
+    // const userId = user.jti;
 
     const hasFetched = useRef(false);
 
-    const fetchData = async (page, query = "") => {
+    const fetchData = async (page, query = "", order = "asc") => {
         if (loading) return;
 
         setLoading(true);
@@ -29,6 +32,7 @@ function ShopPage() {
                         Title: query,
                         PageNumber: page,
                         PageSize: 10,
+                        OrderBy: `priceWithQuantity ${order}`,
                     },
                 }
             );
@@ -54,15 +58,23 @@ function ShopPage() {
 
     useEffect(() => {
         if (!hasFetched.current) {
-            fetchData(currentPage, searchString);
+            fetchData(currentPage, searchString, sortOrder);
             hasFetched.current = true;
         }
-    }, [currentPage, searchString]);
+    }, [currentPage, searchString, sortOrder]);
 
     const handleSearch = () => {
         setProducts([]);
         setCurrentPage(1);
-        fetchData(1, searchString);
+        fetchData(1, searchString, sortOrder);
+    };
+
+    const handleSortChange = (event) => {
+        const order = event.target.value;
+        setSortOrder(order);
+        setProducts([]);
+        setCurrentPage(1);
+        fetchData(1, searchString, order);
     };
 
     const settings = {
@@ -90,7 +102,7 @@ function ShopPage() {
                     style={{
                         position: "absolute",
                         bottom: "10px",
-                        left: "75px",
+                        left: "200px",
                         transform: "translate(-50%, -50%)",
                         color: "white",
                         fontSize: "32px",
@@ -115,6 +127,15 @@ function ShopPage() {
                                 onChange={(e) => setSearchString(e.target.value)}
                                 style={{ marginRight: "10px", width: "300px" }}
                             />
+                            <Select
+                                value={sortOrder}
+                                onChange={handleSortChange}
+                                variant="outlined"
+                                style={{ marginRight: "10px" }}
+                            >
+                                <MenuItem value="asc">Price Low to High</MenuItem>
+                                <MenuItem value="desc">Price High to Low</MenuItem>
+                            </Select>
                             <Button
                                 variant="contained"
                                 color="success"
@@ -140,7 +161,9 @@ function ShopPage() {
                                     tag={product.priority ? "best" : null}
                                     title={product.title}
                                     description={product.description}
-                                    price={product.price}
+                                    price={product.postStatus === 1
+                                        ? "Contact with shop"
+                                        : Math.ceil(product.flower?.price * product.quantity).toLocaleString()}
                                     location={product.location}
                                     imageUrl={product.mainImageUrl}
                                 />
@@ -161,41 +184,6 @@ function ShopPage() {
                     )}
                 </div>
             </section>
-
-            {/* <section className="homeProducts homeProductsRow2 pt-0">
-                <div className="container-fluid">
-                    <div className="d-flex align-items-center nav-small">
-                        <h2 className="hd mb-0 mt-0">Daily Best Sells</h2>
-                    </div>
-                    <div className="row" style={{ marginTop: 20 }}>
-                        <div className="col-md-3">
-                            <div className="banner">
-                                <img
-                                    src="https://wp.alithemes.com/html/nest/demo/assets/imgs/banner/banner-4.png"
-                                    className="w-100 bannerImg"
-                                />
-                                <div className="banner-text">
-                                    <h2 className="mb-100">
-                                        Bring nature <br /> into your <br /> home
-                                    </h2>
-                                    <Button
-                                        className="button"
-                                        variant="contained"
-                                        color="success"
-                                        style={{ backgroundColor: "#279a65" }}
-                                        endIcon={<ArrowForward />}
-                                    >
-                                        Shop now
-                                    </Button>{" "}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-9 pr-5">
-                            <Slider {...settings} className="prodSlider"></Slider>
-                        </div>
-                    </div>
-                </div>
-            </section> */}
         </>
     );
 }

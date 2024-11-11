@@ -16,6 +16,8 @@ import CreatePost from "./pages/CreatePost/index";
 import Message from "./pages/Message";
 import ShopPage from "./pages/ShopPage";
 import AccountWallet from "./pages/AccountWallet/index";
+import PaymentMethods from "./pages/Payment";
+import SuccessNoti from "./pages/SuccessNoti";
 const queryClient = new QueryClient();
 
 function RoutesWrapper() {
@@ -29,11 +31,13 @@ function RoutesWrapper() {
       {/* <Route exact path={routes.POSTDETAILS} element={<PostDetails />} /> */}
       <Route exact path="/post-details/:id" element={<PostDetails />} />
       <Route exact path="/post-shop/:id" element={<ShopPage />} />
+      <Route exact path="/Checkout-detail/:postId" element={<PaymentMethods />} />
       <Route exact path={routes.CREATEPOST} element={<CreatePost />} />
       <Route exact path={routes.MESSAGE} element={<Message />} />
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/register" element={<Register />} />
       <Route exact path="/wallet" element={<AccountWallet />} />
+      <Route exact path="/charge/noti" element={<SuccessNoti />} />
     </Routes>
   );
 }

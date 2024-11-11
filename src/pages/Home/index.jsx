@@ -96,14 +96,14 @@ function Home() {
                 to={`/post-details/${product.id}`}
                 key={uuidv4()}
                 className="item"
-                style={{ textDecoration: "none", color: "inherit" }} // Xóa gạch chân và giữ màu chữ
+                style={{ textDecoration: "none", color: "inherit" }}
               >
                 <Product
                   id={product.id}
                   tag={product.priority ? "best" : null}
                   title={product.title}
                   description={product.description}
-                  price={product.price}
+                  price={Math.ceil(product.flower?.price * product.quantity).toLocaleString()}
                   location={product.location}
                   imageUrl={product.mainImageUrl}
                 />

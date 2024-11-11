@@ -65,7 +65,7 @@ const Login = () => {
           <Row className="d-flex align-items-center justify-content-center h-100">
             <Col md={8} lg={7} xl={6}>
               <Image
-                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                src="https://png.pngtree.com/png-vector/20220829/ourmid/pngtree-ic22827-vector-pink-and-blue-flower-floral-decoration-with-gold-wedding-png-image_6129036.png"
                 fluid
                 alt="Phone image"
               />

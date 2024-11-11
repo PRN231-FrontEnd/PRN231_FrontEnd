@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axiosClient from "../../utils/axios-client";
+import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
 
 const PostDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [flowerPost, setFlowerPost] = useState(null);
   const [flowerRelativePost, setFlowerRelativePost] = useState(null);
   const [error, setError] = useState(null);
   const [relatedId, setRelatedId] = useState(null);
   const [relatedName, setRelatedName] = useState(null);
+  const user = JSON.parse(localStorage.getItem("decodedUser")) || {};
+  const userId = user.jti;
 
   useEffect(() => {
     const fetchFlowers = async () => {
@@ -46,6 +51,26 @@ const PostDetails = () => {
     fetchFlowers();
   }, [id]);
 
+  const handleBuyNow = () => {
+    navigate(`/Checkout-detail/${id}`);
+  };
+
+  const handleContact = async () => {
+    if (!flowerPost) return;
+
+    try {
+      await axiosClient.post("https://flowerexchange.azurewebsites.net/Message", {
+        content: `Cho tôi hỏi về sản phẩm ${flowerPost.title}`,
+        senderId: userId,
+        recipientId: flowerPost.sellerId,
+      });
+      alert("Message sent successfully!");
+    } catch (error) {
+      console.error("Failed to send message:", error);
+      alert("Failed to send message.");
+    }
+  };
+
   if (!flowerPost) {
     return <div>Loading...</div>;
   }
@@ -56,12 +81,25 @@ const PostDetails = () => {
     quantity,
     location,
     expiredAt,
-    postStatus,
     imageUrls,
     mainImageUrl,
     unitMeasure,
     flower,
+    sellerId,
+    postStatus,
+    seller,
   } = flowerPost;
+
+  const images = [
+    { original: mainImageUrl, thumbnail: mainImageUrl },
+    ...imageUrls.map((imgUrl) => ({
+      original: imgUrl,
+      thumbnail: imgUrl,
+    })),
+  ];
+
+  const isContactDisabled = userId === sellerId;
+
 
   return (
     <div>
@@ -69,52 +107,20 @@ const PostDetails = () => {
         <div className="container">
           <div className="row gx-5">
             <aside className="col-lg-6">
-              <div className="border rounded-4 mb-3 d-flex justify-content-center">
-                <a
-                  data-fslightbox="mygallery"
-                  className="rounded-4"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-type="image"
-                  href={mainImageUrl}
-                >
-                  <img
-                    style={{
-                      maxWidth: "100%",
-                      maxHeight: "100vh",
-                      margin: "auto",
-                    }}
-                    className="rounded-4 fit"
-                    src={mainImageUrl}
-                    alt={title}
-                  />
-                </a>
-              </div>
-              <div className="d-flex justify-content-center mb-3">
-                {imageUrls.map((imgUrl, index) => (
-                  <a
-                    key={index}
-                    data-fslightbox="mygallery"
-                    className="border mx-1 rounded-2"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-type="image"
-                    href={imgUrl}
-                  >
-                    <img
-                      width={60}
-                      height={60}
-                      className="rounded-2"
-                      src={imgUrl}
-                      alt={`Thumbnail ${index + 1}`}
-                    />
-                  </a>
-                ))}
-              </div>
+              <ImageGallery items={images} showPlayButton={false} />
             </aside>
             <main className="col-lg-6">
               <div className="ps-lg-3">
-                <h4 className="title text-dark">{title}</h4>
+                <div className="d-flex align-items-center justify-content-between">
+                  <h4 className="title text-dark">{title}</h4>
+                  <button
+                    className="btn btn-outline-primary"
+                    onClick={handleContact}
+                    hidden={isContactDisabled}
+                  >
+                    Contact with Us
+                  </button>
+                </div>
                 <div className="mb-3">
                   <span className="h5">
                     {Math.floor(flower.price).toLocaleString()} VND
@@ -135,43 +141,13 @@ const PostDetails = () => {
                   <dd className="col-8">{unitMeasure}</dd>
                   <dt className="col-4">Seller/Store:</dt>
                   <dd className="col-8"><Link to={`/post-shop/${relatedId}`} className="text-decoration-none">
-                    {relatedName}
+                    {relatedName} Store of user {seller.fullName}
                   </Link></dd>
                 </div>
                 <hr />
-                <div className="row mb-4">
-                  <div className="col-md-4 col-6 mb-3">
-                    <label className="mb-2 d-block">Quantity</label>
-                    <div className="input-group mb-3" style={{ width: 170 }}>
-                      <button
-                        className="btn btn-white border border-secondary px-3"
-                        type="button"
-                        id="button-addon1"
-                        data-mdb-ripple-color="dark"
-                      >
-                        <i className="fas fa-minus" />
-                      </button>
-                      <input
-                        type="text"
-                        className="form-control text-center border border-secondary"
-                        placeholder="1"
-                        aria-label="Example text with button addon"
-                        aria-describedby="button-addon1"
-                      />
-                      <button
-                        className="btn btn-white border border-secondary px-3"
-                        type="button"
-                        id="button-addon2"
-                        data-mdb-ripple-color="dark"
-                      >
-                        <i className="fas fa-plus" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <a href="#" className="btn btn-warning shadow-0">
+                <button hidden={postStatus === 1} onClick={handleBuyNow} className="btn btn-warning shadow-0">
                   Buy now
-                </a>
+                </button>
                 <a href="#" className="btn btn-primary shadow-0">
                   <i className="me-1 fa fa-shopping-basket" /> Add to cart
                 </a>
@@ -223,7 +199,7 @@ const PostDetails = () => {
                         )}
                       </div>
                       <a href="#" className="btn btn-outline-primary btn-sm">
-                        Add
+                        View Detail
                       </a>
                     </div>
                   ))

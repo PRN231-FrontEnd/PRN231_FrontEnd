@@ -16,11 +16,15 @@ import {
 } from "mdb-react-ui-kit";
 import { useParams } from "react-router-dom";
 import { Button } from "@mui/material";
+import ChargeMoney from "../ChargeMoney";
+import { Toast } from "bootstrap";
+// import "./style.css";
 
 export default function PaymentMethods() {
     const { postId } = useParams();
     const [post, setPost] = useState(null);
     const [walletAmount, setWalletAmount] = useState(0);
+    const [openChargeDialog, setOpenChargeDialog] = useState(false);
     const user = JSON.parse(localStorage.getItem("decodedUser")) || {};
     const userId = user.jti;
 
@@ -38,7 +42,7 @@ export default function PaymentMethods() {
             try {
                 const response = await axiosClient.get(`/api/wallet/${userId}`);
                 setWalletAmount(response.data.totalBalance);
-                console.log(response.data.totalBalance)
+                console.log(response.data.totalBalance);
             } catch (error) {
                 console.error("Error fetching wallet amount", error);
             }
@@ -47,6 +51,18 @@ export default function PaymentMethods() {
         fetchPostDetail();
         fetchWalletAmount();
     }, [postId, userId]);
+
+    const initiatePayment = async () => {
+        try {
+            const response = await axiosClient.post("/api/payment/flower-service", { postId });
+            console.log("Payment successful:", response.data);
+            Toast.success("Thanh toán thành công");
+        } catch (error) {
+            console.error("Error initiating payment", error);
+        }
+    };
+
+    const remainingAmount = post ? walletAmount - (post.quantity * post.flower.price) : 0;
 
     return (
         <section className="h-100 gradient-custom">
@@ -140,10 +156,34 @@ export default function PaymentMethods() {
                                             </strong>
                                         </span>
                                     </MDBListGroupItem>
-
                                 </MDBListGroup>
-                                <Button variant="contained" color="primary" fullWidth size="large">
-                                    Go to checkout
+                                {remainingAmount >= 0 && (
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        fullWidth
+                                        size="large"
+                                        onClick={initiatePayment}
+                                    >
+                                        Buy Now
+                                    </Button>
+                                )}
+                                <Button
+                                    variant="contained"
+                                    color="warning"
+                                    fullWidth
+                                    size="large"
+                                    sx={{
+                                        backgroundColor: "#ff9800",
+                                        color: "white",
+                                        marginTop: 1,
+                                        '&:hover': {
+                                            backgroundColor: "#e68900",
+                                        },
+                                    }}
+                                    onClick={() => setOpenChargeDialog(true)} // Open dialog on click
+                                >
+                                    Charge money in wallet
                                 </Button>
                                 <Button
                                     variant="contained"
@@ -167,6 +207,7 @@ export default function PaymentMethods() {
                     </MDBCol>
                 </MDBRow>
             </MDBContainer>
+            <ChargeMoney open={openChargeDialog} onClose={() => setOpenChargeDialog(false)} />
         </section>
     );
 }

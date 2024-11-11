@@ -31,11 +31,11 @@ function Product({ id, tag, title, description, price, location, imageUrl }) {
               <span className="price text-g font-weight-bold">
                 ${price || "N/A"}
               </span>
-              <Tooltip title="Add to cart" placement="top">
-                <Button className="bg-g ml-auto transition">
+              {/* <Tooltip title="Add to cart" placement="top">
+                <Button className="bg-g ml-0 transition">
                   <ShoppingCartOutlined />
                 </Button>
-              </Tooltip>
+              </Tooltip> */}
             </div>
           </div>
           <div className="d-flex align-items-center">

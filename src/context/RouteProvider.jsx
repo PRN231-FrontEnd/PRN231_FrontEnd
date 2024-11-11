@@ -11,6 +11,7 @@ const routes = {
   CREATEPOST: "/create-post",
   POSTDETAILS: "/postdetails/:id",
   MESSAGE: "/message",
+  SUCCESSNOTI: "/charge-noti",
 };
 
 // Create a provider component that wraps your app
