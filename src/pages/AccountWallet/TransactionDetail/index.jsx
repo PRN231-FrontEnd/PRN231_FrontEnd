@@ -9,7 +9,7 @@ const TransactionDetail = ({ transactionId, accountId, onBack }) => {
   useEffect(() => {
     const fetchTransaction = async () => {
       try {
-        const response = await fetch(`https://localhost:7246/api/wallet-transaction/${transactionId}/user/${accountId}`);
+        const response = await fetch(`https://flowerexchange.azurewebsites.net/api/wallet-transaction/${transactionId}/user/${accountId}`);
         if (!response.ok) throw new Error('Failed to fetch transaction data');
         const data = await response.json();
         setTransaction(data);
@@ -32,7 +32,7 @@ const TransactionDetail = ({ transactionId, accountId, onBack }) => {
       {transaction && (
         <div className="transaction-content">
           <div className="transaction-info">
-            <p><strong>Ngày Tạo: </strong> {new Date().toLocaleDateString()}</p>
+            <p><strong>Ngày Tạo: </strong> {transaction.createAt}</p>
             <p><strong>Loại giao dịch: </strong> {transaction.type}</p>
             <p><strong>Mô tả: </strong> {transaction.direction}</p>
             <p><strong>Người thực hiện:</strong> {transaction.fromUserFullName || "Hệ thống"}</p>
@@ -47,16 +47,19 @@ const TransactionDetail = ({ transactionId, accountId, onBack }) => {
               <ul>
                 {transaction.serviceOrder && (
                   <li>
-                    <p><strong>Tên vật phẩm:</strong> {transaction.serviceOrder.name}</p>
-                    <p><strong>Số lượng:</strong> {transaction.serviceOrder.quantity}</p>
-                    <p><strong>Giá:</strong> {transaction.serviceOrder.price.toLocaleString()} VND</p>
+                    <p><strong>Tên vật phẩm:</strong> {transaction.serviceOrder.BuyerName || "Post Service"}</p>
+                    <p><strong>Số lượng:</strong> {transaction.serviceOrder.quantity || 1}</p>
+                    <p><strong>Giá:</strong> {transaction.amount} VND</p>
                   </li>
                 )}
                 {transaction.flowerOrder && (
                   <li>
-                    <p><strong>Tên vật phẩm:</strong> {transaction.flowerOrder.name}</p>
-                    <p><strong>Số lượng:</strong> {transaction.flowerOrder.quantity}</p>
-                    <p><strong>Giá:</strong> {transaction.flowerOrder.price.toLocaleString()} VND</p>
+                    {/* <p><strong>Tên vật phẩm:</strong> {transaction.flowerOrder.flowerId || "Flower name"}</p>
+                    <p><strong>Số lượng:</strong> {transaction.flowerOrder.quantity || 1}</p>
+                    <p><strong>Giá:</strong> {transaction.flowerOrder.amount} VND</p> */}
+                    <p><strong>Tên vật phẩm:</strong> {transaction.flowerOrder.flower.name || "Flower name"}</p>
+                    <p><strong>Số lượng:</strong> {transaction.flowerOrder.quantity || 1}</p>
+                    <p><strong>Giá:</strong> {transaction.flowerOrder.flower.price} VND</p>
                   </li>
                 )}
               </ul>

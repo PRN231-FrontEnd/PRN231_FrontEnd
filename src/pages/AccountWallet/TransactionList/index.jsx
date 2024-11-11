@@ -126,7 +126,7 @@ const TransactionList = ({ accountId }) => {
 
             {filteredTransactions.map((transaction) => (
               <div key={transaction.id} className={`transaction ${transaction.type.toLowerCase()}`}>
-                <span className="transaction-cell">{new Date().toLocaleDateString()}</span>
+                <span className="transaction-cell">{transaction.createAt}</span>
                 <span className="transaction-cell">{transaction.type}</span>
                 <span className="transaction-cell">{transaction.direction}</span>
                 <span className="transaction-cell">{transaction.fromUserFullName || "Hệ thống"}</span>

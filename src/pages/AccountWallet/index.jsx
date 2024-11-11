@@ -74,8 +74,8 @@ function Wallet() {
             {/* Section 2 (70%) */}
             <section className="section">
                 {accountId ? (
-                    // <TransactionList accountId={userId.id} />
-                    <TransactionList accountId="5750a170-88a9-4b68-81a1-91bacca2546f" />
+                    <TransactionList accountId={userId.id} />
+                    // <TransactionList accountId="5750a170-88a9-4b68-81a1-91bacca2546f" />
                 ) : (
                     <p>Loading transaction history...</p>
                 )}
