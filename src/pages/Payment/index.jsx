@@ -14,11 +14,11 @@ import {
     MDBRow,
     MDBTypography,
 } from "mdb-react-ui-kit";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@mui/material";
 import ChargeMoney from "../ChargeMoney";
-import { Toast } from "bootstrap";
-// import "./style.css";
+import { toast } from 'react-toastify';
+
 
 export default function PaymentMethods() {
     const { postId } = useParams();
@@ -27,6 +27,7 @@ export default function PaymentMethods() {
     const [openChargeDialog, setOpenChargeDialog] = useState(false);
     const user = JSON.parse(localStorage.getItem("decodedUser")) || {};
     const userId = user.jti;
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchPostDetail = async () => {
@@ -42,7 +43,6 @@ export default function PaymentMethods() {
             try {
                 const response = await axiosClient.get(`/api/wallet/${userId}`);
                 setWalletAmount(response.data.totalBalance);
-                console.log(response.data.totalBalance);
             } catch (error) {
                 console.error("Error fetching wallet amount", error);
             }
@@ -56,12 +56,13 @@ export default function PaymentMethods() {
         try {
             const response = await axiosClient.post("/api/payment/flower-service", { postId });
             console.log("Payment successful:", response.data);
-            Toast.success("Thanh toán thành công");
+            toast.success('Payment successful!');
+            navigate(`/user-profile/${userId}`);
         } catch (error) {
             console.error("Error initiating payment", error);
+            toast.error("Payment failed. Please try again.");
         }
     };
-
     const remainingAmount = post ? walletAmount - (post.quantity * post.flower.price) : 0;
 
     return (

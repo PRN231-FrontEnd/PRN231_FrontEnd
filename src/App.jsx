@@ -20,6 +20,8 @@ import PaymentMethods from "./pages/Payment";
 import SuccessNoti from "./pages/SuccessNoti";
 import ProfilePage from "./pages/UserProfile";
 const queryClient = new QueryClient();
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function RoutesWrapper() {
   const routes = useRoutes(); // Now this is within RouteProvider
@@ -67,6 +69,7 @@ function InnerApp() {
       {shouldShowLayout && <Header />}
       <RoutesWrapper />
       {shouldShowLayout && <Footer />}
+      <ToastContainer />
     </>
   );
 }
