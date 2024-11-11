@@ -70,6 +70,7 @@ function AccountSelectDrop() {
   useEffect(() => {
     // Lấy decodedUser từ localStorage
     const storedUser = localStorage.getItem("decodedUser");
+    const userId = storedUser.jti;
     if (storedUser) {
       const userObject = JSON.parse(storedUser); // Chuyển đổi chuỗi JSON thành object
       setAccountName(userObject.given_name); // Lấy given_name từ object
