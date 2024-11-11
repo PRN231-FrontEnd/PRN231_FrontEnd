@@ -8,13 +8,15 @@ import { ArrowForward } from "@mui/icons-material";
 import Slider from "react-slick";
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
+import { Button, MenuItem, Select, TextField } from "@mui/material";
 import "./style.css";
-import { Button } from "@mui/material";
 
 function Home() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [searchString, setSearchString] = useState("");
+  const [sortOrder, setSortOrder] = useState("desc");
 
   const hasFetched = useRef(false);
 
@@ -26,11 +28,17 @@ function Home() {
       const response = await axios.post(
         "https://flowerexchange.azurewebsites.net/Post/list-view-post",
         {
-          searchString: "",
+          searchString: searchString,
           paginateRequest: {
             currentPage: page,
             pageSize: 10,
           },
+          sortCriterias: [
+            {
+              sortBy: "Flower.price",
+              isDescending: sortOrder === "desc",
+            },
+          ],
         }
       );
 
@@ -47,9 +55,19 @@ function Home() {
       fetchData(currentPage);
       hasFetched.current = true;
     }
-  }, [currentPage]);
+  }, [currentPage, searchString, sortOrder]);
 
-  var settings = {
+  const handleSearch = () => {
+    setCurrentPage(1);
+    setProducts([]);
+    fetchData(1);
+  };
+
+  const handleSortChange = (event) => {
+    setSortOrder(event.target.value);
+  };
+
+  const settings = {
     dots: false,
     infinite: true,
     speed: 500,
@@ -69,26 +87,32 @@ function Home() {
         <div className="container-fluid">
           <div className="d-flex align-items-center nav-small">
             <h2 className="hd mb-0 mt-0">Popular Flowers</h2>
-            <ul className="list list-inline filterTab">
-              <li className="list-inline-item">
-                <a className="cursor">All</a>
-              </li>
-              <li className="list-inline-item">
-                <a className="cursor">Milks & Dairies</a>
-              </li>
-              <li className="list-inline-item">
-                <a className="cursor">Coffee & Teas</a>
-              </li>
-              <li className="list-inline-item">
-                <a className="cursor">Pet Foods</a>
-              </li>
-              <li className="list-inline-item">
-                <a className="cursor">Meats</a>
-              </li>
-              <li className="list-inline-item">
-                <a className="cursor">Vegetables</a>
-              </li>
-            </ul>
+            <div style={{ display: "flex", alignItems: "center", marginLeft: "auto" }}>
+              <TextField
+                label="Search by title"
+                variant="outlined"
+                fullWidth
+                value={searchString}
+                onChange={(e) => setSearchString(e.target.value)}
+                style={{ marginRight: "10px", width: "300px" }}
+              />
+              <Select
+                value={sortOrder}
+                onChange={handleSortChange}
+                variant="outlined"
+                style={{ marginRight: "10px" }}
+              >
+                <MenuItem value="asc">Price Low to High</MenuItem>
+                <MenuItem value="desc">Price High to Low</MenuItem>
+              </Select>
+              <Button
+                variant="contained"
+                color="success"
+                onClick={handleSearch} // Trigger search with new criteria
+              >
+                Search
+              </Button>
+            </div>
           </div>
           <div className="productRow">
             {products.map((product) => (
@@ -103,7 +127,8 @@ function Home() {
                   tag={product.priority ? "best" : null}
                   title={product.title}
                   description={product.description}
-                  price={Math.ceil(product.flower?.price * product.quantity).toLocaleString()}
+                  // price={Math.ceil(product.flower?.price * product.quantity).toLocaleString()}
+                  price={Math.ceil(product.flower?.price).toLocaleString()}
                   location={product.location}
                   imageUrl={product.mainImageUrl}
                 />
@@ -166,19 +191,7 @@ function Home() {
             </div>
             <div className="col-md-9 pr-5">
               <Slider {...settings} className="prodSlider">
-                {/* {products.map((product, index) => (
-                  <div className="item" key={`${product.id}-${index}`}>
-                    <Product
-                      id={product.id}
-                      tag={product.priority ? "best" : null}
-                      title={product.title}
-                      description={product.description}
-                      price={product.price}
-                      location={product.location}
-                      imageUrl={product.mainImageUrl}
-                    />
-                  </div>
-                ))} */}
+                {/* Slider content for Daily Best Sells */}
               </Slider>
             </div>
           </div>

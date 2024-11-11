@@ -8,7 +8,7 @@ const PostDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [flowerPost, setFlowerPost] = useState(null);
-  const [flowerRelativePost, setFlowerRelativePost] = useState(null);
+  const [flowerRelativePost, setFlowerRelativePost] = useState([]);
   const [error, setError] = useState(null);
   const [relatedId, setRelatedId] = useState(null);
   const [relatedName, setRelatedName] = useState(null);
@@ -20,15 +20,15 @@ const PostDetails = () => {
       try {
         const response = await axiosClient.get(`/Post/${id}`);
         setFlowerPost(response.data);
-        const relatedId = response.data.storeId == null ? response.data.sellerId : response.data.storeId
+
+        const relatedId = response.data.storeId || response.data.sellerId;
         setRelatedId(relatedId);
-        if (response.data.store == null) {
-          const relatedName = response.data.seller.fullName;
-          setRelatedName(relatedName)
-        } else {
-          const relatedName = response.data.store.name;
-          setRelatedName(relatedName)
-        }
+
+        const relatedName = response.data.store
+          ? response.data.store.name
+          : response.data.seller?.fullName;
+        setRelatedName(relatedName);
+
         if (relatedId) {
           fetchRelativeFlowers(relatedId);
         }
@@ -81,7 +81,7 @@ const PostDetails = () => {
     quantity,
     location,
     expiredAt,
-    imageUrls,
+    imageUrls = [],
     mainImageUrl,
     unitMeasure,
     flower,
@@ -99,7 +99,6 @@ const PostDetails = () => {
   ];
 
   const isContactDisabled = userId === sellerId;
-
 
   return (
     <div>
@@ -123,7 +122,10 @@ const PostDetails = () => {
                 </div>
                 <div className="mb-3">
                   <span className="h5">
-                    {Math.floor(flower.price).toLocaleString()} VND
+                    {flower && flower.price
+                      ? Math.floor(flower.price).toLocaleString()
+                      : "Price not available"}{" "}
+                    VND
                   </span>
                   <span className="text-muted">/ {unitMeasure}</span>
                 </div>
@@ -132,7 +134,7 @@ const PostDetails = () => {
                   <dt className="col-4">Quantity:</dt>
                   <dd className="col-8">{quantity}</dd>
                   <dt className="col-4">Flower name:</dt>
-                  <dd className="col-8">{flower.name}</dd>
+                  <dd className="col-8">{flower?.name || "Not specified"}</dd>
                   <dt className="col-4">Expired at:</dt>
                   <dd className="col-8">{new Date(expiredAt).toLocaleString()}</dd>
                   <dt className="col-4">Location:</dt>
@@ -140,9 +142,11 @@ const PostDetails = () => {
                   <dt className="col-4">Unit measure:</dt>
                   <dd className="col-8">{unitMeasure}</dd>
                   <dt className="col-4">Seller/Store:</dt>
-                  <dd className="col-8"><Link to={`/post-shop/${relatedId}`} className="text-decoration-none">
-                    {relatedName} Store of user {seller.fullName}
-                  </Link></dd>
+                  <dd className="col-8">
+                    <Link to={`/post-shop/${relatedId}`} className="text-decoration-none">
+                      {relatedName || "Unknown Store"}
+                    </Link>
+                  </dd>
                 </div>
                 <hr />
                 <button hidden={postStatus === 1} onClick={handleBuyNow} className="btn btn-warning shadow-0">
@@ -169,15 +173,14 @@ const PostDetails = () => {
             <div className="col-lg-8 mb-4">
               <div className="border rounded-2 px-3 py-2 bg-white">
                 <h5 className="mb-3">Additional Information</h5>
-                {/* Here you can add more details about the product as needed */}
                 <p>More information about the flower post can be added here.</p>
               </div>
             </div>
             <div className="col-lg-4 mb-4">
               <div className="bg-white rounded-2 p-3 border">
                 <h5 className="mb-3">Related Posts Store</h5>
-                {flowerRelativePost?.length > 0 ? (
-                  flowerRelativePost.map((relatedPost, index) => (
+                {flowerRelativePost.length > 0 ? (
+                  flowerRelativePost.map((relatedPost) => (
                     <div
                       className="d-flex justify-content-between align-items-center border-bottom py-2"
                       key={relatedPost.id}
@@ -190,13 +193,11 @@ const PostDetails = () => {
                       />
                       <div className="ms-3">
                         <h6 className="mb-1">{relatedPost.title}</h6>
-                        {relatedPost.flower && relatedPost.flower.price !== undefined ? (
-                          <span className="text-muted">
-                            {Math.floor(relatedPost.flower.price).toLocaleString()} VND
-                          </span>
-                        ) : (
-                          <span className="text-muted">Price not available</span>
-                        )}
+                        <span className="text-muted">
+                          {relatedPost.flower && relatedPost.flower.price !== undefined
+                            ? Math.floor(relatedPost.flower.price).toLocaleString()
+                            : "Price not available"}
+                        </span>
                       </div>
                       <a href="#" className="btn btn-outline-primary btn-sm">
                         View Detail
