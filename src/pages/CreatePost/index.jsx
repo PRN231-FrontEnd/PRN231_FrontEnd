@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import axiosClient from "../../utils/axios-client";
 import { PlusOutlined } from "@ant-design/icons";
@@ -32,7 +33,7 @@ const CreatePost = () => {
   const [storeError, setStoreError] = useState(false);
   const [mainImageFile, setMainImageFile] = useState(null);
   const [additionalImageFiles, setAdditionalImageFiles] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     // Fetch categories from the API
     axios
@@ -101,11 +102,11 @@ const CreatePost = () => {
         formData.append("file", mainImageFile);
 
         const mainImageResponse = await axios.post(
-          //      "https://flowerexchange.azurewebsites.net/api/media/upload",
-          "https://localhost:7246/api/media/upload",
+          "https://flowerexchange.azurewebsites.net/api/media/upload",
+          // "https://localhost:7246/api/media/upload",
           formData
         );
-        uploadedMainImageUrl = mainImageResponse.data;
+        uploadedMainImageUrl = mainImageResponse.data.uri;
       } catch (error) {
         console.error("Error uploading main image:", error);
         message.error("Không thể upload hình ảnh chính.");
@@ -121,11 +122,11 @@ const CreatePost = () => {
         formData.append("file", file);
 
         const additionalImageResponse = await axios.post(
-          //         "https://flowerexchange.azurewebsites.net/api/media/upload",
-          "https://localhost:7246/api/media/upload",
+          "https://flowerexchange.azurewebsites.net/api/media/upload",
+          // "https://localhost:7246/api/media/upload",
           formData
         );
-        uploadedAdditionalImageUrls.push(additionalImageResponse.data);
+        uploadedAdditionalImageUrls.push(additionalImageResponse.data.uri);
       } catch (error) {
         console.error("Error uploading additional image:", error);
         message.error("Không thể upload hình ảnh phụ.");
@@ -155,12 +156,15 @@ const CreatePost = () => {
     console.log("Post Data to be submitted:", postData);
     try {
       // Gọi API để tạo bài viết
+      console.log(postData);
       await axios.post(
-        //       "https://flowerexchange.azurewebsites.net/Post",
-        "https://localhost:7246/Post",
+        "https://flowerexchange.azurewebsites.net/Post",
+        // "https://localhost:7246/Post",
         postData
       );
+
       message.success("Bài viết đã được tạo thành công!");
+      navigate("/");
     } catch (error) {
       console.error("Error creating post:", error);
       message.error("Không thể tạo bài viết.");
