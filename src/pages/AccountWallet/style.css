@@ -71,3 +71,12 @@
   font-size: 18px; /* Adjust this size as needed */
   margin-bottom: 10px; /* Optional: adjust margin for spacing */
 }
+
+.loading-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Chiều cao toàn trang */
+  font-size: 1.5rem; /* Kích thước chữ */
+  color: #333; /* Màu chữ */
+}
