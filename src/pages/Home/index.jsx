@@ -41,10 +41,15 @@ function Home() {
           ],
         }
       );
-
-      setProducts((prevProducts) => [...prevProducts, ...response.data]);
+      if (response.data === "No record match") {
+        setProducts([]);
+      } else {
+        setProducts((prevProducts) => [...prevProducts, ...response.data]);
+      }
+      // setProducts((prevProducts) => [...prevProducts, ...response.data]);
     } catch (error) {
       console.error("Error fetching product data", error);
+      setProducts([]);
     } finally {
       setLoading(false);
     }
@@ -115,25 +120,28 @@ function Home() {
             </div>
           </div>
           <div className="productRow">
-            {products.map((product) => (
-              <Link
-                to={`/post-details/${product.id}`}
-                key={uuidv4()}
-                className="item"
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <Product
-                  id={product.id}
-                  tag={product.priority ? "best" : null}
-                  title={product.title}
-                  description={product.description}
-                  // price={Math.ceil(product.flower?.price * product.quantity).toLocaleString()}
-                  price={Math.ceil(product.flower?.price).toLocaleString()}
-                  location={product.location}
-                  imageUrl={product.mainImageUrl}
-                />
-              </Link>
-            ))}
+            {products && products.length > 0 ? (
+              products.map((product) => (
+                <Link
+                  to={`/post-details/${product.id}`}
+                  key={uuidv4()}
+                  className="item"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <Product
+                    id={product.id}
+                    tag={product.priority ? "best" : null}
+                    title={product.title}
+                    description={product.description}
+                    price={Math.ceil(product.flower?.price).toLocaleString()}
+                    location={product.location}
+                    imageUrl={product.mainImageUrl}
+                  />
+                </Link>
+              ))
+            ) : (
+              <p>No products available.</p>
+            )}
           </div>
 
           {loading ? (
