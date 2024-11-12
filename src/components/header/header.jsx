@@ -66,6 +66,10 @@ function Header() {
     navigate("/message");  // Navigate to /message
   };
 
+  const handleManagePost = () => {
+    navigate("/manage-posts");  // Navigate to /message
+  };
+
   return (
     <>
       <header>
@@ -114,13 +118,17 @@ function Header() {
                   </span>
                   <StorefrontIcon className="icon" sx={{ fontSize: 30 }} />
                 </li> */}
-                <li className="list-inline-item">
+                <li className="list-inline-item" onClick={handleManagePost} style={{cursor: "pointer"}}>
                   <FeaturedPlayListOutlinedIcon
                     className="icon"
                     sx={{ fontSize: 30 }}
                   />
                   <span>Manage Posts</span>
                 </li>
+                
+          
+
+
                 <li className="list-inline-item">
                   <AccountCircleOutlinedIcon
                     className="icon"

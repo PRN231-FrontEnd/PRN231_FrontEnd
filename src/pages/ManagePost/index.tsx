@@ -4,6 +4,7 @@ import { Button, TextField } from '@mui/material';
 import { SearchOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import "./style.css"
+import { Link } from 'react-router-dom';
 
 // Loại bài đăng
 type Post = {
@@ -42,6 +43,7 @@ type FetchPostsParams = {
   paginateRequest: PaginateRequest;
   sortCriterias: SortCriteria[];
 };
+
 
 // Hàm giả lập lấy bài đăng
 // Update the fetchPosts function to handle the new response format
@@ -86,9 +88,7 @@ export default function PostManagement() {
   const [sortBy, setSortBy] = useState('createdAt');
   const [sortOrder, setSortOrder] = useState<'ascend' | 'descend'>('descend');
   const [total, setTotal] = useState(0);
-
   const pageSize = 10;
-
   const [userId, setUserId] = useState(null);
   const [storeId, setStoreId] = useState(null);
   const [accountId, setAccountId] = useState(null);
@@ -305,9 +305,15 @@ function PostList({
                   />
                 }
                 actions={[
-                  <Button key="edit" variant="outlined" fullWidth>
-                    Chỉnh sửa
-                  </Button>,
+                  <Link
+                    key="edit"
+                    to={`/post-update/${post.id}`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <Button variant="outlined" fullWidth>
+                      Chỉnh sửa
+                    </Button>
+                  </Link>,
                 ]}
               >
                 <Card.Meta

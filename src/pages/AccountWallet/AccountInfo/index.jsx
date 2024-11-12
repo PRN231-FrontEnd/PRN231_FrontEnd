@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../Modal'; // Import the Modal component
 import './style.css';
+import { format } from 'date-fns'; 
 
 const AccountInfo = ({ avatarUrl, username, balance }) => {
     const [isWithdrawModalOpen, setWithdrawModalOpen] = useState(false);
@@ -9,6 +10,10 @@ const AccountInfo = ({ avatarUrl, username, balance }) => {
     const [amount, setAmount] = useState('');
 
     const token = localStorage.getItem('token');
+
+    const formatAmount = (amount) => {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+      };
 
     const handleWithdraw = async () => {
         // Validate amount to ensure it's a positive number
@@ -18,7 +23,7 @@ const AccountInfo = ({ avatarUrl, username, balance }) => {
         }
     
         try {
-            const response = await fetch('https://localhost:7246/api/wallet/withdraw', {
+            const response = await fetch('https://flowerexchange.azurewebsites.net/api/wallet/withdraw', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`, // Add JWT to header
@@ -57,7 +62,7 @@ const AccountInfo = ({ avatarUrl, username, balance }) => {
         }
     
         try {
-            const response = await fetch('https://localhost:7246/api/payment', {
+            const response = await fetch('https://flowerexchange.azurewebsites.net/api/payment', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`, // Add JWT to header
@@ -80,9 +85,6 @@ const AccountInfo = ({ avatarUrl, username, balance }) => {
         
         setDepositModalOpen(false); // Close modal after handling
     };
-    
-    
-    
 
     const handleAmountChange = (event) => setAmount(event.target.value);
 
@@ -95,15 +97,15 @@ const AccountInfo = ({ avatarUrl, username, balance }) => {
             </div>
             
             {/* Balance */}
-            <div className="balance">Số dư: {balance.toLocaleString()} VND</div>
+            <div className="balance">Balance: {formatAmount(balance)}</div>
 
             {/* Buttons for Withdraw and Deposit */}
             <div className="button-container">
                 <div className="button-wrapper">
-                    <button className="button" onClick={() => setWithdrawModalOpen(true)} aria-label="Rút tiền">Rút tiền</button>
+                    <button className="button" onClick={() => setWithdrawModalOpen(true)} aria-label="Withdraw">Withdraw</button>
                 </div>
                 <div className="button-wrapper">
-                    <button className="button" onClick={() => setDepositModalOpen(true)} aria-label="Nạp tiền">Nạp tiền</button>
+                    <button className="button" onClick={() => setDepositModalOpen(true)} aria-label="Deposit">Deposit</button>
                 </div>
             </div>
 
@@ -111,7 +113,7 @@ const AccountInfo = ({ avatarUrl, username, balance }) => {
             <Modal
                 isOpen={isWithdrawModalOpen}
                 onClose={() => setWithdrawModalOpen(false)}
-                title="Nhập số tiền rút"
+                title="Enter Withdrawal Amount"
                 onConfirm={handleWithdraw}
             >
                 <input
@@ -126,7 +128,7 @@ const AccountInfo = ({ avatarUrl, username, balance }) => {
             <Modal
                 isOpen={isDepositModalOpen}
                 onClose={() => setDepositModalOpen(false)}
-                title="Nhập số tiền nạp"
+                title="Enter Deposit Amount"
                 onConfirm={handleDeposit}
             >
                 <input
