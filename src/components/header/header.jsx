@@ -107,10 +107,8 @@ function Header() {
                   />
                 </li> */}
                 <li className="list-inline-item" onClick={handleChatClick} style={{ cursor: "pointer" }}>
-                  <span className="badge bg-success" id="noti-chat">
-                    Chat
-                  </span>
                   <ChatOutlinedIcon className="icon" sx={{ fontSize: 30 }} />
+                  <span>Chat</span>
                 </li>
                 {/* <li className="list-inline-item">
                   <span className="badge bg-success " id="noti-mall">
