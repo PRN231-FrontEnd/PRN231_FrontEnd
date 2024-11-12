@@ -149,3 +149,13 @@ header .headerTabs li span.badge{
     border-radius: 50%;
 }
 
+.brand-title {
+    font-size: 24px; /* điều chỉnh kích thước chữ */
+    font-weight: bold; /* làm đậm chữ */
+    color: #279a65; /* màu sắc của chữ */
+    white-space: nowrap; /* giữ cho chữ không bị xuống dòng */
+    overflow: hidden; /* ẩn phần chữ vượt quá giới hạn */
+    text-overflow: ellipsis; /* dấu "..." nếu quá dài */
+    margin-left: 30px;
+  }
+  

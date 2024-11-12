@@ -125,11 +125,11 @@ export default function PaymentMethods() {
                             <MDBCardBody>
                                 <MDBListGroup flush>
                                     <MDBListGroupItem className="d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                        Total Amount in Wallet
+                                       Your wallet balance
                                         <span><strong>{walletAmount.toLocaleString()} VNĐ</strong></span>
                                     </MDBListGroupItem>
                                     <MDBListGroupItem className="d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                        Products
+                                        Product Cost
                                         <span>{post ? `${(post.quantity * post.flower.price).toLocaleString()} VNĐ` : "0 VNĐ"}</span>
                                     </MDBListGroupItem>
                                     <MDBListGroupItem className="d-flex justify-content-between align-items-center px-0">
@@ -138,8 +138,7 @@ export default function PaymentMethods() {
                                     </MDBListGroupItem>
                                     <MDBListGroupItem className="d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                         <div>
-                                            <strong>Total amount payable</strong>
-                                            <p className="mb-0">(including VAT)</p>
+                                            <strong>Total amount have to pay</strong>
                                         </div>
                                         <span>
                                             <strong>
@@ -149,7 +148,7 @@ export default function PaymentMethods() {
                                     </MDBListGroupItem>
                                     <MDBListGroupItem className="d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                         <div>
-                                            <strong>Total remaining amount</strong>
+                                            <strong>The additional amount needed for payment</strong>
                                         </div>
                                         <span>
                                             <strong>
@@ -182,7 +181,7 @@ export default function PaymentMethods() {
                                             backgroundColor: "#e68900",
                                         },
                                     }}
-                                    onClick={() => setOpenChargeDialog(true)} // Open dialog on click
+                                    onClick={() => setOpenChargeDialog(true)}
                                 >
                                     Charge money in wallet
                                 </Button>

@@ -14,11 +14,11 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import FeaturedPlayListOutlinedIcon from "@mui/icons-material/FeaturedPlayListOutlined";
 import { Button, ConfigProvider } from "antd";
 import AccountSelectOptions from "../accountSelectDrop/accountSelect";
-import { EditFilled } from "@ant-design/icons";
+import { EditFilled, UnderlineOutlined } from "@ant-design/icons";
 import Nav from "./nav/nav";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+import { Typography } from "@mui/material";
 const fetchCountries = async () => {
   const res = await axios.get("https://countriesnow.space/api/v0.1/countries/");
   return res.data.data.map((item) => item.country);
@@ -56,7 +56,7 @@ function Header() {
     navigate(token ? "/create-post" : "/login");
   };
 
-  if (isLoading) return <div>Loading countries...</div>;
+  if (isLoading) return <div></div>;
   if (error) {
     console.error("Error fetching countries:", error);
     return <div>Error fetching countries. Please try again later.</div>;
@@ -74,33 +74,25 @@ function Header() {
             <Link to="/" className="col-sm-1 d-flex align-items-center">
               <img
                 src={Logo}
-                style={{ width: "100%", height: "70px" }}
+                style={{ width: "400%", height: "50px" }}
                 alt="Logo"
               />
             </Link>
 
-            <div className="col-sm-5 d-flex flex-row align-items-center">
-              <div className="headerSearch d-flex flex-row align-items-center">
-                <SelectDrop
-                  data={categories}
-                  className="selectDrop cursor position-relative"
-                />
-                <div className="search">
-                  <input type="text" placeholder="Search for items..." />
-                  <SearchIcon className="searchIcon cursor" />
-                </div>
-              </div>
+            <div className="col-sm-4 d-flex flex-row align-items-center">
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <h1 className="brand-title">
+                FlowerExchange
+              </h1>
+            </Link>
+
+             
             </div>
-            <div className="col-sm-6 d-flex flex-row align-items-center">
-              <div className="countryWrapper">
-                <LocationOnIcon style={{ opacity: "50%" }} />
-                <SelectDrop
-                  data={countryList}
-                  className="cursor position-relative"
-                />
-              </div>
+
+            <div className="col-sm-7 d-flex flex-row align-items-center justify-content-end">
+             
               <ul className="list list-inline mb-0 headerTabs">
-                <li className="list-inline-item">
+                {/* <li className="list-inline-item">
                   <span className="badge bg-success " id="noti-badge">
                     23
                   </span>
@@ -109,19 +101,19 @@ function Header() {
                     titleAccess="Notification"
                     sx={{ fontSize: 30 }}
                   />
-                </li>
+                </li> */}
                 <li className="list-inline-item" onClick={handleChatClick} style={{ cursor: "pointer" }}>
                   <span className="badge bg-success" id="noti-chat">
                     Chat
                   </span>
                   <ChatOutlinedIcon className="icon" sx={{ fontSize: 30 }} />
                 </li>
-                <li className="list-inline-item">
+                {/* <li className="list-inline-item">
                   <span className="badge bg-success " id="noti-mall">
                     Store
                   </span>
                   <StorefrontIcon className="icon" sx={{ fontSize: 30 }} />
-                </li>
+                </li> */}
                 <li className="list-inline-item">
                   <FeaturedPlayListOutlinedIcon
                     className="icon"

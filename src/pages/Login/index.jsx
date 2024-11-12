@@ -12,6 +12,8 @@ import {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import BackgroundLogo from "../../assets/images/backgroud-with-flower-exchange.png";
+import GoogleIcon from "@mui/icons-material/Google"; // import Google icon from MUI
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -65,7 +67,7 @@ const Login = () => {
           <Row className="d-flex align-items-center justify-content-center h-100">
             <Col md={8} lg={7} xl={6}>
               <Image
-                src="https://png.pngtree.com/png-vector/20220829/ourmid/pngtree-ic22827-vector-pink-and-blue-flower-floral-decoration-with-gold-wedding-png-image_6129036.png"
+                src={BackgroundLogo}
                 fluid
                 alt="Phone image"
               />
@@ -129,20 +131,12 @@ const Login = () => {
                 </div>
 
                 <Button
-                  className="btn-lg btn-block me-1"
-                  style={{ backgroundColor: "#3b5998" }}
-                  href="#!"
-                >
-                  <i className="fab fa-facebook-f me-2"></i>Continue with
-                  Facebook
-                </Button>
-                <Button
-                  className="btn-lg btn-block"
-                  style={{ backgroundColor: "#55acee" }}
-                  href="#!"
-                >
-                  <i className="fab fa-twitter me-2"></i>Continue with Twitter
-                </Button>
+                className="btn-lg btn-block me-1"
+                style={{ backgroundColor: "#4285F4", color: "white" }}
+                href="#!"
+              >
+                <GoogleIcon className="me-2" /> Continue with Google
+              </Button>
               </Form>
             </Col>
           </Row>

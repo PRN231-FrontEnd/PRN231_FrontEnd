@@ -6,12 +6,10 @@ import TransactionList from './TransactionList';
 function Wallet() {
     const [userId, setUserId] = useState(null);
     const [accountId, setAccountId] = useState(null);
-    const [walletData, setWalletData] = useState(null); // State để lưu thông tin ví (balance)
+    const [walletData, setWalletData] = useState(null); 
 
-    // Lấy JWT từ localStorage
     const token = localStorage.getItem('token');
 
-    // Gọi API để lấy thông tin người dùng hiện tại
     useEffect(() => {
         const fetchCurrentUser = async () => {
             try {
@@ -19,12 +17,12 @@ function Wallet() {
                 // const response = await fetch('https://flowerexchange.azurewebsites.net/api/account/current-user', {
                     method: 'GET',
                     headers: {
-                        'Authorization': `Bearer ${token}`, // Thêm JWT vào header
+                        'Authorization': `Bearer ${token}`, 
                     },
                 });
                 const data = await response.json();
-                setUserId(data);      // Lưu userId
-                setAccountId(data.id); // Lưu accountId để lấy lịch sử giao dịch
+                setUserId(data);      
+                setAccountId(data.id); 
             } catch (error) {
                 console.error("Lỗi khi lấy thông tin người dùng:", error);
             }
@@ -33,7 +31,6 @@ function Wallet() {
         fetchCurrentUser();
     }, [token]);
 
-    // Gọi API để lấy thông tin ví sau khi có userId
     useEffect(() => {
         if (userId) {
             const fetchWalletData = async () => {
@@ -65,9 +62,9 @@ function Wallet() {
             <section className="section">
                 <h2>Thông tin tài khoản</h2>
                 <AccountInfo
-                    avatarUrl={userId.profilePictureUrl || "https://via.placeholder.com/50"}  // Đường dẫn ảnh đại diện
-                    username={userId.fullname || "Anonymous"}                        // Tên người dùng
-                    balance={walletData.totalBalance || 0}                                    // Số dư tài khoản
+                    avatarUrl={userId.profilePictureUrl || "https://via.placeholder.com/50"}  
+                    username={userId.fullname || "Anonymous"}                       
+                    balance={walletData.totalBalance || 0}                                  
                 />
             </section>
 

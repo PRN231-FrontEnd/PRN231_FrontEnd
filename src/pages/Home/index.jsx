@@ -1,12 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import HomeSlider from "./slider/index";
-import CatSlider from "../../components/catSlider/catSlider";
-import Banners from "../../components/banners/banners";
 import Product from "../../components/product/product";
-import { ArrowForward } from "@mui/icons-material";
-import Slider from "react-slick";
-import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
 import { Button, MenuItem, Select, TextField } from "@mui/material";
 import "./style.css";
@@ -18,17 +13,15 @@ function Home() {
   const [searchString, setSearchString] = useState("");
   const [sortOrder, setSortOrder] = useState("desc");
 
-  const hasFetched = useRef(false);
-
   const fetchData = async (page) => {
     if (loading) return;
-
+  
     setLoading(true);
     try {
       const response = await axios.post(
         "https://flowerexchange.azurewebsites.net/Post/list-view-post",
         {
-          searchString: searchString,
+          searchString,
           paginateRequest: {
             currentPage: page,
             pageSize: 10,
@@ -41,25 +34,31 @@ function Home() {
           ],
         }
       );
-      if (response.data === "No record match") {
-        setProducts([]);
+  
+      console.log("API Response:", response.data);
+  
+      // Kiểm tra dữ liệu trả về từ API
+      if (response.data === "No record match" || !response.data || response.data.length === 0) {
+        // Nếu không có dữ liệu, không thay đổi trang
+        if (page === 1) setProducts([]);
       } else {
-        setProducts((prevProducts) => [...prevProducts, ...response.data]);
+        // Tránh trùng dữ liệu, chỉ thêm vào nếu sản phẩm chưa tồn tại
+        setProducts((prevProducts) => {
+          const newProducts = response.data.filter(
+            (newProduct) => !prevProducts.some((product) => product.id === newProduct.id)
+          );
+          return [...prevProducts, ...newProducts];
+        });
       }
-      // setProducts((prevProducts) => [...prevProducts, ...response.data]);
     } catch (error) {
       console.error("Error fetching product data", error);
-      setProducts([]);
     } finally {
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
-    if (!hasFetched.current) {
-      fetchData(currentPage);
-      hasFetched.current = true;
-    }
+    fetchData(currentPage);
   }, [currentPage, searchString, sortOrder]);
 
   const handleSearch = () => {
@@ -72,22 +71,13 @@ function Home() {
     setSortOrder(event.target.value);
   };
 
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    fade: false,
-    arrows: true,
-    autoplay: 2000,
+  const handleLoadMore = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
   };
 
   return (
     <>
       <HomeSlider />
-      <CatSlider />
-      <Banners />
       <section className="homeProducts">
         <div className="container-fluid">
           <div className="d-flex align-items-center nav-small">
@@ -113,18 +103,18 @@ function Home() {
               <Button
                 variant="contained"
                 color="success"
-                onClick={handleSearch} // Trigger search with new criteria
+                onClick={handleSearch}
               >
                 Search
               </Button>
             </div>
           </div>
           <div className="productRow">
-            {products && products.length > 0 ? (
+            {products.length > 0 ? (
               products.map((product) => (
                 <Link
                   to={`/post-details/${product.id}`}
-                  key={uuidv4()}
+                  key={product.id}
                   className="item"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
@@ -139,70 +129,26 @@ function Home() {
                   />
                 </Link>
               ))
-            ) : (
-              <p>No products available.</p>
-            )}
+            ) : currentPage === 1 ? (
+              <p>No flowers for sale.</p>
+            ) : null}
           </div>
 
+          {/* Nút Load More */}
           {loading ? (
-            <p>Loading...</p>
+            <Button variant="outlined" disabled style={{ display: "block", margin: "20px auto" }}>
+              Loading...
+            </Button>
           ) : (
             <Button
               variant="contained"
-              color="primary"
-              onClick={() => setCurrentPage((prevPage) => prevPage + 1)}
+              color="success"
+              onClick={handleLoadMore}
+              style={{ display: "block", margin: "20px auto" }}
             >
               Load More
             </Button>
           )}
-        </div>
-      </section>
-
-      <section className="homeProducts homeProductsRow2 pt-0">
-        <div className="container-fluid">
-          <div className="d-flex align-items-center nav-small">
-            <h2 className="hd mb-0 mt-0">Daily Best Sells</h2>
-            <ul className="list list-inline filterTab">
-              <li className="list-inline-item">
-                <a className="cursor">Featured</a>
-              </li>
-              <li className="list-inline-item">
-                <a className="cursor">Popular</a>
-              </li>
-              <li className="list-inline-item">
-                <a className="cursor">New Added</a>
-              </li>
-            </ul>
-          </div>
-          <div className="row" style={{ marginTop: 20 }}>
-            <div className="col-md-3">
-              <div className="banner">
-                <img
-                  src="https://wp.alithemes.com/html/nest/demo/assets/imgs/banner/banner-4.png"
-                  className="w-100 bannerImg"
-                />
-                <div className="banner-text">
-                  <h2 className="mb-100">
-                    Bring nature <br /> into your <br /> home
-                  </h2>
-                  <Button
-                    className="button"
-                    variant="contained"
-                    color="success"
-                    style={{ backgroundColor: "#279a65" }}
-                    endIcon={<ArrowForward />}
-                  >
-                    Shop now
-                  </Button>{" "}
-                </div>
-              </div>
-            </div>
-            <div className="col-md-9 pr-5">
-              <Slider {...settings} className="prodSlider">
-                {/* Slider content for Daily Best Sells */}
-              </Slider>
-            </div>
-          </div>
         </div>
       </section>
     </>

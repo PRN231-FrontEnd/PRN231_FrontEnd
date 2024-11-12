@@ -166,15 +166,15 @@ const PostDetails = () => {
                 >
                   Buy now
                 </button>
-                <a href="#" className="btn btn-primary shadow-0">
+                {/* <a href="#" className="btn btn-primary shadow-0">
                   <i className="me-1 fa fa-shopping-basket" /> Add to cart
-                </a>
-                <a
+                </a> */}
+                {/* <a
                   href="#"
                   className="btn btn-light border border-secondary py-2 icon-hover px-3"
                 >
                   <i className="me-1 fa fa-heart fa-lg" /> Save
-                </a>
+                </a> */}
                 {/* Hiển thị nút Update nếu sellerId trùng với decodedUser.jti */}
                 {decodedUser && relatedId === decodedUser.jti && (
                   <button
