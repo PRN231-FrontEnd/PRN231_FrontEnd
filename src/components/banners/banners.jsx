@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "./banners.css";
-import { Button } from "@mui/material";
-import { ArrowForward } from "@mui/icons-material";
+import { Button } from "antd";
+import { ArrowRightOutlined } from "@ant-design/icons";
+
 function Banners() {
   return (
     <>
@@ -13,6 +14,7 @@ function Banners() {
                 <img
                   src="https://wp.alithemes.com/html/nest/demo/assets/imgs/banner/banner-1.png"
                   className="w-100 transition"
+                  alt="Banner 1"
                 />
                 <div className="info">
                   <h2 className="mb-4">
@@ -24,10 +26,9 @@ function Banners() {
                   </h2>
                   <Button
                     className="button"
-                    variant="contained"
-                    color="success"
-                    style={{ backgroundColor: "#279a65" }}
-                    endIcon={<ArrowForward />}
+                    type="primary"
+                    style={{ backgroundColor: "#279a65", borderColor: "#279a65" }}
+                    icon={<ArrowRightOutlined />}
                   >
                     Shop now
                   </Button>
@@ -39,6 +40,7 @@ function Banners() {
                 <img
                   src="https://wp.alithemes.com/html/nest/demo/assets/imgs/banner/banner-2.png"
                   className="w-100 transition"
+                  alt="Banner 2"
                 />
                 <div className="info">
                   <h2 className="mb-4">
@@ -50,10 +52,9 @@ function Banners() {
                   </h2>
                   <Button
                     className="button"
-                    variant="contained"
-                    color="success"
-                    style={{ backgroundColor: "#279a65" }}
-                    endIcon={<ArrowForward />}
+                    type="primary"
+                    style={{ backgroundColor: "#279a65", borderColor: "#279a65" }}
+                    icon={<ArrowRightOutlined />}
                   >
                     Shop now
                   </Button>
@@ -65,6 +66,7 @@ function Banners() {
                 <img
                   src="https://wp.alithemes.com/html/nest/demo/assets/imgs/banner/banner-3.png"
                   className="w-100 transition"
+                  alt="Banner 3"
                 />
                 <div className="info">
                   <h2 className="mb-4">
@@ -76,10 +78,9 @@ function Banners() {
                   </h2>
                   <Button
                     className="button"
-                    variant="contained"
-                    color="success"
-                    style={{ backgroundColor: "#279a65" }}
-                    endIcon={<ArrowForward />}
+                    type="primary"
+                    style={{ backgroundColor: "#279a65", borderColor: "#279a65" }}
+                    icon={<ArrowRightOutlined />}
                   >
                     Shop now
                   </Button>

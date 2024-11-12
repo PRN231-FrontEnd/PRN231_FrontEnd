@@ -59,7 +59,7 @@ const CreatePost = () => {
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
-        message.error("Không thể tải thông tin người dùng");
+        message.error("Error fetching user data");
       });
   }, []);
 

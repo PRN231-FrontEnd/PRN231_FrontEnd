@@ -1,36 +1,96 @@
-._failed {
-    border-bottom: solid 4px red !important;
+.notification-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
 }
 
-._failed i {
-    color: red !important;
+.notification-box {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.message-box {
+    text-align: center;
+    padding: 30px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
 ._success {
-    box-shadow: 0 15px 25px #00000019;
-    padding: 45px;
-    width: 100%;
-    text-align: center;
-    margin: 40px auto;
     border-bottom: solid 4px #28a745;
 }
 
 ._success i {
     font-size: 55px;
     color: #28a745;
+    margin-bottom: 15px;
 }
 
 ._success h2 {
-    margin-bottom: 12px;
-    font-size: 40px;
-    font-weight: 500;
-    line-height: 1.2;
-    margin-top: 10px;
+    font-size: 30px;
+    font-weight: 600;
+    color: #28a745;
+    margin-bottom: 15px;
 }
 
 ._success p {
-    margin-bottom: 0px;
     font-size: 18px;
-    color: #495057;
-    font-weight: 500;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+._failed {
+    border-bottom: solid 4px red;
+}
+
+._failed i {
+    font-size: 55px;
+    color: red;
+    margin-bottom: 15px;
+}
+
+._failed h2 {
+    font-size: 30px;
+    font-weight: 600;
+    color: red;
+    margin-bottom: 15px;
+}
+
+._failed p {
+    font-size: 18px;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-danger {
+    background-color: red;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
 }

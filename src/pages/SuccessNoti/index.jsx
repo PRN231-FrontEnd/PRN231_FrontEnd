@@ -1,33 +1,38 @@
+import React from "react";
 import "./style.css";
 
 const SuccessNoti = () => {
+    // Lấy query từ URL
+    const query = new URLSearchParams(window.location.search);
+    const transactionStatus = query.get("vnp_TransactionStatus");
+
+    // Kiểm tra nếu transactionStatus != "00" thì thất bại, nếu == "00" thì thành công
+    const isSuccess = transactionStatus === "00";
+
     return (
-        <div className="container">
-            <div className="row justify-content-center">
-                <div className="col-md-5">
+        <div className="notification-container">
+            <div className="notification-box">
+                {isSuccess ? (
                     <div className="message-box _success">
                         <i className="fa fa-check-circle" aria-hidden="true" />
-                        <h2> Your payment was successful </h2>
+                        <h2>Payment Successful</h2>
                         <p>
-                            {" "}
-                            Thank you for your payment. we will <br />
-                            be in contact with more details shortly{" "}
+                            Thank you for your payment. We will <br />
+                            be in contact with more details shortly.
                         </p>
+                        <button className="btn btn-success">Go to Dashboard</button>
                     </div>
-                </div>
-            </div>
-            <hr />
-            <div className="row justify-content-center">
-                <div className="col-md-5">
-                    <div className="message-box _success _failed">
+                ) : (
+                    <div className="message-box _failed">
                         <i className="fa fa-times-circle" aria-hidden="true" />
-                        <h2> Your payment failed </h2>
-                        <p> Try again later </p>
+                        <h2>Payment Failed</h2>
+                        <p>Please try again later.</p>
+                        <button className="btn btn-danger">Retry Payment</button>
                     </div>
-                </div>
+                )}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default SuccessNoti
+export default SuccessNoti;
