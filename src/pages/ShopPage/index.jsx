@@ -158,12 +158,13 @@ function ShopPage() {
                             >
                                 <Product
                                     id={product.id}
-                                    tag={product.priority ? "best" : null}
+                                    tag={product.postStatus === 1
+                                        ? "SOLD OUT":null}
                                     title={product.title}
                                     description={product.description}
                                     price={product.postStatus === 1
                                         ? "Contact with shop"
-                                        : Math.ceil(product.flower?.price * product.quantity).toLocaleString()}
+                                        : Math.ceil(product.flower?.price * product.quantity).toLocaleString()+" VND"}
                                     location={product.location}
                                     imageUrl={product.mainImageUrl}
                                 />

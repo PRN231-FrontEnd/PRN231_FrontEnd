@@ -230,7 +230,7 @@ const CreatePost = () => {
           name="quantity"
           rules={[{ required: true, message: "Vui lòng nhập số lượng!" }]}
         >
-          <Input type="number" placeholder="Nhập số lượng" />
+          <Input type="number" min={1} placeholder="Nhập số lượng" />
         </Form.Item>
 
         <Form.Item
@@ -256,7 +256,10 @@ const CreatePost = () => {
           name="expiredAt"
           rules={[{ required: true, message: "Vui lòng chọn ngày hết hạn!" }]}
         >
-          <DatePicker />
+            <DatePicker
+    placeholder="Chọn ngày hết hạn"
+    disabledDate={(current) => current && current < moment().endOf("day")}
+  />
         </Form.Item>
 
         <Form.Item
@@ -340,7 +343,7 @@ const CreatePost = () => {
             name={["flower", "price"]}
             rules={[{ required: true, message: "Vui lòng nhập giá!" }]}
           >
-            <Input type="number" placeholder="Nhập giá" />
+            <Input type="number" min={0} placeholder="Nhập giá" />
           </Form.Item>
 
           <Form.Item label="Tiền tệ" name={["flower", "currency"]}>
