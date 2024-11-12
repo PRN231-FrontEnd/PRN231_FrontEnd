@@ -57,29 +57,6 @@ const TransactionList = ({ accountId }) => {
     setAmount('');
   };
 
-  const handleAmountChange = (e) => {
-    setAmount(e.target.value);
-  };
-
-  const handleSubmit = async () => {
-    if (!amount || isNaN(amount)) {
-      alert('Please enter a valid amount');
-      return;
-    }
-
-    try {
-      const endpoint = transactionType === 'withdraw'
-        ? 'https://localhost:7246/withdraw'
-        : 'https://localhost:7246/deposit';
-
-      await axios.post(endpoint, { accountId, amount: parseFloat(amount) });
-      alert(`${transactionType === 'withdraw' ? 'Rút tiền' : 'Nạp tiền'} thành công!`);
-      handleClosePopup();
-    } catch (error) {
-      alert('Có lỗi xảy ra, vui lòng thử lại.');
-    }
-  };
-
   if (loading) {
     return <p className="loading-message">Đang tải thông tin giao dịch...</p>;
   }
