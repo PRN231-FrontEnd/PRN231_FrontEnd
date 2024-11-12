@@ -60,7 +60,7 @@ const fetchPosts = async (params: FetchPostsParams): Promise<{ posts: Post[]; }>
     });
 
     if (!response.ok) {
-      throw new Error('Không thể tải bài đăng');
+      throw new Error('Cannot load posts');
     }
 
     const data = await response.json(); // Assume API returns JSON
@@ -156,7 +156,7 @@ export default function PostManagement() {
       const { posts: fetchedPosts } = await fetchPosts(params);
       
       if (fetchedPosts.length === 0) {
-        message.info('Không có bài đăng.');
+        message.info('No posts to upload');
       }
 
       setPosts(fetchedPosts);
@@ -191,10 +191,10 @@ export default function PostManagement() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Quản lý bài đăng của bạn</h1>
+      <h1 className="text-2xl font-bold mb-4">Manage Your Posts</h1>
 
       <Tabs activeKey={activeTab} onChange={handleTabChange}>
-        <TabPane tab="Bài đăng trong cửa hàng của bạn" key="store">
+        <TabPane tab="Your Posts In Store" key="store">
           <PostList
             posts={posts}
             loading={loading}
@@ -210,7 +210,7 @@ export default function PostManagement() {
             pageSize={pageSize}
           />
         </TabPane>
-        <TabPane tab="Bài đăng cá nhân" key="personal">
+        <TabPane tab="Your Posts In Individuals" key="personal">
           <PostList
             posts={posts}
             loading={loading}
@@ -266,7 +266,7 @@ function PostList({
         <div className="flex gap-2">
           <TextField
             size="small"
-            placeholder="Tìm kiếm bài đăng"
+            placeholder="Search Keyword"
             value={searchString}
             onChange={(e) => setSearchString(e.target.value)}
             variant="outlined"
@@ -277,7 +277,7 @@ function PostList({
             startIcon={<SearchOutlined />} 
             sx={{ marginLeft: '10px' }}
           >
-            Tìm kiếm
+            Search
           </Button>
         </div>
         <Select
@@ -285,8 +285,8 @@ function PostList({
           value={`${sortBy}-${sortOrder}`}
           onChange={handleSortChange}
         >
-          <Option value="createdAt-descend">Mới nhất</Option>
-          <Option value="createdAt-ascend">Cũ nhất</Option>
+          <Option value="createdAt-descend">Newest</Option>
+          <Option value="createdAt-ascend">Oldest</Option>
         </Select>
       </div>
 
@@ -311,7 +311,7 @@ function PostList({
                     style={{ textDecoration: 'none' }}
                   >
                     <Button variant="outlined" fullWidth>
-                      Chỉnh sửa
+                      Edit
                     </Button>
                   </Link>,
                 ]}
