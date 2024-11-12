@@ -182,7 +182,7 @@ export default function PaymentMethods() {
                                             backgroundColor: "#e68900",
                                         },
                                     }}
-                                    onClick={() => setOpenChargeDialog(true)} // Open dialog on click
+                                    onClick={() => setOpenChargeDialog(true)}
                                 >
                                     Charge money in wallet
                                 </Button>
