@@ -22,33 +22,14 @@ function HomeSlider() {
       <div className="container-fluid">
         <Slider {...settings} className="home_slider_Main">
           <div className="item">
-            <img src={Slide1} className="w-100" />
-            <div className="info">
-              <h2 className="mb-4">
-                Don't miss amazing
-                <br />
-                grocery deals
-              </h2>
-              <p>Sign up for the daily newsletter</p>
-            </div>
+            <img src='https://i.imgur.com/IxSS4mH.png' className="w-100" />
+     
           </div>
           <div className="item">
-            <img src={Slide2} className="w-100" />
-            <div className="info">
-              <h2 className="mb-4">
-                Fresh Vegetables
-                <br />
-                Big discount
-              </h2>
-              <p>Sign up for the daily newsletter</p>
-            </div>
+            <img src='https://colorlib.com/wp/wp-content/uploads/sites/2/flower-store-templates.jpg' className="w-100" />
           </div>
         </Slider>
-        <div className="newsLetterBanner">
-          <SendOutlineButton />
-          <input type="text" placeholder="Your email address" />
-          <Button className="bg-g">Subscribe</Button>
-        </div>
+
       </div>
     </section>
   );

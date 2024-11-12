@@ -23,13 +23,12 @@ function Product({ id, tag, title, description, price, location, imageUrl }) {
           {/* <h4 className="title">
             <Link to={`/postdetails/${id}`}>{title}</Link>
           </h4> */}
-          <h4 className="title">{title}</h4>
+          <h4 className="title truncate">{title}</h4>
 
-          <span className="brand d-block text-g">{description}</span>
-          <div className="d-flex align-items-center mt-3">
+          <span className="brand truncate d-block text-g">{description}</span>          <div className="d-flex align-items-center mt-3">
             <div className="d-flex align-items-center">
               <span className="price text-g font-weight-bold">
-                ${price || "N/A"}
+                {`${price} đ` || "N/A"}  
               </span>
               {/* <Tooltip title="Add to cart" placement="top">
                 <Button className="bg-g ml-0 transition">
@@ -43,11 +42,7 @@ function Product({ id, tag, title, description, price, location, imageUrl }) {
               <LocationOnOutlined style={{ marginRight: 5, fontSize: 16 }} />
               {location}
             </p>
-            <div className="savedLove">
-              <Tooltip title="Add to favorites">
-                <FavoriteBorderOutlined style={{ marginLeft: 20 }} />
-              </Tooltip>
-            </div>
+
           </div>
         </div>
       </div>

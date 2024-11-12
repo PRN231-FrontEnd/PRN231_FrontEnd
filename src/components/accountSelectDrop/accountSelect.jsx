@@ -56,15 +56,15 @@ function AccountSelectDrop() {
       key: "2",
       label: "Utility",
       children: [
-        { key: "21", icon: <BookOutlined />, label: "Saved Post" },
-        { key: "22", icon: <LikeOutlined />, label: "Feedback From Me" },
+        // { key: "21", icon: <BookOutlined />, label: "Saved Post" },
+        // { key: "22", icon: <LikeOutlined />, label: "Feedback From Me" },
       ],
     },
     {
       key: "3",
       label: "Post Services",
       children: [
-        { key: "31", icon: <WalletOutlined />, label: "Your wallet" },
+        { key: "31", icon: <WalletOutlined />, label: "Your wallet",  onClick: () => navigate(`/wallet`) },
         { key: "32", icon: <HistoryOutlined />, label: "History Transaction" },
         { key: "33", icon: <ShopOutlined />, label: "Store/Dedicated Site" },
       ],

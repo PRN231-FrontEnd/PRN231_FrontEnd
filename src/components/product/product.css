@@ -141,3 +141,16 @@
 .productThumb .badge.best {
     background: #f59758 !important;
 }
+
+.truncate {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: calc(2 * 1.2em); /* Adjust line height if different */
+    min-height: calc(2 * 1.2em); 
+    line-height: 1.2em; /* Set your preferred line height */
+  }
+  
+

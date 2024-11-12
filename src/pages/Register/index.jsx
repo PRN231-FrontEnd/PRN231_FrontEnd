@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import BackgroundLogo from "../../assets/images/backgroud-with-flower-exchange.png";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -51,7 +52,7 @@ const Register = () => {
           <Row className="d-flex align-items-center justify-content-center h-100">
             <Col md={8} lg={7} xl={6}>
               <Image
-                src="https://png.pngtree.com/png-vector/20220829/ourmid/pngtree-ic22827-vector-pink-and-blue-flower-floral-decoration-with-gold-wedding-png-image_6129036.png"
+                src={BackgroundLogo}
                 fluid
                 alt="Phone image"
               />
