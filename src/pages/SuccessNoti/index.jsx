@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.css";
+import { useLocation } from "react-router-dom";
 
 const SuccessNoti = () => {
     // Lấy query từ URL
@@ -34,5 +35,6 @@ const SuccessNoti = () => {
         </div>
     );
 };
+
 
 export default SuccessNoti;
