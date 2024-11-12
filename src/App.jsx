@@ -22,6 +22,7 @@ import PostUpdate from "./pages/PostUpdate";
 const queryClient = new QueryClient();
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PostManagement from "./pages/ManagePost"
 
 function RoutesWrapper() {
   const routes = useRoutes(); // Now this is within RouteProvider
@@ -47,8 +48,10 @@ function RoutesWrapper() {
       <Route exact path="/register" element={<Register />} />
       <Route exact path="/wallet" element={<AccountWallet />} />
       <Route exact path="/charge/noti" element={<SuccessNoti />} />
+      <Route exact path="/manage-posts" element={<PostManagement />} />
     </Routes>
   );
+
 }
 
 function App() {
