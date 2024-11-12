@@ -39,7 +39,7 @@ function Product({ id, tag, title, description, price, location, imageUrl }) {
             </div>
           </div>
           <div className="d-flex align-items-center">
-            <p className="location">
+            <p className="location truncate" >
               <LocationOnOutlined style={{ marginRight: 5, fontSize: 16 }} />
               {location}
             </p>

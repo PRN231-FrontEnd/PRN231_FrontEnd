@@ -42,6 +42,20 @@ function Nav() {
                   </Link>
                 </Button>
               </li>
+              <li className="nav-item">
+                <Button>
+                  <Link  className="nav-link">
+                    About
+                  </Link>
+                </Button>
+              </li>
+              <li className="nav-item">
+                <Button>
+                  <Link  className="nav-link">
+                    Contact Us
+                  </Link>
+                </Button>
+              </li>
 
               {/* Shop
               <li className="nav-item">
@@ -53,7 +67,7 @@ function Nav() {
               </li> */}
 
               {/* Pages Dropdown */}
-              <li className="nav-item dropdown">
+              {/* <li className="nav-item dropdown">
                 <PageDropDownOptions
                   button={
                     <Button className="nav-link">
@@ -61,7 +75,7 @@ function Nav() {
                     </Button>
                   }
                 />
-              </li>
+              </li> */}
             </ul>
           </div>
         </nav>
