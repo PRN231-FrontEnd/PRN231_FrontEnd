@@ -159,7 +159,7 @@ const PostDetails = () => {
                   </dd>
                 </div>
                 <hr />
-                
+
                 <button
                   hidden={postStatus === 1}
                   onClick={handleBuyNow}
@@ -167,16 +167,6 @@ const PostDetails = () => {
                 >
                   Buy now
                 </button>
-                {/* <a href="#" className="btn btn-primary shadow-0">
-                  <i className="me-1 fa fa-shopping-basket" /> Add to cart
-                </a> */}
-                {/* <a
-                  href="#"
-                  className="btn btn-light border border-secondary py-2 icon-hover px-3"
-                >
-                  <i className="me-1 fa fa-heart fa-lg" /> Save
-                </a> */}
-                {/* Hiển thị nút Update nếu sellerId trùng với decodedUser.jti */}
                 {decodedUser && relatedId === decodedUser.jti && (
                   <button
                     onClick={() => navigate(`/post-update/${id}`)}
@@ -222,16 +212,19 @@ const PostDetails = () => {
                         <h6 className="mb-1">{relatedPost.title}</h6>
                         <span className="text-muted">
                           {relatedPost.flower &&
-                          relatedPost.flower.price !== undefined
+                            relatedPost.flower.price !== undefined
                             ? Math.floor(
-                                relatedPost.flower.price
-                              ).toLocaleString()
+                              relatedPost.flower.price
+                            ).toLocaleString()
                             : "Price not available"}
                         </span>
                       </div>
-                      <a href="#" className="btn btn-outline-primary btn-sm">
+                      <button
+                        onClick={() => navigate(`/post-details/${relatedPost.id}`)}
+                        className="btn btn-outline-primary btn-sm"
+                      >
                         View Detail
-                      </a>
+                      </button>
                     </div>
                   ))
                 ) : (
