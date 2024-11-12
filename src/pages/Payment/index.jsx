@@ -125,7 +125,7 @@ export default function PaymentMethods() {
                             <MDBCardBody>
                                 <MDBListGroup flush>
                                     <MDBListGroupItem className="d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                       Your wallet balance
+                                        Your wallet balance
                                         <span><strong>{walletAmount.toLocaleString()} VNĐ</strong></span>
                                     </MDBListGroupItem>
                                     <MDBListGroupItem className="d-flex justify-content-between align-items-center border-0 px-0 pb-0">
@@ -157,7 +157,7 @@ export default function PaymentMethods() {
                                         </span>
                                     </MDBListGroupItem>
                                 </MDBListGroup>
-                                {remainingAmount >= 0 && (
+                                {remainingAmount >= 0 && post?.sellerId !== userId && (
                                     <Button
                                         variant="contained"
                                         color="primary"
@@ -167,6 +167,12 @@ export default function PaymentMethods() {
                                     >
                                         Buy Now
                                     </Button>
+                                )}
+                                {remainingAmount < 0 && (
+                                    <p style={{ color: "yellow", fontWeight: "bold" }}>You should charge money !!!</p>
+                                )}
+                                {post?.sellerId === userId && (
+                                    <p style={{ color: "red", fontWeight: "bold" }}>You can't buy your product !!!</p>
                                 )}
                                 <Button
                                     variant="contained"
