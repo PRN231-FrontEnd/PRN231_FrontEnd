@@ -17,7 +17,7 @@ const TransactionList = ({ accountId }) => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await axios.get(`https://flowerexchange.azurewebsites.net/api/wallet/${accountId}/wallet-transaction`);
+        const response = await axios.get(`https://flowerexchange.azurewebsites.net/api/wallet/${accountId}/wallet-transaction?OrderBy=CreatedAt%20desc`);
         setTransactions(response.data);
         setError(null);
       } catch (error) {
