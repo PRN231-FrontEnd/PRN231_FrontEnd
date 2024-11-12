@@ -159,6 +159,7 @@ const PostDetails = () => {
                   </dd>
                 </div>
                 <hr />
+                
                 <button
                   hidden={postStatus === 1}
                   onClick={handleBuyNow}

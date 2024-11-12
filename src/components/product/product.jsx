@@ -25,10 +25,11 @@ function Product({ id, tag, title, description, price, location, imageUrl }) {
           </h4> */}
           <h4 className="title truncate">{title}</h4>
 
-          <span className="brand truncate d-block text-g">{description}</span>          <div className="d-flex align-items-center mt-3">
+          <span className="brand truncate d-block text-g">{description}</span>
+                    <div className="d-flex align-items-center mt-3">
             <div className="d-flex align-items-center">
               <span className="price text-g font-weight-bold">
-                {`${price} đ` || "N/A"}  
+                {`${price}` || "N/A"}  
               </span>
               {/* <Tooltip title="Add to cart" placement="top">
                 <Button className="bg-g ml-0 transition">
